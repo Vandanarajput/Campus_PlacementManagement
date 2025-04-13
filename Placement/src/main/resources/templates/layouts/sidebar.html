@@ -1,0 +1,26 @@
+<!-- sidebar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+	<aside class="sidebar" th:fragment="sidebar">
+		<ul>
+			<li><a th:href="@{/admin/dashboard}"><i
+					class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+			<li><a th:href="@{/admin/users}"><i class="fas fa-users"></i>
+					Users</a></li>
+			<li><a th:href="@{/admin/jobs}"><i class="fas fa-briefcase"></i>
+					Jobs</a></li>
+			<li><a th:href="@{/admin/applications}"><i
+					class="fas fa-file-alt"></i> Applications</a></li>
+			<li><a th:href="@{/admin/settings}"><i class="fas fa-cog"></i>
+					Settings</a></li>
+		</ul>
+	</aside>
+
+</body>
+</html>

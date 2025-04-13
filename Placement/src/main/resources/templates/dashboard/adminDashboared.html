@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+<link rel="stylesheet" th:href="@{/css/dashboredcss.css}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+    <!-- Header Include -->
+    <div th:replace="layouts/header :: header"></div>
+
+    <div class="container">
+        <!-- Sidebar Include -->
+        <div th:replace="layouts/sidebar :: sidebar"></div>
+
+        <!-- Main Dashboard Content -->
+        <div class="main-content">
+            <h1>Welcome, Admin</h1>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h2>Total Students</h2>
+                    <p>245</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-briefcase"></i>
+                    <h2>Job Listings</h2>
+                    <p>52</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Applications</h2>
+                    <p>120</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-envelope"></i>
+                    <h2>Messages</h2>
+                    <p>14</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Include -->
+    <div th:replace="layouts/footer :: footer"></div>
+
+</body>
+
+</html>
