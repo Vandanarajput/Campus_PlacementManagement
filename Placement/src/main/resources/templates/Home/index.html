@@ -1,237 +1,286 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Placement Management System</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Placement Management System</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+	integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <header>
-    <div class="navbar">
-      <div class="nav-logo">
-        <div class="logo">PlacementStudio</div>
-      </div>
-      <div class="nav-links">
-        <a href="#Home">Home</a>
-        <a href="#Aboutus">About us</a>
-       <a th:href="@{/login}">Login</a>
-       
-        <a href="#Contactus">Contact us</a>
-      </div>
-    </div>
-  </header>
+	<!-- Navbar -->
+	<header>
+		<div class="navbar">
+			<div class="nav-logo">
+				<div class="logo">PlacementStudio</div>
+			</div>
+			<div class="nav-links">
+				<a href="#Home">Home</a> <a href="#Aboutus">About us</a>
 
-  <!-- Hero Section -->
-  <section class="hero-sec" id="Home">
-    <div class="hero-text">
-      <h1>Create A Better Future For Yourself</h1>
-      <p>Your one-stop platform for campus placements</p>
-      <a href="#register" class="button">Register as Student <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-  </section>
+				<!-- User Dropdown when logged in -->
+				<div class="user-dropdown" th:if="${session.loggedInUser != null}">
+					<button class="dropdown-btn" id="dropdownBtn">
+						<span th:text="${session.loggedInUser.name}">User</span> <span
+							class="dropdown-icon">▼</span>
+					</button>
+					<div class="dropdown-content" id="dropdownMenu">
+						<a th:href="@{/profile}">Profile</a> <a th:href="@{/logout}">Logout</a>
+					</div>
+				</div>
 
-
-  <!-- User Cards -->
-  <section class="card-style">
-    <div class="box box1">
-      <div class="box-content">
-        <div class="box-img" style="background-image: url('img/student.jpeg');"></div>
-        <h2>JOIN AS STUDENT</h2>
-        <p>Student Login <i class="fa-solid fa-arrow-right"></i></p>
-      </div>
-    </div>
-    <div class="box box2">
-      <div class="box-content">
-        <div class="box-img" style="background-image: url('img/tpo.jpg');"></div>
-        <h2>JOIN AS TPO</h2>
-        <p>TPO Login <i class="fa-solid fa-arrow-right"></i></p>
-      </div>
-    </div>
-    <div class="box box3">
-      <div class="box-content">
-        <div class="box-img" style="background-image: url('img/company.avif');"></div>
-        <h2>Company</h2>
-        <p>TPC Login <i class="fa-solid fa-arrow-right"></i></p>
-      </div>
-    </div>
-  </section>
-
- 
+				<!-- Login shown only when not logged in -->
+				<a th:href="@{/login}" th:if="${session.loggedInUser == null}">Login</a>
 
 
 
-  <!-- Job Openings Section -->
-  <section class="section">
-    <h2 class="job-title">Latest Job Openings</h2>
-    <div class="job-filter">
-      <input type="text" id="jobSearch" placeholder="Search jobs by title or company..." onkeyup="filterJobs()" />
-    </div>
-    <div class="jobs-container" id="jobsContainer">
-      <div class="job-card">
-        <h3>Software Developer - Infosys</h3>
-        <p>Location: Bangalore | Type: Full-time</p>
-        <p>Experience: 0-2 years</p>
-        <button onclick="window.location.href='apply.html'">Apply Now</button>
-      </div>
-      <div class="job-card">
-        <h3>Web Designer - Wipro</h3>
-        <p>Location: Pune | Type: Internship</p>
-        <p>Experience: 0-1 years</p>
-        <button onclick="window.location.href='apply.html'">Apply Now</button>
-      </div>
-      <div class="job-card">
-        <h3>Java Backend Developer - TCS</h3>
-        <p>Location: Noida | Type: Full-time</p>
-        <p>Experience: 1-3 years</p>
-        <button onclick="window.location.href='apply.html'">Apply Now</button>
-      </div>
-    </div>
-  </section>
- <!-- Extra Information Cards -->
-  <section class="extra-cards">
-    <div class="extra-card">
-      <i class="fa-solid fa-user-graduate"></i>
-      <h3>Students</h3>
-      <p>Empowering students for better career opportunities.</p>
-    </div>
-    <div class="extra-card">
-      <i class="fa-solid fa-chart-line"></i>
-      <h3>Placement Percentage</h3>
-      <p>Track the rising success rates of our placements.</p>
-    </div>
-    <div class="extra-card">
-      <i class="fa-solid fa-headset"></i>
-      <h3>24/7 Help Support</h3>
-      <p>Get assistance anytime, anywhere.</p>
-    </div>
-    <div class="extra-card">
-      <i class="fa-solid fa-building"></i>
-      <h3>Companies</h3>
-      <p>Connect with top companies for recruitment.</p>
-    </div>
-  </section>
-<section class="features-section" id="features">
-  <h2>🚀 Key Features</h2>
-  <div class="features-grid">
-    
-    <div class="feature-card">
-      <h5>🎓 For Students</h5>
-      <ul>
-        <li>Profile Creation & Resume Upload</li>
-        <li>Browse & Apply for Jobs</li>
-        <li>Get Notifications on Openings</li>
-        <li>View Interview Schedule</li>
-        <li>Track Application Status</li>
-      </ul>
-    </div>
 
-    <div class="feature-card">
-      <h5>🏢 For Recruiters</h5>
-      <ul>
-        <li>Post Job Opportunities</li>
-        <li>Search & Filter Student Profiles</li>
-        <li>Shortlist & Manage Applications</li>
-        <li>Schedule Interviews</li>
-        <li>Download Resumes</li>
-      </ul>
-    </div>
 
-    <div class="feature-card">
-      <h5>🛠️ For Admin</h5>
-      <ul>
-        <li>Manage Users & Job Posts</li>
-        <li>Approve Recruiter Registrations</li>
-        <li>View Placement Analytics</li>
-        <li>Send Notifications</li>
-        <li>Data Privacy & Security</li>
-      </ul>
-    </div>
+				<a href="#Contactus">Contact us</a>
+			</div>
+		</div>
+	</header>
 
-  </div>
-</section>
+	<!-- Hero Section -->
+	<section class="hero-sec" id="Home">
+		<div class="hero-text">
+			<h1>Create A Better Future For Yourself</h1>
+			<p>Your one-stop platform for campus placements</p>
+			<a th:href="@{/login}" class="button">Register as Student <i
+				class="fa-solid fa-arrow-right"></i></a>
+		</div>
+	</section>
+
+
+	<!-- User Cards -->
+	<section class="card-style">
+		<div class="box box1">
+			<div class="box-content">
+				<div class="box-img"
+					style="background-image: url('img/student.jpeg');"></div>
+				<h2>JOIN AS STUDENT</h2>
+				<p>
+					Student Login <i class="fa-solid fa-arrow-right"></i>
+				</p>
+			</div>
+		</div>
+		<div class="box box2">
+			<div class="box-content">
+				<div class="box-img" style="background-image: url('img/tpo.jpg');"></div>
+				<h2>JOIN AS TPO</h2>
+				<p>
+					TPO Login <i class="fa-solid fa-arrow-right"></i>
+				</p>
+			</div>
+		</div>
+		<div class="box box3">
+			<div class="box-content">
+				<div class="box-img"
+					style="background-image: url('img/company.avif');"></div>
+				<h2>Company</h2>
+				<p>
+					TPC Login <i class="fa-solid fa-arrow-right"></i>
+				</p>
+			</div>
+		</div>
+	</section>
 
 
 
-  <!-- About Us -->
-  <section id="Aboutus" class="about-us">
-    <h2>About Us</h2>
-    <p>
-      PlacementStudio is a platform dedicated to connecting students with top recruiters, bridging the gap between education and employment.
-      We aim to simplify the placement process by providing a centralized system for managing campus recruitment activities.
-      Students can explore job opportunities, submit applications, and track their progress.
-      Recruiters can post job openings, review applications, and select candidates.
-      We enhance communication between colleges, students, and companies for a smooth placement journey.
-      Our goal is a transparent, efficient, and secure system.
-    </p>
-  </section>
-  
-    <!-- Company Slider -->
- <div class="company-slider">
-  <h2 style="font-size:30px">Our Recruiting Companies</h2>
-  <div class="slider">
-    <div class="slider-track">
-      <!-- Repeat images twice for smooth loop -->
-      <img class="recruters" src="/img/google.png" alt="google" />
-      <img class="recruters" src="/img/Micro.jpg" alt="Microsoft" />
-      <img class="recruters" src="/img/indeed.jpg" alt="indeed" />
-      <img class="recruters" src="/img/jetking.png" alt="jetking" />
-      <img class="recruters" src="/img/netsolution.jpg" alt="netsolution" />
-      <img class="recruters" src="/img/wipro.png" alt="wipro" />
-      <img class="recruters" src="/img/toxel.png" alt="toxel" />
-      <img class="recruters" src="/img/tcs.png" alt="tcs" />
-      <img class="recruters" src="/img/techmahindra.png" alt="techmahindra" />
-      <img class="recruters" src="/img/pisoft1mg.jpg" alt="pisoft1mg" />
-      <img class="recruters" src="/img/desoft.png" alt="desoft" />
 
-      <!-- Repeat again for smooth scrolling -->
-      <img class="recruters" src="/img/google.png" alt="google" />
-      <img class="recruters" src="/img/Micro.jpg" alt="Microsoft" />
-      <img class="recruters" src="/img/indeed.jpg" alt="indeed" />
-      <img class="recruters" src="/img/jetking.png" alt="jetking" />
-      <img class="recruters" src="/img/netsolution.jpg" alt="netsolution" />
-      <img class="recruters" src="/img/wipro.png" alt="wipro" />
-      <img class="recruters" src="/img/toxel.png" alt="toxel" />
-      <img class="recruters" src="/img/tcs.png" alt="tcs" />
-      <img class="recruters" src="/img/techmahindra.png" alt="techmahindra" />
-      <img class="recruters" src="/img/pisoft1mg.jpg" alt="pisoft1mg" />
-      <img class="recruters" src="/img/desoft.png" alt="desoft" />
-    </div>
-  </div>
-</div>
- 
 
-  <!-- Footer -->
-  <footer id="Contactus">
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <p>Email: <a href="mailto:info@campusplacement.com">info@campusplacement.com</a></p>
-        <p>Phone: +91 98765 43210</p>
-        <p>Address: 123, Tech Park, India</p>
-      </div>
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <p><a href="#Home">Home</a></p>
-        <p><a href="#Aboutus">About Us</a></p>
-        <p><a href="LoginPagesSign/loginandsignup.html">Login</a></p>
-        <p><a href="#register">Signup</a></p>
-      </div>
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
-          <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
-          <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
-        </div>
-      </div>
-    </div>
-    <p class="footer-copy">&copy; 2025 Campus Placement Management System. All rights reserved.</p>
-  </footer>
+	<!-- Job Openings Section -->
+	<section class="section">
+		<h2 class="job-title">Latest Job Openings</h2>
+		<div class="job-filter">
+			<input type="text" id="jobSearch"
+				placeholder="Search jobs by title or company..."
+				onkeyup="filterJobs()" />
+		</div>
+		<div class="jobs-container" id="jobsContainer">
+			<div class="job-card">
+				<h3>Software Developer - Infosys</h3>
+				<p>Location: Bangalore | Type: Full-time</p>
+				<p>Experience: 0-2 years</p>
+				<button onclick="window.location.href='apply.html'">Apply
+					Now</button>
+			</div>
+			<div class="job-card">
+				<h3>Web Designer - Wipro</h3>
+				<p>Location: Pune | Type: Internship</p>
+				<p>Experience: 0-1 years</p>
+				<button onclick="window.location.href='apply.html'">Apply
+					Now</button>
+			</div>
+			<div class="job-card">
+				<h3>Java Backend Developer - TCS</h3>
+				<p>Location: Noida | Type: Full-time</p>
+				<p>Experience: 1-3 years</p>
+				<button onclick="window.location.href='apply.html'">Apply
+					Now</button>
+			</div>
+		</div>
+	</section>
 
-  <script src="landingpage.js"></script>
+	<!-- Extra Information Cards -->
+	<section class="extra-cards">
+		<div class="extra-card">
+			<i class="fa-solid fa-user-graduate"></i>
+			<h3>Students</h3>
+			<p>Empowering students for better career opportunities.</p>
+		</div>
+		<div class="extra-card">
+			<i class="fa-solid fa-chart-line"></i>
+			<h3>Placement Percentage</h3>
+			<p>Track the rising success rates of our placements.</p>
+		</div>
+		<div class="extra-card">
+			<i class="fa-solid fa-headset"></i>
+			<h3>24/7 Help Support</h3>
+			<p>Get assistance anytime, anywhere.</p>
+		</div>
+		<div class="extra-card">
+			<i class="fa-solid fa-building"></i>
+			<h3>Companies</h3>
+			<p>Connect with top companies for recruitment.</p>
+		</div>
+	</section>
+	<section class="features-section" id="features">
+		<h2>🚀 Key Features</h2>
+		<div class="features-grid">
+
+			<div class="feature-card">
+				<h5>🎓 For Students</h5>
+				<ul>
+					<li>Profile Creation & Resume Upload</li>
+					<li>Browse & Apply for Jobs</li>
+					<li>Get Notifications on Openings</li>
+					<li>View Interview Schedule</li>
+					<li>Track Application Status</li>
+				</ul>
+			</div>
+
+			<div class="feature-card">
+				<h5>🏢 For Recruiters</h5>
+				<ul>
+					<li>Post Job Opportunities</li>
+					<li>Search & Filter Student Profiles</li>
+					<li>Shortlist & Manage Applications</li>
+					<li>Schedule Interviews</li>
+					<li>Download Resumes</li>
+				</ul>
+			</div>
+
+			<div class="feature-card">
+				<h5>🛠️ For Admin</h5>
+				<ul>
+					<li>Manage Users & Job Posts</li>
+					<li>Approve Recruiter Registrations</li>
+					<li>View Placement Analytics</li>
+					<li>Send Notifications</li>
+					<li>Data Privacy & Security</li>
+				</ul>
+			</div>
+
+		</div>
+	</section>
+
+
+
+	<!-- About Us -->
+	<section id="Aboutus" class="about-us">
+		<h2>About Us</h2>
+		<p>PlacementStudio is a platform dedicated to connecting students
+			with top recruiters, bridging the gap between education and
+			employment. We aim to simplify the placement process by providing a
+			centralized system for managing campus recruitment activities.
+			Students can explore job opportunities, submit applications, and
+			track their progress. Recruiters can post job openings, review
+			applications, and select candidates. We enhance communication between
+			colleges, students, and companies for a smooth placement journey. Our
+			goal is a transparent, efficient, and secure system.</p>
+	</section>
+
+	<!-- Company Slider -->
+	<div class="company-slider">
+		<h2 style="font-size: 30px">Our Recruiting Companies</h2>
+		<div class="slider">
+			<div class="slider-track">
+				<!-- Repeat images twice for smooth loop -->
+				<img class="recruters" src="/img/google.png" alt="google" /> <img
+					class="recruters" src="/img/Micro.jpg" alt="Microsoft" /> <img
+					class="recruters" src="/img/indeed.jpg" alt="indeed" /> <img
+					class="recruters" src="/img/jetking.png" alt="jetking" /> <img
+					class="recruters" src="/img/netsolution.jpg" alt="netsolution" />
+				<img class="recruters" src="/img/wipro.png" alt="wipro" /> <img
+					class="recruters" src="/img/toxel.png" alt="toxel" /> <img
+					class="recruters" src="/img/tcs.png" alt="tcs" /> <img
+					class="recruters" src="/img/techmahindra.png" alt="techmahindra" />
+				<img class="recruters" src="/img/pisoft1mg.jpg" alt="pisoft1mg" />
+				<img class="recruters" src="/img/desoft.png" alt="desoft" />
+
+				<!-- Repeat again for smooth scrolling -->
+				<img class="recruters" src="/img/google.png" alt="google" /> <img
+					class="recruters" src="/img/Micro.jpg" alt="Microsoft" /> <img
+					class="recruters" src="/img/indeed.jpg" alt="indeed" /> <img
+					class="recruters" src="/img/jetking.png" alt="jetking" /> <img
+					class="recruters" src="/img/netsolution.jpg" alt="netsolution" />
+				<img class="recruters" src="/img/wipro.png" alt="wipro" /> <img
+					class="recruters" src="/img/toxel.png" alt="toxel" /> <img
+					class="recruters" src="/img/tcs.png" alt="tcs" /> <img
+					class="recruters" src="/img/techmahindra.png" alt="techmahindra" />
+				<img class="recruters" src="/img/pisoft1mg.jpg" alt="pisoft1mg" />
+				<img class="recruters" src="/img/desoft.png" alt="desoft" />
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Footer -->
+	<footer id="Contactus">
+		<div class="footer-container">
+			<div class="footer-section">
+				<h3>Contact Us</h3>
+				<p>
+					Email: <a href="mailto:info@campusplacement.com">info@campusplacement.com</a>
+				</p>
+				<p>Phone: +91 98765 43210</p>
+				<p>Address: 123, Tech Park, India</p>
+			</div>
+			<div class="footer-section">
+				<h3>Quick Links</h3>
+				<p>
+					<a href="#Home">Home</a>
+				</p>
+				<p>
+					<a href="#Aboutus">About Us</a>
+				</p>
+				<p>
+					<a th:href="@{/login}">Login</a>
+				</p>
+				<p>
+					<a th:href="@{/registerUser}">Signup</a>
+				</p>
+			</div>
+			<div class="footer-section">
+				<h3>Follow Us</h3>
+				<div class="social-icons">
+					<a href="#"><i class="fab fa-facebook-f"></i> Facebook</a> <a
+						href="#"><i class="fab fa-twitter"></i> Twitter</a> <a href="#"><i
+						class="fab fa-instagram"></i> Instagram</a>
+				</div>
+			</div>
+		</div>
+		<p class="footer-copy">&copy; 2025 Campus Placement Management
+			System. All rights reserved.</p>
+	</footer>
+
+<script th:src="@{/js/script.js}"></script>
+
+
 </body>
 </html>

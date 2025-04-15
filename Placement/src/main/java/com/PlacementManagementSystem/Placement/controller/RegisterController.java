@@ -7,12 +7,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.PlacementManagementSystem.Placement.model.LoginUser;
 import com.PlacementManagementSystem.Placement.model.User;
 import com.PlacementManagementSystem.Placement.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -64,20 +65,41 @@ public class RegisterController {
 
 	}
 
-	@PostMapping("/savelogin")
-	public String Savelogin(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model,
-			RedirectAttributes redirectAttributes) {
+	@PostMapping("/login")
+	public String Savelogin(@ModelAttribute("user") @Valid LoginUser loginUser, BindingResult result, Model model,
+			HttpSession session, RedirectAttributes redirectAttributes) {
+		// Check for validation errors
+		if (result.hasErrors()) {
+			return "users/LoginForm"; // Form field errors
+		}
 
-
-		User existingUser = userService.getUserByEmail(user.getEmail());
-
-		if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-			redirectAttributes.addFlashAttribute("message", "Login successful!");
-			return "dashboard/adminDashboared";
-		} else {
-			model.addAttribute("error", "Invalid email or password");
+		// Fetch user from DB
+		User existingUser = userService.getUserByEmail(loginUser.getEmail());
+		System.out.println(loginUser.getEmail()); // Check if user exists
+		if (existingUser == null) {
+			model.addAttribute("error", "User not found with this email");
 			return "users/LoginForm";
 		}
+
+		// Check password match
+		if (!existingUser.getPassword().equals(loginUser.getPassword())) {
+			model.addAttribute("error", "Incorrect password");
+			return "users/LoginForm";
+		}
+
+		// Set session
+		session.setAttribute("loggedInUser", existingUser);
+
+		// Check role and redirect accordingly
+		// Check role and redirect accordingly
+		// for normal user, send to home page
+		if ("ADMIN".equalsIgnoreCase(existingUser.getRole())) {
+		    return "redirect:/admin"; // for admin
+		} else {
+		    redirectAttributes.addFlashAttribute("message", "Login successful!");
+		    return "redirect:/"; // for normal user, send to home page
+		}
+
 	}
 
 }

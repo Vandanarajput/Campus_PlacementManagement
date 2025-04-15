@@ -89,6 +89,25 @@ h2 {
 	text-decoration: underline;
 }
 
+.password-wrapper {
+	position: relative;
+}
+
+.password-wrapper input {
+	width: 100%;
+	padding-right: 40px; /* space for the eye icon */
+	box-sizing: border-box;
+}
+
+.toggle-password {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+	color: #888;
+}
+
 .forgot-password {
 	text-align: right;
 	margin-top: 5px;
@@ -101,5 +120,29 @@ h2 {
 }
 
 .forgot-password a:hover {
+	text-decoration: underline;
+}
+
+.remember-me {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	/* Spacing between the checkbox and next elements */
+}
+
+.remember-me input[type="checkbox"] {
+	width: 16px;
+	height: 16px;
+	margin-right: 10px;
+	accent-color: #1c7585; /* Change color of checkbox */
+}
+
+.remember-me label {
+	font-size: 14px;
+	color: #555555;
+	cursor: pointer;
+}
+
+.remember-me label:hover {
 	text-decoration: underline;
 }

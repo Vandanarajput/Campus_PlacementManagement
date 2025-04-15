@@ -15,37 +15,48 @@
 	<div class="container">
 		<div class="form-box">
 			<h2>login</h2>
+
 			<div th:if="${message}"
 				style="color: green; text-align: center; margin-bottom: 15px;">
 				<p th:text="${message}"></p>
 			</div>
-			
+
 			<div th:if="${error}"
 				style="color: red; text-align: center; margin-bottom: 15px;">
 				<p th:text="${error}"></p>
 			</div>
-			<form th:action="@{/savelogin}" th:object="${user}" method="post">
+
+			<form th:action="@{/login}" th:object="${user}" method="post">
 
 				<div class="input-group">
 					<label for="email">Email</label> <input type="email" id="email"
-						th:field="*{email}" placeholder="Enter your email" >
-						<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+						th:field="*{email}" placeholder="Enter your email">
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 						class="error" style="color: red;"></div>
-						
 				</div>
 
 				<div class="input-group">
-					<label for="password">Password</label> <input type="password"
-						id="password" th:field="*{password}"
-						placeholder="Enter your password" >
-						<div class="forgot-password">
+					<label for="password">Password</label>
+					<div class="password-wrapper">
+						<input type="password" id="password" class="password-field"
+							th:field="*{password}" placeholder="Enter your password"
+							oninput="toggleEyeIcon(this)" /> <i
+							class="fa-solid fa-eye toggle-password" style="display: none;"></i>
+						<!-- Updated class for FontAwesome -->
+					</div>
+
+					<div class="forgot-password">
 						<a th:href="@{/forgotPassword}">Forgot Password?</a>
 					</div>
-					<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-						class="error" style="color: red;"></div>
+
+					<div th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}" class="error" style="color: red;"></div>
 				</div>
 
-
+				<div class="remember-me">
+					<input type="checkbox" id="remember" name="remember-me"> <label
+						id="bottomText" for="remember">Keep me logged in</label>
+				</div>
 
 				<button type="submit" class="submit-btn">Submit</button>
 
@@ -56,6 +67,10 @@
 			</form>
 		</div>
 	</div>
+
+	<!-- JavaScript to toggle password visibility -->
+	<script th:src="@{/js/script.js}"></script>
+
 </body>
 
 </html>

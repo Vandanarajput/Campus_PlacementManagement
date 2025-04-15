@@ -4,11 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name="user")
 public class User {
 
 	@Id
@@ -26,8 +29,14 @@ public class User {
 	@Size(min=8,message="Password must be at least 8 characters")
 	private String password;
 	
+	@Transient
 	@NotBlank(message="Confirm password is required")
 	private String confirm_password;
+	
+	
+	private String role ="User";
+
+	
 
 	public User() {
 
@@ -77,11 +86,20 @@ public class User {
 		this.confirm_password = confirm_password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
-				+ ", confirm_password=" + confirm_password + "]";
+	public String getRole() {
+		return role;
 	}
-	
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 }
+
+
+
+//Query to Add Admin User to Database:
+
+//INSERT INTO user (name, email, password, role)
+//VALUES ('admin', 'admin@mail.com', 'admin123', 'ADMIN');
+
