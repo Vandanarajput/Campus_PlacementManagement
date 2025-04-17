@@ -1,0 +1,145 @@
+/* styles.css */
+
+/* Body and global styles */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f7f6;
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	text-align: center;
+	color: #4CAF50;
+	padding: 20px;
+}
+
+/* Styling the table */
+table {
+	width: 80%;
+	margin: 30px auto;
+	border-collapse: collapse;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+	padding: 12px;
+	text-align: left;
+	border: 1px solid #ddd;
+}
+
+table th {
+	background-color: #4CAF50;
+	color: white;
+}
+
+table tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+table tr:hover {
+	background-color: #f1f1f1;
+}
+
+/* Link Styles */
+a {
+	text-decoration: none;
+	color: #4CAF50;
+	padding: 8px 15px;
+	border: 1px solid #4CAF50;
+	border-radius: 5px;
+	margin: 0 5px;
+	transition: background-color 0.3s;
+}
+
+a:hover {
+	background-color: #4CAF50;
+	color: white;
+}
+
+a:active {
+	background-color: #45a049;
+}
+
+/* Button Styling */
+a.add-job {
+	display: inline-block;
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px 25px;
+	text-align: center;
+	border-radius: 5px;
+	margin: 20px auto;
+	transition: background-color 0.3s;
+}
+
+a.add-job:hover {
+	background-color: #45a049;
+}
+
+/* Add padding to the body */
+body {
+	padding: 20px;
+}
+
+/* Form Styling */
+form {
+    width: 60%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button.btn-submit {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 25px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button.btn-submit:hover {
+    background-color: #45a049;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #45a049;
+}

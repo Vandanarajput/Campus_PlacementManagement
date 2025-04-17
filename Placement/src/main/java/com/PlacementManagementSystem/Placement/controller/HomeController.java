@@ -26,7 +26,7 @@ public class HomeController {
 		}
 
 		model.addAttribute("user", user); // 👈 Now Thymeleaf can show it
-		return "users/profile";
+		return "dashboard/studentDashboard";
 	}
 
 	@GetMapping("/logout")

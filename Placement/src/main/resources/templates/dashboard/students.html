@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <link rel="stylesheet" href="/css/studentDashForm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>All Students</h1>
+
+    <div class="top-btn">
+            <a href="/students/add" class="btn">+ Add Student</a>
+        </div> 
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.id}">1</td>
+                    <td th:text="${student.name}">Name</td>
+                    <td th:text="${student.email}">email@example.com</td>
+                    <td th:text="${student.department}">Java</td>
+                    <td class="actions">
+                    
+                        <a th:href="@{'/students/edit/' + ${student.id}}" class="btn btn-edit">Edit</a>
+                        <a th:href="@{'/students/delete/' + ${student.id}}" class="btn btn-danger" 
+                           onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

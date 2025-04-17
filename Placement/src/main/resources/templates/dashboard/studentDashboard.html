@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" th:href="@{/css/dashboredcss.css}">
+</head>
+
+<body>
+
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+        <h2 class="sidebar-title">Student Panel</h2>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li><i class="fas fa-home"></i> <span>Dashboard</span></li>
+        <li><i class="fas fa-user"></i> <span>Profile</span></li>
+        <li><i class="fas fa-briefcase"></i> <span>Applied Jobs</span></li>
+        <li><i class="fas fa-clipboard-list"></i> <span>Applications Status</span></li>
+        <li><i class="fas fa-envelope"></i> <span>Messages</span></li>
+        <li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}" class="logout-link"><span>Logout</span></a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Welcome, Student</h1>
+
+      <div class="dashboard-cards">
+        <div class="card">
+          <i class="fas fa-user card-icon"></i>
+          <h2>Profile</h2>
+          <p>View and update your personal details</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-briefcase card-icon"></i>
+          <h2>Applied Jobs</h2>
+          <p>See the jobs you've applied for</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-clipboard-list card-icon"></i>
+          <h2>Applications Status</h2>
+          <p>Track the status of your applications</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-envelope card-icon"></i>
+          <h2>Messages</h2>
+          <p>Check your inbox for updates</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<script th:src="@{/js/dashbored.js}"></script>
+</body>
+</html>

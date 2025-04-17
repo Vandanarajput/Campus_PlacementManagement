@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Job Listings</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" th:href="@{/css/adminDashForm.css}">
+</head>
+<body>
+	<h1>Job Listings</h1>
+
+	<a href="/admin/jobs/add">Add New Job</a>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Company</th>
+				<th>Location</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="job : ${jobs}">
+				<td th:text="${job.title}"></td>
+				<td th:text="${job.companyName}"></td>
+				<td th:text="${job.location}"></td>
+				<td><a th:href="@{/admin/jobs/edit/{id}(id=${job.id})}">Edit</a>
+					<a th:href="@{/admin/jobs/delete/{id}(id=${job.id})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
