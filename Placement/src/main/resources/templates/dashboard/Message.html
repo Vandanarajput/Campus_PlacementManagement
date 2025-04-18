@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Messages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/studentDashForm.css"> <!-- Link to your CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Messages</h1>
+
+        <!-- Form to send a new message -->
+        <div class="message-form">
+            <h2>Send a New Message</h2>
+            <form action="/admin/messages" method="POST">
+                <div>
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div>
+                    <label for="content">Content:</label>
+                    <textarea id="content" name="content" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Displaying all messages -->
+        <div class="message-list">
+            <h2>All Messages</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Content</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through all messages -->
+                    <tr th:each="message : ${messages}">
+                        <td th:text="${message.subject}"></td>
+                        <td th:text="${message.content}"></td>
+                        <td>
+                            <!-- Button to delete the message -->
+                            <form action="/admin/messages/delete" method="POST" style="display:inline;">
+                                <input type="hidden" name="id" th:value="${message.id}" />
+                                <button type="submit" class="delete-btn">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script> <!-- Link to your JS -->
+</body>
+</html>

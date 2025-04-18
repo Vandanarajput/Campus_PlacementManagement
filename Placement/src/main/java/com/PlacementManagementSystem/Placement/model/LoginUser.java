@@ -11,6 +11,8 @@ public class LoginUser {
 
     @NotBlank(message = "Enter password")
     private String password;
+    
+    
 
     public LoginUser() {
     }

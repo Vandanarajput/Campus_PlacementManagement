@@ -25,7 +25,7 @@ public class HomeController {
 			return "redirect:/login"; // No one logged in
 		}
 
-		model.addAttribute("user", user); // 👈 Now Thymeleaf can show it
+		model.addAttribute("user", user); //  Now Thymeleaf can show it
 		return "dashboard/studentDashboard";
 	}
 

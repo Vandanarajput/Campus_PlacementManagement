@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Student Dashboard</title>
+  <title>Profile</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" th:href="@{/css/dashboredcss.css}">
 </head>
@@ -20,7 +20,7 @@
       
       <ul class="sidebar-menu">
         <li><i class="fas fa-home"></i> <span>Dashboard</span></li>
-        <li><i class="fas fa-user"></i><a th:href="@{/user/profile}"><span>Profile</span></a></li>
+        <li><i class="fas fa-user"></i> <a th:href="@{/user/profile}"><span>Profile</span></a></li>
         <li><i class="fas fa-briefcase"></i> <a th:href="@{/user/jobs}"><span>Applied Jobs</span></a></li>
         <li><i class="fas fa-clipboard-list"></i> <a th:href="@{/user/application-status}"><span>Applications Status</span></a></li>
         <li><i class="fas fa-envelope"></i> <span>Messages</span></li>
@@ -30,29 +30,13 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>Welcome, <span th:text="${user.name}">Student</span></h1> <!-- Greeting message with student's name -->
+      <h1>Your Profile</h1>
 
-      <div class="dashboard-cards">
-        <div class="card">
-          <i class="fas fa-user card-icon"></i>
-          <h2>Profile</h2>
-          <a th:href="@{/profile}" class="btn">View Profile</a> <!-- Added link to Profile -->
-        </div>
-        <div class="card">
-          <i class="fas fa-briefcase card-icon"></i>
-          <h2>Applied Jobs</h2>
-          <a th:href="@{/user/jobs}" class="btn">See Applied Jobs</a> <!-- Added link to Applied Jobs -->
-        </div>
-        <div class="card">
-          <i class="fas fa-clipboard-list card-icon"></i>
-          <h2>Applications Status</h2>
-          <a th:href="@{/user/application-status}" class="btn">View Status</a> <!-- Added link to Application Status -->
-        </div>
-        <div class="card">
-          <i class="fas fa-envelope card-icon"></i>
-          <h2>Messages</h2>
-          <a th:href="@{/user/messages}" class="btn">View Messages</a> <!-- Added link to Messages -->
-        </div>
+      <!-- Profile Information -->
+      <div class="profile-info">
+        <p><strong>Name:</strong> <span th:text="${user.name}">John Doe</span></p>
+        <p><strong>Email:</strong> <span th:text="${user.email}">johndoe@example.com</span></p>
+        <a th:href="@{/user/edit}" class="btn">Edit Profile</a> <!-- Link to edit profile -->
       </div>
     </div>
   </div>

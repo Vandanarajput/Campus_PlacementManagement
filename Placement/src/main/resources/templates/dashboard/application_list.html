@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>All Applications - Admin</title>
+<link rel="stylesheet" th:href="@{/css/adminDashForm.css}">
+</head>
+<body>
+	<div class="main-content">
+		<h1>All Job Applications</h1>
+
+		<table border="1" class="styled-table">
+			<thead>
+				<tr>
+					<th>Application ID</th>
+					<th>Student Name</th>
+					<th>Job Title</th>
+					<th>Status</th>
+					<th>Change Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="app : ${applications}">
+					<td th:text="${app.id}">1</td>
+					<td th:text="${app.student.name}">John Doe</td>
+					<td th:text="${app.job.title}">Software Developer</td>
+					<td th:text="${app.status}">Pending</td>
+					<td>
+						<form th:action="@{/applications/update-status}" method="post">
+							<input type="hidden" name="appId" th:value="${app.id}" /> <select
+								name="status">
+								<option th:selected="${app.status == 'Pending'}">Pending</option>
+								<option th:selected="${app.status == 'Accepted'}">Accepted</option>
+								<option th:selected="${app.status == 'Rejected'}">Rejected</option>
+							</select>
+							<button type="submit">Update</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
