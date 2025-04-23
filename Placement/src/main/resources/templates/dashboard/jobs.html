@@ -5,10 +5,12 @@
     <title>Job Listings</title>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" th:href="@{/css/studentDashForm.css}">
 </head>
 <body>
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
     <h1>Job Listings</h1>
 
     <a href="/admin/jobs/add" class="btn-add">

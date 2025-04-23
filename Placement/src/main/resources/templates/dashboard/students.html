@@ -2,49 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student List</title>
-    <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 <body>
-
     <!-- Sidebar -->
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
     <div class="admin-main">
-        <h1>All Students</h1>
-
-        <div class="main-content">
-            <a href="/students/add" class="add-btn">+ Add Student</a>
+        <!-- Header Section -->
+        <div class="content-header">
+            <div class="header-left">
+              
+                <h2 class="section-title">All Students</h2>
+            </div>
+            <a th:href="@{/students/add}" class="add-btn">
+                <i class="fas fa-plus"></i> Add Student
+            </a>
         </div>
 
-        <table class="student-table">
-            <thead>
-                <tr>
-                    <th>S.No</th> <!-- 👈 Added this -->
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                   
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="user, iterStat : ${users}"> <!-- 👈 Used iterStat -->
-                    <td th:text="${iterStat.count}">1</td> <!-- 👈 Serial number -->
-                    <td th:text="${user.id}">1</td>
-                    <td th:text="${user.name}">Student Name</td>
-                    <td th:text="${user.email}">student@example.com</td>
-                    
-                    <td class="actions">
-                        <a th:href="@{'/user/edit/' + ${user.id}}" class="btn btn-edit">Edit</a>
-                        <a th:href="@{'/user/delete/' + ${user.id}}" class="btn btn-danger"
-                           onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Main Content -->
+        <div class="table-container">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user, iterStat : ${users}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${user.id}">1</td>
+                        <td th:text="${user.name}">Student Name</td>
+                        <td th:text="${user.email}">student@example.com</td>
+                        <td class="actions">
+                            <a th:href="@{'/user/edit/' + ${user.id}}" class="btn-action btn-edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a th:href="@{'/user/delete/' + ${user.id}}" class="btn-action btn-delete"
+                               onclick="return confirm('Are you sure you want to delete this student?')">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </body>
 </html>
