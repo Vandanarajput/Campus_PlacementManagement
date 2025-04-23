@@ -9,7 +9,6 @@ public class PlacementManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PlacementManagementSystemApplication.class, args);
 		System.out.println("Placement Management System College Running........!");
-	
 	}
 
 }

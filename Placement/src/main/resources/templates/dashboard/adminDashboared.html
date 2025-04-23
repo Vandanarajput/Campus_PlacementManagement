@@ -4,60 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+    <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Link to your custom CSS file -->
     <link rel="stylesheet" th:href="@{/css/dashboredcss.css}">
+    <!-- Chart.js CDN for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-    <div class="dashboard-wrapper">
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="toggle-btn" onclick="toggleSidebar()">
-                <i class="fas fa-bars"></i>
-                <h2 class="sidebar-title">Admin Panel</h2>
+<!-- Dashboard Wrapper -->
+<div class="dashboard-wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Welcome, Admin</h1>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <i class="fas fa-users card-icon"></i>
+                <h2>Total Students</h2>
+                <p th:text="${totalStudents}">0</p> <!-- Dynamic value -->
             </div>
 
-            <ul class="sidebar-menu">
-                <li><i class="fas fa-home"></i> <a href="/admin"><span>Dashboard</span></a></li>
-                <li><i class="fas fa-users"></i> <a href="/admin/students"><span>Students</span></a></li>
-                <li><i class="fas fa-briefcase"></i> <a href="/admin/jobs"><span>Jobs</span></a></li>
-                <li><i class="fas fa-file-alt"></i><a href="/admin/applications"><span>Application</span></a></li>
-                <li><i class="fas fa-envelope"></i><a href="/admin/message"><span>Message</span></a></li>
-                <li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}" class="logout-link"><span>Logout</span></a></li>
-            </ul>
-        </div>
+            <div class="card">
+                <i class="fas fa-briefcase card-icon"></i>
+                <h2>Job Listings</h2>
+                <p th:text="${jobListings}">0</p> <!-- Dynamic value -->
+            </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <h1>Welcome, Admin</h1>
+            <div class="card">
+                <i class="fas fa-file-alt card-icon"></i>
+                <h2>Applications</h2>
+                <p th:text="${applications}">0</p> <!-- Dynamic value -->
+            </div>
 
-            <div class="dashboard-cards">
-                <div class="card">
-                    <i class="fas fa-users card-icon"></i>
-                    <h2>Total Students</h2>
-                    <p th:text="${totalStudents}">0</p> <!-- Dynamic value -->
-                </div>
-                <div class="card">
-                    <i class="fas fa-briefcase card-icon"></i>
-                    <h2>Job Listings</h2>
-                    <p th:text="${jobListings}">0</p> <!-- Dynamic value -->
-                </div>
-                <div class="card">
-                    <i class="fas fa-file-alt card-icon"></i>
-                    <h2>Applications</h2>
-                    <p th:text="${applications}">0</p> <!-- Dynamic value -->
-                </div>
-                <div class="card">
-                    <i class="fas fa-envelope card-icon"></i>
-                    <h2>Messages</h2>
-                    <p th:text="${messages}">0</p> <!-- Dynamic value -->
-                </div>
+            <div class="card">
+                <i class="fas fa-envelope card-icon"></i>
+                <h2>Messages</h2>
+                <p th:text="${messages}">0</p> <!-- Dynamic value -->
             </div>
         </div>
     </div>
+</div>
 
-    <script th:src="@{/js/dashbored.js}"></script>
+<!-- Link to your custom JavaScript file -->
+<script th:src="@{/js/dashbored.js}"></script>
+
 </body>
-
 </html>

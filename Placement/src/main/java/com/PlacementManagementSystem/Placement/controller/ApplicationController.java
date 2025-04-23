@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.PlacementManagementSystem.Placement.model.Application;
 import com.PlacementManagementSystem.Placement.model.Job;
-import com.PlacementManagementSystem.Placement.model.Student;
+//import com.PlacementManagementSystem.Placement.model.Student;
 import com.PlacementManagementSystem.Placement.service.ApplicationService;
 import com.PlacementManagementSystem.Placement.service.JobService;
-import com.PlacementManagementSystem.Placement.service.StudentService;
+//import com.PlacementManagementSystem.Placement.service.StudentService;
 
 @Controller
 @RequestMapping("/admin/applications")
@@ -28,8 +28,8 @@ public class ApplicationController {
 	@Autowired
 	private JobService jobService;
 
-	@Autowired
-	private StudentService studentService;
+//	@Autowired
+//	private StudentService studentService;
 
 	//  Admin: View all applications
 	@GetMapping
@@ -44,11 +44,11 @@ public class ApplicationController {
 	public String applyForJob(@RequestParam("jobId") Long jobId, @RequestParam("studentId") Long studentId) {
 
 		Job job = jobService.getJobById(jobId);
-		Student student = studentService.getStudentById(studentId);
+//		Student student = studentService.getStudentById(studentId);
 
 		Application application = new Application();
 		application.setJob(job);
-		application.setStudent(student);
+//		application.setStudent(student);
 		application.setStatus("Pending");
 
 		applicationService.applyForJob(application);
@@ -59,9 +59,9 @@ public class ApplicationController {
 	//  Student: View own applications
 	@GetMapping("/student/{studentId}")
 	public String viewStudentApplications(@PathVariable Long studentId, Model model) {
-		Student student = studentService.getStudentById(studentId);
-		List<Application> apps = applicationService.getApplicationsByStudent(student);
-		model.addAttribute("applications", apps);
+//		Student student = studentService.getStudentById(studentId);
+//		List<Application> apps = applicationService.getApplicationsByStudent(student);
+//		model.addAttribute("applications", apps);
 		return "student/my_applications"; // Create this page
 	}
 

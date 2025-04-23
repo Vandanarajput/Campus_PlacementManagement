@@ -10,9 +10,9 @@ public class Application {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "student_id")
-	private Student student;
+//	@ManyToOne
+//	@JoinColumn(name = "student_id")
+//	private Student student;
 
 	@ManyToOne
 	@JoinColumn(name = "job_id")
@@ -27,26 +27,26 @@ public class Application {
 		this.status = "Pending"; // default
 		this.appliedDate = LocalDate.now();
 	}
-
-	public Application(Student student, Job job) {
-		this.student = student;
-		this.job = job;
-		this.status = "Pending";
-		this.appliedDate = LocalDate.now();
-	}
+//
+//	public Application(Student student, Job job) {
+//		this.student = student;
+//		this.job = job;
+//		this.status = "Pending";
+//		this.appliedDate = LocalDate.now();
+//	}
 
 	// Getters and Setters
 	public Long getId() {
 		return id;
 	}
 
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+//	public Student getStudent() {
+//		return student;
+//	}
+//
+//	public void setStudent(Student student) {
+//		this.student = student;
+//	}
 
 	public Job getJob() {
 		return job;

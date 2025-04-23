@@ -61,4 +61,5 @@ public class JobController {
 		jobService.saveJob(existingJob);
 		return "redirect:/admin/jobs"; // After updating, redirect to job list
 	}
+
 }

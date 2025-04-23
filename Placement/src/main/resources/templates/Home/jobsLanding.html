@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Job Openings - Placement Management System</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+
+	<!-- Navbar -->
+	<header>
+		<div class="navbar">
+			<div class="nav-logo">
+				<div class="logo">PlacementStudio</div>
+			</div>
+
+			<div class="nav-search">
+				<input type="text" id="jobSearch" placeholder="Search jobs..."
+					onkeyup="filterJobs()" /> <i class="fas fa-search search-icon"></i>
+			</div>
+
+			<div class="nav-links">
+				<a th:href="@{/}">Home</a> 
+				<a href="">About us</a> <a
+					href="jobs.html">Jobs</a>
+				<!-- User Dropdown when logged in -->
+				<div class="user-dropdown" th:if="${session.loggedInUser != null}">
+					<button class="dropdown-btn" id="dropdownBtn">
+						<span th:text="${session.loggedInUser.name}">User</span> <span
+							class="dropdown-icon">▼</span>
+					</button>
+					<div class="dropdown-content" id="dropdownMenu">
+						<a th:href="@{/profile}">Profile</a> <a th:href="@{/logout}">Logout</a>
+					</div>
+				</div>
+
+				<!-- Login shown only when not logged in -->
+				<a th:href="@{/login}" th:if="${session.loggedInUser == null}">Login</a>
+
+
+				<a href="contact.html">Contact us</a>
+			</div>
+		</div>
+
+	</header>
+
+	<!-- Job Openings Section -->
+	<section class="section">
+		<h2 class="job-title">Latest Job Openings</h2>
+		<div class="jobs-container" id="jobsContainer">
+			<div class="job-card" th:each="a : ${jobList}">
+				<h3 th:text="${a.title}"></h3>
+				<p th:text="'Company: ' + ${a.companyName}"></p>
+				<p th:text="'Location: ' + ${a.location}"></p>
+				<p th:text="'Deadline: ' + ${a.deadline}"></p>
+				<p th:text="${a.description}"></p>
+				<a th:href="@{/jobs/{id}(id=${a.id})}">
+        <button>Apply Now</button>
+    </a>
+			</div>
+		</div>
+	</section>
+
+	<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

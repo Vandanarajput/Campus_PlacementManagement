@@ -29,6 +29,22 @@
             <textarea id="description" name="description" rows="4" required placeholder="Enter job description"></textarea>
         </div>
 
+        <!-- Adding Deadline field -->
+        <div class="form-group">
+            <label for="deadline">Job Deadline</label>
+            <input type="date" id="deadline" name="deadline" required>
+        </div>
+
+        <!-- Adding Job Type field (e.g., Full-time, Part-time, Internship) -->
+        <div class="form-group">
+            <label for="jobType">Job Type</label>
+            <select id="jobType" name="jobType" required>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Internship">Internship</option>
+            </select>
+        </div>
+
         <div class="form-group">
             <button type="submit" class="btn-submit">Add Job</button>
         </div>

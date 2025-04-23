@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.PlacementManagementSystem.Placement.model.Application;
 import com.PlacementManagementSystem.Placement.model.Job;
-import com.PlacementManagementSystem.Placement.model.Student;
+//import com.PlacementManagementSystem.Placement.model.Student;
 import com.PlacementManagementSystem.Placement.repository.ApplicationRepository;
 
 @Service
@@ -27,9 +27,9 @@ public class ApplicationService {
 	}
 
 	// Get applications by student (Student View)
-	public List<Application> getApplicationsByStudent(Student student) {
-		return applicationRepository.findByStudent(student);
-	}
+//	public List<Application> getApplicationsByStudent(Student student) {
+//		return applicationRepository.findByStudent(student);
+//	}
 
 	// Get applications by job (Optional for Admin filtering)
 	public List<Application> getApplicationsByJob(Job job) {

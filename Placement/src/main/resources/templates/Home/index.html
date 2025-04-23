@@ -20,7 +20,8 @@
 				<div class="logo">PlacementStudio</div>
 			</div>
 			<div class="nav-links">
-				<a href="#Home">Home</a> <a href="#Aboutus">About us</a>
+				<a th:href="@{/}">Home</a> <a href="#Aboutus">About us</a> <a
+					th:href="@{/jobsLanding}"> Find Jobs</a>
 
 				<!-- User Dropdown when logged in -->
 				<div class="user-dropdown" th:if="${session.loggedInUser != null}">
@@ -62,134 +63,27 @@
 			<div class="box-content">
 				<div class="box-img"
 					style="background-image: url('img/student.jpeg');"></div>
-				<!-- <h2>JOIN AS STUDENT</h2> -->
-				<!-- <p>
-					Student Login <i class="fa-solid fa-arrow-right"></i>
-				</p> -->
+				<a th:href="@{/jobsLanding}" class="explore-link">EXPLORE JOB</a>
 			</div>
 		</div>
-		<div class="box box2">
+
+
+		<div class="box box1">
 			<div class="box-content">
 				<div class="box-img" style="background-image: url('img/tpo.jpg');"></div>
-				<!-- <h2>JOIN AS TPO</h2>
-				<p>
-					TPO Login <i class="fa-solid fa-arrow-right"></i>
-				</p> -->
+				<a href="" class="explore-link">EXPLORE COMPANY</a>
 			</div>
 		</div>
-		<div class="box box3">
+
+
+		<!-- <div class="box box1">
 			<div class="box-content">
 				<div class="box-img"
-					style="background-image: url('img/company.avif');"></div>
-				<!-- <h2>Company</h2>
-				<p>
-					TPC Login <i class="fa-solid fa-arrow-right"></i>
-				</p> -->
+					style="background-image: url('img/student.jpeg');"></div>
+				<a th:href="@{/howitworks}" class="explore-link">HOW IT WORKS</a>
 			</div>
-		</div>
+		</div> -->
 	</section>
-
-
-
-
-
-	<!-- Job Openings Section -->
-	<section class="section">
-		<h2 class="job-title">Latest Job Openings</h2>
-		<div class="job-filter">
-			<input type="text" id="jobSearch"
-				placeholder="Search jobs by title or company..."
-				onkeyup="filterJobs()" />
-		</div>
-		<div class="jobs-container" id="jobsContainer">
-			<div class="job-card">
-				<h3>Software Developer - Infosys</h3>
-				<p>Location: Bangalore | Type: Full-time</p>
-				<p>Experience: 0-2 years</p>
-				<button onclick="window.location.href='apply.html'">Apply
-					Now</button>
-			</div>
-			<div class="job-card">
-				<h3>Web Designer - Wipro</h3>
-				<p>Location: Pune | Type: Internship</p>
-				<p>Experience: 0-1 years</p>
-				<button onclick="window.location.href='apply.html'">Apply
-					Now</button>
-			</div>
-			<div class="job-card">
-				<h3>Java Backend Developer - TCS</h3>
-				<p>Location: Noida | Type: Full-time</p>
-				<p>Experience: 1-3 years</p>
-				<button onclick="window.location.href='apply.html'">Apply
-					Now</button>
-			</div>
-		</div>
-	</section>
-
-	<!-- Extra Information Cards -->
-	<section class="extra-cards">
-		<div class="extra-card">
-			<i class="fa-solid fa-user-graduate"></i>
-			<h3>Students</h3>
-			<p>Empowering students for better career opportunities.</p>
-		</div>
-		<div class="extra-card">
-			<i class="fa-solid fa-chart-line"></i>
-			<h3>Placement Percentage</h3>
-			<p>Track the rising success rates of our placements.</p>
-		</div>
-		<div class="extra-card">
-			<i class="fa-solid fa-headset"></i>
-			<h3>24/7 Help Support</h3>
-			<p>Get assistance anytime, anywhere.</p>
-		</div>
-		<div class="extra-card">
-			<i class="fa-solid fa-building"></i>
-			<h3>Companies</h3>
-			<p>Connect with top companies for recruitment.</p>
-		</div>
-	</section>
-	<section class="features-section" id="features">
-		<h2>🚀 Key Features</h2>
-		<div class="features-grid">
-
-			<div class="feature-card">
-				<h5>🎓 For Students</h5>
-				<ul>
-					<li>Profile Creation & Resume Upload</li>
-					<li>Browse & Apply for Jobs</li>
-					<li>Get Notifications on Openings</li>
-					<li>View Interview Schedule</li>
-					<li>Track Application Status</li>
-				</ul>
-			</div>
-
-			<div class="feature-card">
-				<h5>🏢 For Recruiters</h5>
-				<ul>
-					<li>Post Job Opportunities</li>
-					<li>Search & Filter Student Profiles</li>
-					<li>Shortlist & Manage Applications</li>
-					<li>Schedule Interviews</li>
-					<li>Download Resumes</li>
-				</ul>
-			</div>
-
-			<div class="feature-card">
-				<h5>🛠️ For Admin</h5>
-				<ul>
-					<li>Manage Users & Job Posts</li>
-					<li>Approve Recruiter Registrations</li>
-					<li>View Placement Analytics</li>
-					<li>Send Notifications</li>
-					<li>Data Privacy & Security</li>
-				</ul>
-			</div>
-
-		</div>
-	</section>
-
-
 
 	<!-- About Us -->
 	<section id="Aboutus" class="about-us">
@@ -279,7 +173,7 @@
 			System. All rights reserved.</p>
 	</footer>
 
-<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
 
 
 </body>

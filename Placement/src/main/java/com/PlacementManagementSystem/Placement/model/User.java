@@ -34,7 +34,11 @@ public class User {
 	private String confirm_password;
 	
 	
-	private String role ="User";
+	
+	
+	
+	
+	private String role ="Student";
 
 	
 

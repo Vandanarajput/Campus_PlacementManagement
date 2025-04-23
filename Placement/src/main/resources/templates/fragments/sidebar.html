@@ -1,0 +1,18 @@
+<!-- fragments/sidebar.html -->
+<div th:fragment="sidebar">
+    <div class="sidebar" id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+            <h2 class="sidebar-title">Admin Panel</h2>
+        </div>
+
+        <ul class="sidebar-menu">
+            <li><i class="fas fa-home"></i> <a th:href="@{/admin}"><span>Dashboard</span></a></li>
+            <li class="active"><i class="fas fa-users"></i> <a th:href="@{/admin/students}"><span>Students</span></a></li>
+            <li><i class="fas fa-briefcase"></i> <a th:href="@{/admin/jobs}"><span>Jobs</span></a></li>
+            <li><i class="fas fa-file-alt"></i> <a th:href="@{/admin/applications}"><span>Applications</span></a></li>
+            <li><i class="fas fa-envelope"></i> <a th:href="@{/admin/messages}"><span>Messages</span></a></li>
+            <li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}"><span>Logout</span></a></li>
+        </ul>
+    </div>
+</div>

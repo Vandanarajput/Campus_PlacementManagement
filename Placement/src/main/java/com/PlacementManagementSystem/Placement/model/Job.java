@@ -14,21 +14,22 @@ public class Job {
     private String title;
     private String companyName;
     private String location;
+    private String jobType;       // ✅ New field
     private String description;
     private LocalDate deadline;
 
-    // Constructors
     public Job() {}
 
-    public Job(String title, String companyName, String location, String description, LocalDate deadline) {
+    public Job(String title, String companyName, String location, String jobType, String description, LocalDate deadline) {
         this.title = title;
         this.companyName = companyName;
         this.location = location;
+        this.jobType = jobType;
         this.description = description;
         this.deadline = deadline;
     }
 
-    // Getters and Setters
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -59,6 +60,14 @@ public class Job {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
     }
 
     public String getDescription() {

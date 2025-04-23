@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Details</title>
+</head>
+<body>
+    <h2 th:text="${job.title}">Job Title</h2>
+    <p><strong>Company:</strong> <span th:text="${job.companyName}"></span></p>
+    <p><strong>Location:</strong> <span th:text="${job.location}"></span></p>
+    <p><strong>Deadline:</strong> <span th:text="${job.deadline}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${job.description}"></span></p>
+
+    <!-- This button will be used to apply later -->
+   <!--  <form th:action="@{/user/apply/{id}(id=${job.id})}" method="post">
+        <button type="submit">Apply for this Job</button>
+    </form>
+
+    <a href="/jobs">Back to Job List</a> -->
+</body>
+</html>

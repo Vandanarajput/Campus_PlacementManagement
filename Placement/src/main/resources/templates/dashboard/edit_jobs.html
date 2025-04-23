@@ -1,34 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Job</title>
-    <link rel="stylesheet" href="/css/adminDashForm.css">
+    <link rel="stylesheet" href="/css/studentDashForm.css">
 </head>
 <body>
     <h1>Edit Job</h1>
 
-    <!-- Form to edit job details -->
-    <form action="/admin/jobs/update/{id}" method="post">
+    <!-- ✅ Form to edit job details -->
+    <form th:action="@{/admin/jobs/update/{id}(id=${job.id})}" th:object="${job}" method="post">
+
         <div class="form-group">
             <label for="title">Job Title</label>
-            <input type="text" id="title" name="title" value="{{job.title}}" required placeholder="Enter job title">
+            <input type="text" id="title" name="title" th:field="*{title}" placeholder="Enter job title">
         </div>
 
         <div class="form-group">
             <label for="companyName">Company Name</label>
-            <input type="text" id="companyName" name="companyName" value="{{job.companyName}}" required placeholder="Enter company name">
+            <input type="text" id="companyName" name="companyName" th:field="*{companyName}" placeholder="Enter company name">
         </div>
 
         <div class="form-group">
             <label for="location">Job Location</label>
-            <input type="text" id="location" name="location" value="{{job.location}}" required placeholder="Enter job location">
+            <input type="text" id="location" name="location" th:field="*{location}" placeholder="Enter job location">
         </div>
 
         <div class="form-group">
             <label for="description">Job Description</label>
-            <textarea id="description" name="description" rows="4" required placeholder="Enter job description">{{job.description}}</textarea>
+            <textarea id="description" name="description" rows="4" th:field="*{description}" placeholder="Enter job description"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">Job Deadline</label>
+            <input type="date" id="deadline" name="deadline" th:field="*{deadline}">
+        </div>
+
+        <!-- ✅ Radio buttons for Job Type -->
+        <div class="form-group">
+            <label>Job Type</label><br>
+
+            <input type="radio" id="fullTime" name="jobType" value="Full-time" th:field="*{jobType}">
+            <label for="fullTime">Full-time</label><br>
+
+            <input type="radio" id="partTime" name="jobType" value="Part-time" th:field="*{jobType}">
+            <label for="partTime">Part-time</label><br>
+
+            <input type="radio" id="hybrid" name="jobType" value="Hybrid" th:field="*{jobType}">
+            <label for="hybrid">Hybrid</label><br>
+
+            <input type="radio" id="internship" name="jobType" value="Internship" th:field="*{jobType}">
+            <label for="internship">Internship</label><br>
         </div>
 
         <div class="form-group">
