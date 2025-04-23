@@ -18,21 +18,21 @@ public class MessageController {
 	@GetMapping("/admin/message")
 	public String viewMessages(Model model) {
 		model.addAttribute("messages", messageService.getAllMessages());
-		return "dashboard/message"; // Make sure this file exists: templates/dashboard/message.html
+		return "dashboard/Message"; // Make sure this file exists: templates/dashboard/message.html
 	}
 
-	@PostMapping("/messages")
+	@PostMapping("/message")
 	public String sendMessage(@RequestParam("subject") String subject, @RequestParam("content") String content) {
 		Message message = new Message();
 		message.setSubject(subject);
 		message.setContent(content);
 		messageService.saveMessage(message);
-		return "redirect:/messages"; // 
+		return "redirect:/Message"; // 
 	}
 
-	@PostMapping("/admin/messages/delete")
+	@PostMapping("/admin/message/delete")
 	public String deleteMessage(@RequestParam("id") Long id) {
 		messageService.deleteMessage(id);
-		return "redirect:/messages"; //  
+		return "redirect:/Message"; //  
 	}
 }

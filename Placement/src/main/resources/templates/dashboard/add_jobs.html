@@ -1,58 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Job</title>
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="/css/admin.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        .admin-main-content {
+            margin-left: 500px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 15px;
+        }
+
+        .form-header h1 {
+            font-size: 28px;
+            color: #333;
+            margin: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Updated styling for checkboxes */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            margin-bottom: 8px;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-group div {
+            margin-bottom: 12px;
+        }
+
+        .form-actions {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-submit {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #3e8e41;
+            transform: translateY(-2px);
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: #2196F3;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #eaf4ff;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .admin-main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+                gap: 15px;
+            }
+
+            .btn-submit,
+            .btn-back {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-     <!-- Sidebar -->
-     <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <h1>Add New Job</h1>
-    
-    <form action="/admin/jobs/save" method="post">
-        <div class="form-group">
-            <label for="title">Job Title</label>
-            <input type="text" id="title" name="title" required placeholder="Enter job title">
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <!-- Main Content -->
+    <main class="admin-main-content">
+        <div class="form-container">
+            <div class="form-header">
+                <h1><i class="fas fa-briefcase"></i> Add New Job</h1>
+            </div>
+            
+            <form action="/admin/jobs/save" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="title">Job Title</label>
+                        <input type="text" id="title" name="title" placeholder="e.g., Senior Software Engineer" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" name="companyName" placeholder="e.g., Tech Solutions Inc." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Job Location</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Remote / New York" required>
+                    </div>
+
+                    <!-- Employment Type (Checkboxes) -->
+                    <div class="form-group checkbox-group">
+                        <label>Employment Type</label>
+                        <div>
+                            <input type="checkbox" id="fullTime" name="jobType" value="Full-time">
+                            <label for="fullTime">Full-time</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="partTime" name="jobType" value="Part-time">
+                            <label for="partTime">Part-time</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="internship" name="jobType" value="Internship">
+                            <label for="internship">Internship</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="contract" name="jobType" value="Contract">
+                            <label for="contract">Contract</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Job Description</label>
+                        <textarea id="description" name="description" placeholder="Describe responsibilities, qualifications, etc." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deadline">Application Deadline</label>
+                        <input type="date" id="deadline" name="deadline" required>
+                    </div>
+
+                    <div class="form-group"></div>
+
+                    <div class="form-actions">
+                        <a href="/admin/jobs" class="btn-back">
+                            <i class="fas fa-arrow-left"></i> Back to Jobs
+                        </a>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-plus"></i> Create Job Posting
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="companyName">Company Name</label>
-            <input type="text" id="companyName" name="companyName" required placeholder="Enter company name">
-        </div>
-
-        <div class="form-group">
-            <label for="location">Job Location</label>
-            <input type="text" id="location" name="location" required placeholder="Enter job location">
-        </div>
-
-        <div class="form-group">
-            <label for="description">Job Description</label>
-            <textarea id="description" name="description" rows="4" required placeholder="Enter job description"></textarea>
-        </div>
-
-        <!-- Adding Deadline field -->
-        <div class="form-group">
-            <label for="deadline">Job Deadline</label>
-            <input type="date" id="deadline" name="deadline" required>
-        </div>
-
-        <!-- Adding Job Type field (e.g., Full-time, Part-time, Internship) -->
-        <div class="form-group">
-            <label for="jobType">Job Type</label>
-            <select id="jobType" name="jobType" required>
-                <option value="Full-time">Full-time</option>
-                <option value="Part-time">Part-time</option>
-                <option value="Internship">Internship</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="btn-submit">Add Job</button>
-        </div>
-    </form>
-
-    <a href="/admin/jobs">Back to Job Listings</a>
+    </main>
 </body>
 </html>
