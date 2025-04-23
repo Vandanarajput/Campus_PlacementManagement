@@ -45,7 +45,7 @@ public class StudentProfileController {
 		}
 
 		model.addAttribute("profile", profile);
-		return "dashboard/studentProfileEdit"; // return edit form view
+		return "userdashbored/studentProfileEdit"; // return edit form view
 	}
 
 	// ✅ Save the Profile

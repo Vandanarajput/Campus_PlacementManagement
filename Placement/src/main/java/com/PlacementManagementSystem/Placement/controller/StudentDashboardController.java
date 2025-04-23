@@ -21,7 +21,7 @@ public class StudentDashboardController {
 		}
 
 		model.addAttribute("user", user);
-		return "dashboard/studentProfile"; // 
+		return "userdashbored/studentProfile"; // 
 	}
 
 }

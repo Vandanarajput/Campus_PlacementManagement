@@ -1,0 +1,187 @@
+:root {
+  --primary-color: #4CAF50;
+  --danger-color: #e74c3c;
+  --white: #fff;
+  --text-color: #333;
+  --bg-color: #f4f4f4;
+  --sidebar-width: 240px;
+  --transition-speed: 0.3s;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: #2c3e50;
+  color: var(--white);
+  position: fixed;
+  height: 100vh;
+  padding-top: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+     }
+
+.sidebar-title {
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+.toggle-btn {
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px;
+        }
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.sidebar-menu li {
+  padding: 12px 20px;
+  transition: background 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-menu li.active {
+  background-color: #34495e;
+  border-left: 3px solid var(--primary-color);
+}
+
+.sidebar-menu li:hover {
+  background-color: #34495e;
+}
+
+.sidebar-menu li a {
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-menu li.logout {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+/* Main Content Area */
+.admin-main {
+  margin-left: var(--sidebar-width);
+  padding: 30px;
+  width: calc(100% - var(--sidebar-width));
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: calc(var(--sidebar-width) + 30px);
+}
+
+/* Header + Button */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.content-title {
+  font-size: 24px;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.add-btn {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Table Styling */
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.student-table th,
+.student-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.student-table th {
+  background-color: #f9f9f9;
+  color: #555;
+  font-weight: 600;
+}
+
+.student-table tr:hover {
+  background-color: #f8f8f8;
+}
+
+/* Action buttons */
+.action-links {
+  display: flex;
+  gap: 10px;
+}
+
+.action-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.action-links a.delete {
+  color: var(--danger-color);
+}
+
+.action-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+  .sidebar-title, .sidebar-menu span {
+    display: none;
+  }
+  .admin-main {
+    margin-left: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: calc(100% - 60px);
+  }
+}

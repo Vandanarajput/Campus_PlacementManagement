@@ -33,7 +33,7 @@ public class HomeController {
         }
 
         model.addAttribute("user", user); // Pass user info to the view
-        return "dashboard/studentDashboard"; // Profile view
+        return "userdashbored/studentDashboard"; // Profile view
     }
 
     // Logout page
