@@ -3,49 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Job Listings</title>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" th:href="@{/css/studentDashForm.css}">
 </head>
 <body>
     <!-- Sidebar -->
-    <div th:replace="fragments/sidebar :: sidebar"></div>
-    <h1>Job Listings</h1>
+    <div th:replace="fragments/sidebar :: sidebar" class="sidebar"></div>
 
-    <a href="/admin/jobs/add" class="btn-add">
-        <i class="fas fa-plus"></i> Add New Job
-    </a>
+    <div class="admin-main">
+        <!-- Header Section -->
+        <div class="content-header">
+            <div class="header-left">
+                <h1 class="section-title">Job Listings</h1>
+                <p class="welcome-text">Manage all job postings</p>
+            </div>
+            <a href="/admin/jobs/add" class="add-btn">
+                <i class="fas fa-plus"></i> Add New Job
+            </a>
+        </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Company</th>
-                <th>Location</th>
-               <!--  <th>Type</th>
-                <th>Last Date</th> -->
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="job : ${jobs}">
-                <td th:text="${job.title}"></td>
-                <td th:text="${job.companyName}"></td>
-                <td th:text="${job.location}"></td>
-              <!--   <td th:text="${job.jobType}"></td>
-          		<td th:text="${job.deadline}"></td>  -->
-                <td>
-                    <a th:href="@{/admin/jobs/edit/{id}(id=${job.id})}" class="btn btn-edit">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <a th:href="@{/admin/jobs/delete/{id}(id=${job.id})}" class="btn btn-danger"
-                        onclick="return confirm('Are you sure you want to delete this job?')">
-                        <i class="fas fa-trash"></i> Delete
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Table Section -->
+        <div class="table-container">
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Company</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="job : ${jobs}">
+                        <td th:text="${job.title}"></td>
+                        <td th:text="${job.companyName}"></td>
+                        <td th:text="${job.location}"></td>
+                        <td class="actions">
+                            <a th:href="@{/admin/jobs/edit/{id}(id=${job.id})}" class="btn-action btn-edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a th:href="@{/admin/jobs/delete/{id}(id=${job.id})}" class="btn-action btn-delete"
+                               onclick="return confirm('Are you sure you want to delete this job?')">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

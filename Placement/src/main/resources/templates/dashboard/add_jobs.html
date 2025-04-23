@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Add New Job</title>
-    <link rel="stylesheet" href="/css/adminDashForm.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
+     <!-- Sidebar -->
+     <div th:replace="fragments/sidebar :: sidebar"></div>
+
     <h1>Add New Job</h1>
     
     <form action="/admin/jobs/save" method="post">
