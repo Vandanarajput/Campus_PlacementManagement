@@ -13,38 +13,10 @@
 
 <body>
 
-	<!-- Navbar -->
-	<header>
-		<div class="navbar">
-			<div class="nav-logo">
-				<div class="logo">PlacementStudio</div>
-			</div>
-			<div class="nav-links">
-				<a th:href="@{/}">Home</a> <a href="#Aboutus">About us</a> <a
-					th:href="@{/jobsLanding}"> Find Jobs</a>
 
-				<!-- User Dropdown when logged in -->
-				<div class="user-dropdown" th:if="${session.loggedInUser != null}">
-					<button class="dropdown-btn" id="dropdownBtn">
-						<span th:text="${session.loggedInUser.name}">User</span> <span
-							class="dropdown-icon">▼</span>
-					</button>
-					<div class="dropdown-content" id="dropdownMenu">
-						<a th:href="@{/profile}">Profile</a> <a th:href="@{/logout}">Logout</a>
-					</div>
-				</div>
+<!-- Include navbar fragment -->
+<div th:replace="fragments/navbar :: navbar"></div>
 
-				<!-- Login shown only when not logged in -->
-				<a th:href="@{/login}" th:if="${session.loggedInUser == null}">Login</a>
-
-
-
-
-
-				<a href="#Contactus">Contact us</a>
-			</div>
-		</div>
-	</header>
 
 	<!-- Hero Section -->
 	<section class="hero-sec" id="Home">

@@ -2,63 +2,242 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Student Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" th:href="@{/css/dashboredcss.css}">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | Campus Placement System</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+       <link rel="stylesheet" href="/css/userdashbored.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #e0e7ff;
+            --secondary-color: #3f37c9;
+            --text-color: #2b2d42;
+            --light-text: #6c757d;
+            --border-color: #e9ecef;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .dashboard-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            flex: 1;
+            transition: var(--transition);
+        }
+
+        .welcome-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .welcome-section h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section h1 span {
+            color: var(--primary-color);
+        }
+
+        .welcome-message {
+            color: var(--light-text);
+            max-width: 600px;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            background: var(--primary-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .card p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .card-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            width: fit-content;
+        }
+
+        .card-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .card-button i {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1.2rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="dashboard-wrapper">
+<!-- Dashboard Wrapper -->
+<div class="dashboard-wrapper">
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <div class="toggle-btn" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-        <h2 class="sidebar-title">Student Panel</h2>
-      </div>
-      
-      <ul class="sidebar-menu">
-        <li><i class="fas fa-home"></i> <span>Dashboard</span></li>
-        <li><i class="fas fa-user"></i><a th:href="@{/user/profile}"><span>Profile</span></a></li>
-        <li><i class="fas fa-briefcase"></i> <a th:href="@{/user/jobs}"><span>Applied Jobs</span></a></li>
-        <li><i class="fas fa-clipboard-list"></i> <a th:href="@{/user/application-status}"><span>Applications Status</span></a></li>
-        <li><i class="fas fa-envelope"></i> <span>Messages</span></li>
-        <li><i class="fas fa-sign-out-alt"></i> <a th:href="@{/logout}" class="logout-link"><span>Logout</span></a></li>
-      </ul>
-    </div>
+    <div th:replace="~{fragments/userslider :: user-sidebar}"></div>
 
     <!-- Main Content -->
     <div class="main-content">
-      <h1>Welcome, <span th:text="${user.name}">Student</span></h1> <!-- Greeting message with student's name -->
+        <div class="welcome-section">
+            <h1>Welcome, <span th:text="${user.name}">Vandana</span></h1>
+            <p class="welcome-message">Here's your personalized dashboard with quick access to all student features.</p>
+        </div>
 
-      <div class="dashboard-cards">
-        <div class="card">
-          <i class="fas fa-user card-icon"></i>
-          <h2>Profile</h2>
-          <a th:href="@{/profile}" class="btn">View Profile</a> <!-- Added link to Profile -->
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>Profile</h2>
+                <p>View and update your personal information and academic details.</p>
+                <a th:href="@{user/profile}" class="card-button">
+                    View Profile <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2>Applied Jobs</h2>
+                <p>See all the jobs you've applied for and their current status.</p>
+                <a th:href="@{user/applied-jobs}" class="card-button">
+                    See Applications <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h2>Resume</h2>
+                <p>Upload or update your resume to apply for new opportunities.</p>
+                <a th:href="@{user/resume}" class="card-button">
+                    Manage Resume <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2>Messages</h2>
+                <p>Check messages from recruiters and potential employers.</p>
+                <a th:href="@{user/messages}" class="card-button">
+                    View Messages <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
-        <div class="card">
-          <i class="fas fa-briefcase card-icon"></i>
-          <h2>Applied Jobs</h2>
-          <a th:href="@{/user/jobs}" class="btn">See Applied Jobs</a> <!-- Added link to Applied Jobs -->
-        </div>
-        <div class="card">
-          <i class="fas fa-clipboard-list card-icon"></i>
-          <h2>Applications Status</h2>
-          <a th:href="@{/user/application-status}" class="btn">View Status</a> <!-- Added link to Application Status -->
-        </div>
-        <div class="card">
-          <i class="fas fa-envelope card-icon"></i>
-          <h2>Messages</h2>
-          <a th:href="@{/user/messages}" class="btn">View Messages</a> <!-- Added link to Messages -->
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script th:src="@{/js/dashbored.js}"></script>
+
 
 </body>
 </html>

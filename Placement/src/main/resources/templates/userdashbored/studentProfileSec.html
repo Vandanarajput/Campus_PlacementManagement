@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Profile | Campus Placement System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+ <link rel="stylesheet" href="/css/userdashbored.css">
+  <style>
+    :root {
+      --primary-color: #3f51b5;
+      --primary-hover: #303f9f;
+      --secondary-color: #f5f5f5;
+      --text-color: #333;
+      --light-text: #666;
+      --border-color: #ddd;
+      --error-color: #f44336;
+      --success-color: #4caf50;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+      color: var(--text-color);
+      margin: 0;
+    }
+
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      padding: 2rem;
+      flex: 1;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .profile-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .profile-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .profile-subtitle {
+      font-size: 0.9rem;
+      color: var(--light-text);
+    }
+
+    .profile-body {
+      padding: 2rem 4rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      font-size: 0.95rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: white;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.1);
+    }
+
+    .form-control[readonly] {
+      background-color: var(--secondary-color);
+    }
+
+    .btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-hover);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-body {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+ <!-- Sidebar -->
+    <div th:replace="~{fragments/userslider :: user-sidebar}"></div>
+<div class="dashboard-wrapper">
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="profile-container">
+      <div class="profile-card">
+        <div class="profile-header">
+          <h1 class="profile-title" th:text="${user.name}">Vandana</h1>
+          <p class="profile-subtitle">Student Profile - Campus Placement System</p>
+        </div>
+
+        <div class="profile-body">
+          <h2 class="section-title"><i class="fas fa-user-graduate"></i> Personal Information</h2>
+
+          <form id="profileForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" th:value="${user.name}">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control" th:value="${user.email}">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="address">Address</label>
+              <input type="text" id="address" name="address" class="form-control">
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="collegeId">College ID</label>
+                <input type="text" id="collegeId" name="collegeId" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="course">Course</label>
+                <input type="text" id="course" name="course" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="branch">Branch</label>
+                <input type="text" id="branch" name="branch" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="year">Year</label>
+                <select id="year" name="year" class="form-control">
+                  <option value="">Select Year</option>
+                  <option value="1">First Year</option>
+                  <option value="2">Second Year</option>
+                  <option value="3">Third Year</option>
+                  <option value="4">Fourth Year</option>
+                  <option value="5">Fifth Year</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="skills">Skills</label>
+              <input type="text" id="skills" name="skills" class="form-control" placeholder="e.g. Java, Python">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="resumeLink">Resume Link</label>
+              <input type="url" id="resumeLink" name="resumeLink" class="form-control" placeholder="Google Drive / Dropbox link">
+            </div>
+
+            <button type="button" class="btn" onclick="saveProfile()">
+              <i class="fas fa-save"></i> Save Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

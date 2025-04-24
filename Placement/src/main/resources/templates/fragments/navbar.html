@@ -1,0 +1,37 @@
+<!-- templates/fragments/navbar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="navbar">
+        <!-- Navbar -->
+        <header>
+            <div class="navbar">
+                <div class="nav-logo">
+                    <div class="logo">PlacementStudio</div>
+                </div>
+                <div class="nav-links">
+                    <a th:href="@{/}">Home</a>
+                    <a href="#Aboutus">About us</a>
+                    <a th:href="@{/jobsLanding}">Find Jobs</a>
+
+                    <!-- User Dropdown when logged in -->
+                    <div class="user-dropdown" th:if="${session.loggedInUser != null}">
+                        <button class="dropdown-btn" id="dropdownBtn">
+                            <span th:text="${session.loggedInUser.name}">User</span>
+                            <span class="dropdown-icon">▼</span>
+                        </button>
+                        <div class="dropdown-content" id="dropdownMenu">
+                            <a th:href="@{/profile}">Profile</a>
+                            <a th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
+
+                    <!-- Login shown only when not logged in -->
+                    <a th:href="@{/login}" th:if="${session.loggedInUser == null}">Login</a>
+                    <a href="#Contactus">Contact us</a>
+                </div>
+            </div>
+        </header>
+    </div>
+</body>
+</html>

@@ -5,66 +5,127 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Job Openings - Placement Management System</title>
 <link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<style>
+    /* Styling Section */
+    .section {
+        padding: 30px;
+    }
+
+    .job-title {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Search Bar Styling */
+    .search-container {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .search-bar {
+        width: 60%;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    /* Job Cards Container */
+    .jobs-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start; /* Left aligned */
+    }
+
+    .job-card {
+        width: calc(33.33% - 20px); /* 3 per row with gap */
+        border: 1px solid #eee;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        background-color: #fff;
+    }
+
+    .job-card h3 {
+        margin-top: 0;
+        font-size: 20px;
+        color: #444;
+    }
+
+    .job-card p {
+        margin: 5px 0;
+        color: #555;
+    }
+
+    .job-card button {
+        background-color: #007bff;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .job-card button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 900px) {
+        .job-card {
+            width: calc(50% - 20px); /* 2 per row */
+        }
+    }
+
+    @media (max-width: 600px) {
+        .job-card {
+            width: 100%; /* 1 per row */
+        }
+    }
+</style>
 </head>
 <body>
 
-	<!-- Navbar -->
-	<header>
-		<div class="navbar">
-			<div class="nav-logo">
-				<div class="logo">PlacementStudio</div>
-			</div>
+<!-- Include Navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
 
-			<div class="nav-search">
-				<input type="text" id="jobSearch" placeholder="Search jobs..."
-					onkeyup="filterJobs()" /> <i class="fas fa-search search-icon"></i>
-			</div>
+<!-- Job Openings Section -->
+<section class="section">
+    <h2 class="job-title">Latest Job Openings</h2>
+    
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search jobs...">
+    </div>
+    <select id="categoryFilter" class="category-dropdown">
+        <option value="">All Categories</option>
+        <option value="IT">IT</option>
+        <option value="Marketing">Marketing</option>
+        <option value="HR">HR</option>
+        <!-- Add more as needed -->
+    </select>
+    
+    <!-- Job Cards -->
+    <div class="jobs-container" id="jobsContainer">
+        <div class="job-card" th:each="a : ${jobList}">
+            <h3 th:text="${a.title}">Job Title</h3>
+            <p th:text="'Company: ' + ${a.companyName}">Company: ABC Corp</p>
+            <p th:text="'Location: ' + ${a.location}">Location: Mumbai</p>
+            <p th:text="'Deadline: ' + ${a.deadline}">Deadline: 30 Apr 2025</p>
+            <p th:text="${a.description}">Short job description...</p>
+            <a th:href="@{/jobs/{id}(id=${a.id})}">
+                <button>Apply Now</button>
+            </a>
+        </div>
+    </div>
+</section>
 
-			<div class="nav-links">
-				<a th:href="@{/}">Home</a> 
-				<a href="">About us</a> <a
-					href="jobs.html">Jobs</a>
-				<!-- User Dropdown when logged in -->
-				<div class="user-dropdown" th:if="${session.loggedInUser != null}">
-					<button class="dropdown-btn" id="dropdownBtn">
-						<span th:text="${session.loggedInUser.name}">User</span> <span
-							class="dropdown-icon">▼</span>
-					</button>
-					<div class="dropdown-content" id="dropdownMenu">
-						<a th:href="@{/profile}">Profile</a> <a th:href="@{/logout}">Logout</a>
-					</div>
-				</div>
-
-				<!-- Login shown only when not logged in -->
-				<a th:href="@{/login}" th:if="${session.loggedInUser == null}">Login</a>
-
-
-				<a href="contact.html">Contact us</a>
-			</div>
-		</div>
-
-	</header>
-
-	<!-- Job Openings Section -->
-	<section class="section">
-		<h2 class="job-title">Latest Job Openings</h2>
-		<div class="jobs-container" id="jobsContainer">
-			<div class="job-card" th:each="a : ${jobList}">
-				<h3 th:text="${a.title}"></h3>
-				<p th:text="'Company: ' + ${a.companyName}"></p>
-				<p th:text="'Location: ' + ${a.location}"></p>
-				<p th:text="'Deadline: ' + ${a.deadline}"></p>
-				<p th:text="${a.description}"></p>
-				<a th:href="@{/jobs/{id}(id=${a.id})}">
-        <button>Apply Now</button>
-    </a>
-			</div>
-		</div>
-	</section>
-
-	<script th:src="@{/js/script.js}"></script>
+<!-- Script -->
+<script th:src="@{/js/script.js}"></script>
 
 </body>
 </html>

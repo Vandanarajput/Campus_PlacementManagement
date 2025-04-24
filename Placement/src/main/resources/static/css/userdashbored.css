@@ -1,0 +1,86 @@
+/* Sidebar Fragment CSS */
+:root {
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 60px;
+  --sidebar-bg: #2c3e50;
+  --sidebar-hover: #34495e;
+  --sidebar-text: #fff;
+  --sidebar-divider: #34495e;
+  --transition: all 0.3s ease;
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  transition: var(--transition);
+  z-index: 100;
+}
+
+.sidebar-header {
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--sidebar-divider);
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0.75rem 0;
+}
+
+.sidebar-menu li {
+  padding: 0.65rem 1.25rem;
+  transition: var(--transition);
+}
+
+.sidebar-menu li:hover {
+  background-color: var(--sidebar-hover);
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--sidebar-text);
+  font-size: 0.9rem;
+}
+
+.sidebar-menu i {
+  width: 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.logout {
+  border-top: 1px solid var(--sidebar-divider);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+/* Collapsed state */
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar.collapsed .sidebar-title span,
+.sidebar.collapsed .sidebar-menu li span {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 1.25rem 0;
+}
