@@ -15,10 +15,20 @@ public class Job {
     private String companyName;
     private String location;
     private String jobType;       // ✅ New field
+    @Lob
     private String description;
     private LocalDate deadline;
+    private String salary;
 
-    public Job() {}
+    public String getSalary() {
+		return salary;
+	}
+
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
+	public Job() {}
 
     public Job(String title, String companyName, String location, String jobType, String description, LocalDate deadline) {
         this.title = title;

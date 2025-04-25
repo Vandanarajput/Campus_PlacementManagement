@@ -11,36 +11,41 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message="Name is required")
-	private String name;
-	
-	@NotBlank(message="Email is required")
-	@Email(message="Please enter a valid email")
-	private String email;
-	
-	@NotBlank(message="Password is required")
-	@Size(min=8,message="Password must be at least 8 characters")
-	private String password;
-	
-	@Transient
-	@NotBlank(message="Confirm password is required")
-	private String confirm_password;
-	
-	
-	
-	
-	
-	
-	private String role ="Student";
 
+	@NotBlank(message = "Name is required")
 	
+	private String name;
+
+	@NotBlank(message = "Email is required")
+	@Email(message = "Please enter a valid email")
+	private String email;
+
+	@NotBlank(message = "Password is required")
+	@Size(min = 8, message = "Password must be at least 8 characters")
+	private String password;
+
+	@Transient
+	@NotBlank(message = "Confirm password is required")
+	private String confirm_password;
+
+	private String role = "Student";
+	
+//	 private String resume;
+//	 
+//	 // Getters and setters for all fields, including the resume
+//	    public String getResume() {
+//	        return resume;
+//	    }
+//
+//	    public void setResume(String resume) {
+//	        this.resume = resume;
+//	    }
 
 	public User() {
 
@@ -98,12 +103,16 @@ public class User {
 		this.role = role;
 	}
 
+	public void setId(Long id) {
+		
+		this.id=id;
+	}
+
+	
+
 }
-
-
 
 //Query to Add Admin User to Database:
 
 //INSERT INTO user (name, email, password, role)
 //VALUES ('admin', 'admin@mail.com', 'admin123', 'ADMIN');
-

@@ -88,14 +88,16 @@ public class RegisterController {
 		}
 
 		// Set session
-		session.setAttribute("loggedInUser", existingUser);
 
 		// Check role and redirect accordingly
 		// Check role and redirect accordingly
 		// for normal user, send to home page
 		if ("ADMIN".equalsIgnoreCase(existingUser.getRole())) {
+			session.setAttribute("loggedInAdmin", existingUser);
+
 		    return "redirect:/admin"; // for admin
 		} else {
+			session.setAttribute("loggedInUser", existingUser);
 		    redirectAttributes.addFlashAttribute("message", "Login successful!");
 		    return "redirect:/"; // for normal user, send to home page
 		}

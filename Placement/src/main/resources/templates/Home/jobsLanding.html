@@ -1,131 +1,328 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Job Openings - Placement Management System</title>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-<style>
-    /* Styling Section */
-    .section {
-        padding: 30px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Openings - PlacementStudio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f6f6f6;
+        margin: 0;
+        padding: 0;
     }
 
-    .job-title {
-        text-align: center;
-        font-size: 28px;
-        margin-bottom: 20px;
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    /* Search Section */
+    .search-container {
+        margin-bottom: 25px;
+    }
+
+    .search-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
         color: #333;
     }
 
-    /* Search Bar Styling */
-    .search-container {
-        text-align: center;
-        margin-bottom: 30px;
+    .search-bar-container {
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
     }
 
     .search-bar {
-        width: 60%;
-        padding: 10px 15px;
-        border: 1px solid #ddd;
+        flex-grow: 1;
+        padding: 12px 15px;
         border-radius: 4px;
+        border: 1px solid #ccc;
         font-size: 16px;
     }
 
-    /* Job Cards Container */
-    .jobs-container {
+    .search-icon {
+        background-color: #2557a7;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: none;
+        margin-left: 10px;
+    }
+
+    /* Main Content Layout */
+    .content-wrapper {
         display: flex;
-        flex-wrap: wrap;
         gap: 20px;
-        justify-content: flex-start; /* Left aligned */
+    }
+
+    /* Job Cards Column */
+    .jobs-column {
+        flex: 1;
     }
 
     .job-card {
-        width: calc(33.33% - 20px); /* 3 per row with gap */
-        border: 1px solid #eee;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        background-color: #fff;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        border: 1px solid #e1e1e1;
+    }
+
+    .job-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .job-card.active {
+        border-left: 4px solid #2557a7;
+        background-color: #f8fafc;
     }
 
     .job-card h3 {
-        margin-top: 0;
-        font-size: 20px;
-        color: #444;
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        color: #2557a7;
     }
 
     .job-card p {
         margin: 5px 0;
         color: #555;
+        font-size: 14px;
     }
 
-    .job-card button {
-        background-color: #007bff;
-        color: white;
-        padding: 8px 12px;
-        border: none;
+    .job-card .deadline {
+        color: #d9534f;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    /* Job Details Column */
+    .job-details-column {
+        flex: 2;
+    }
+
+    .job-details-panel {
+        background-color: white;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border: 1px solid #e1e1e1;
+    }
+
+    .job-details-panel h2 {
+        color: #2557a7;
+        margin-top: 0;
+        font-size: 22px;
+    }
+
+    .job-details-panel .detail-item {
+        margin: 10px 0;
+        font-size: 15px;
+    }
+
+    .job-details-panel .detail-label {
+        font-weight: bold;
+        color: #333;
+        display: inline-block;
+        width: 80px;
+    }
+
+    .job-details-panel .job-description {
+        line-height: 1.6;
+        margin: 25px 0;
+        color: #444;
+    }
+
+    .job-actions {
+        margin-top: 25px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
         border-radius: 4px;
         cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+        border: none;
+        font-size: 14px;
     }
 
-    .job-card button:hover {
-        background-color: #0056b3;
+    .btn-apply {
+        background-color: #2557a7;
+        color: white;
+    }
+
+    .btn-apply:hover {
+        background-color: #1d4b8f;
+    }
+
+    .btn-save {
+        background-color: white;
+        color: #2557a7;
+        border: 1px solid #2557a7;
+    }
+
+    .btn-save:hover {
+        background-color: #f0f5ff;
+    }
+
+    .no-job-selected {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        color: #666;
+        font-size: 16px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     /* Responsive Breakpoints */
     @media (max-width: 900px) {
-        .job-card {
-            width: calc(50% - 20px); /* 2 per row */
+        .content-wrapper {
+            flex-direction: column;
         }
     }
 
-    @media (max-width: 600px) {
-        .job-card {
-            width: 100%; /* 1 per row */
-        }
+    /* Additional styles to match the second image */
+    .job-card .company-highlight {
+        font-weight: bold;
+        color: #333;
     }
-</style>
+
+    .job-card .location {
+        color: #666;
+    }
+
+    .job-card .salary {
+        color: #2e7d32;
+        font-weight: bold;
+        margin-top: 8px;
+    }
+
+    </style>
 </head>
 <body>
-
 <!-- Include Navbar -->
 <div th:replace="fragments/navbar :: navbar"></div>
 
-<!-- Job Openings Section -->
-<section class="section">
-    <h2 class="job-title">Latest Job Openings</h2>
-    
-    <!-- Search Bar -->
+<div class="container">
+    <!-- Search Section -->
     <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search jobs...">
+        <h2 class="search-title">Latest Job Openings</h2>
+        
+        <div class="search-bar-container">
+            <input type="text" class="search-bar" placeholder="Search jobs..." th:value="${searchQuery}">
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        
+       
     </div>
-    <select id="categoryFilter" class="category-dropdown">
-        <option value="">All Categories</option>
-        <option value="IT">IT</option>
-        <option value="Marketing">Marketing</option>
-        <option value="HR">HR</option>
-        <!-- Add more as needed -->
-    </select>
-    
-    <!-- Job Cards -->
-    <div class="jobs-container" id="jobsContainer">
-        <div class="job-card" th:each="a : ${jobList}">
-            <h3 th:text="${a.title}">Job Title</h3>
-            <p th:text="'Company: ' + ${a.companyName}">Company: ABC Corp</p>
-            <p th:text="'Location: ' + ${a.location}">Location: Mumbai</p>
-            <p th:text="'Deadline: ' + ${a.deadline}">Deadline: 30 Apr 2025</p>
-            <p th:text="${a.description}">Short job description...</p>
-            <a th:href="@{/jobs/{id}(id=${a.id})}">
-                <button>Apply Now</button>
-            </a>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Job Cards Column -->
+        <div class="jobs-column">
+            <div class="job-card" th:each="a : ${jobList}" th:attr="data-id=${a.id}" onclick="showJobDetails(this)">
+                <h3 th:text="${a.title}">Job Title</h3>
+                <p th:text="'Company: ' + ${a.companyName}">Company: ABC Corp</p>
+                <p th:text="'Location: ' + ${a.location}">Location: Mumbai</p>
+                <p th:text="'Salary: ' + ${a.salary}">Location: Mumbai</p>
+                <p class="deadline" th:text="'Last-date: ' + ${a.deadline}">Last-date: 30 Apr 2025</p>
+                 <div class="job-description" style="display:none;" th:text="${a.description}">Job Description Here...</div>
+            </div>
+        </div>
+
+        <!-- Job Details Column -->
+        <div class="job-details-column">
+            <div class="job-details-panel" id="jobDetailsPanel">
+                <div class="no-job-selected" id="noJobSelected">
+                    Please select a job to view details
+                </div>
+                <div id="jobDetailsContent" style="display: none;">
+                    <h2 id="jobDetailsTitle">Job Title</h2>
+                    <div class="detail-item">
+                        <span class="detail-label">Company:</span>
+                        <span id="jobDetailsCompany">Company Name</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Location:</span>
+                        <span id="jobDetailsLocation">Location</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Salary:</span>
+                        <span id="jobDetailsSalary">Not specified</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Job Type:</span>
+                        <span id="jobDetailsType">Full-time</span>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">Last date:</span>
+                        <span id="jobDetailsDeadline">30 Apr 2025</span>
+                    </div>
+                    <div class="job-description" id="jobDetailsDescription">
+                        Full job description will appear here...
+                    </div>
+                    <div class="job-actions">
+                        <button  id="applyBtn" class="btn btn-apply">Apply Now</button>
+                        <button class="btn btn-save">Save Job</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+</div>
 
-<!-- Script -->
-<script th:src="@{/js/script.js}"></script>
+<script th:inline="javascript">
+      /*<![CDATA[*/
+      function showJobDetails(card) {
+        const jobId = card.getAttribute('data-id');
+        // highlight
+        document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        // show panel
+        document.getElementById('noJobSelected').style.display = 'none';
+        const det = document.getElementById('jobDetailsContent');
+        det.style.display = 'block';
+        // fill details
+        document.getElementById('jobDetailsTitle').textContent =
+          card.querySelector('h3').textContent;
+        document.getElementById('jobDetailsCompany').textContent =
+          card.querySelector('p:nth-of-type(1)').textContent.replace('Company: ', '');
+        document.getElementById('jobDetailsLocation').textContent =
+          card.querySelector('p:nth-of-type(2)').textContent.replace('Location: ', '');
+        document.getElementById('jobDetailsDeadline').textContent =
+          card.querySelector('.deadline').textContent.replace('Deadline: ', '');
+        document.getElementById('jobDetailsDescription').textContent =
+          (card.querySelector('.job-description') || { textContent: 'No description available.' }).textContent;
+        // wire apply button
+        document.getElementById('applyBtn').onclick = function() {
+          /* Redirects to your controller at /jobs/apply/{id} */
+          window.location.href =  'user/applyJob/' + jobId;
+        };
+      }
+      /*]]>*/
+    </script>
 
+
+	<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

@@ -28,10 +28,7 @@ public class ApplicationController {
 	@Autowired
 	private JobService jobService;
 
-//	@Autowired
-//	private StudentService studentService;
-
-	//  Admin: View all applications
+ //  Admin: View all applications
 	@GetMapping
 	public String viewAllApplications(Model model) {
 		List<Application> applications = applicationService.getAllApplications();

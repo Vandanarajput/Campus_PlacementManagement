@@ -22,31 +22,25 @@ public class Application {
 
 	private LocalDate appliedDate;
 
+	private String resumeFile;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
 	// Constructors
 	public Application() {
 		this.status = "Pending"; // default
 		this.appliedDate = LocalDate.now();
 	}
-//
-//	public Application(Student student, Job job) {
-//		this.student = student;
-//		this.job = job;
-//		this.status = "Pending";
-//		this.appliedDate = LocalDate.now();
-//	}
 
-	// Getters and Setters
 	public Long getId() {
 		return id;
 	}
 
-//	public Student getStudent() {
-//		return student;
-//	}
-//
-//	public void setStudent(Student student) {
-//		this.student = student;
-//	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Job getJob() {
 		return job;
@@ -71,4 +65,21 @@ public class Application {
 	public void setAppliedDate(LocalDate appliedDate) {
 		this.appliedDate = appliedDate;
 	}
+
+	public String getResumeFile() {
+		return resumeFile;
+	}
+
+	public void setResumeFile(String resumeFile) {
+		this.resumeFile = resumeFile;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

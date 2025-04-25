@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Student Profile | Campus Placement System</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
- <link rel="stylesheet" href="/css/userdashbored.css">
+    <link rel="stylesheet" href="/css/userdashbored.css">
   <style>
     :root {
       --primary-color: #3f51b5;
@@ -14,8 +14,6 @@
       --text-color: #333;
       --light-text: #666;
       --border-color: #ddd;
-      --error-color: #f44336;
-      --success-color: #4caf50;
       --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
@@ -52,6 +50,9 @@
     .profile-header {
       padding: 1.5rem 2rem;
       border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .profile-title {
@@ -123,16 +124,22 @@
       border: none;
       background-color: var(--primary-color);
       color: white;
-      width: 100%;
       display: flex;
       justify-content: center;
       gap: 0.5rem;
       align-items: center;
+      margin-top: 1rem;
     }
 
     .btn:hover {
       background-color: var(--primary-hover);
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: end;
+      gap: 1rem;
     }
 
     @media (max-width: 768px) {
@@ -147,68 +154,76 @@
   </style>
 </head>
 <body>
- <!-- Sidebar -->
-    <div th:replace="~{fragments/userslider :: user-sidebar}"></div>
+
+<!-- Sidebar Fragment -->
+<div th:replace="~{fragments/userslider :: user-sidebar}"></div>
+
 <div class="dashboard-wrapper">
-  <!-- Main Content -->
   <div class="main-content">
     <div class="profile-container">
       <div class="profile-card">
         <div class="profile-header">
-          <h1 class="profile-title" th:text="${user.name}">Vandana</h1>
-          <p class="profile-subtitle">Student Profile - Campus Placement System</p>
+          <div>
+            <h1 class="profile-title" th:text="${user.name}">Student Name</h1>
+            <p class="profile-subtitle">Student Profile - Campus Placement System</p>
+          </div>
+          <button class="btn" type="button" id="editBtn" onclick="toggleEdit(true)">
+            <i class="fas fa-edit"></i> Edit
+          </button>
         </div>
 
         <div class="profile-body">
           <h2 class="section-title"><i class="fas fa-user-graduate"></i> Personal Information</h2>
 
-          <form id="profileForm">
+          <form id="profileForm" method="post"  action="/user/profile/update"enctype="multipart/form-data">
             <div class="form-grid">
               <div class="form-group">
                 <label class="form-label" for="name">Full Name</label>
-                <input type="text" id="name" name="name" class="form-control" th:value="${user.name}">
+                <input type="text" id="name" name="name" class="form-control" th:value="${user.name}" readonly>
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-control" th:value="${user.email}">
+                <input type="email" id="email" name="email" class="form-control" th:value="${user.email}" readonly>
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" class="form-control">
+                <input type="tel" id="phone" name="phone" class="form-control" readonly>
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" class="form-control">
+                <input type="date" id="dob" name="dob" class="form-control" readonly>
               </div>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="address">Address</label>
-              <input type="text" id="address" name="address" class="form-control">
+              <input type="text" id="address" name="address" class="form-control" readonly>
             </div>
 
             <div class="form-grid">
               <div class="form-group">
                 <label class="form-label" for="collegeId">College ID</label>
-                <input type="text" id="collegeId" name="collegeId" class="form-control">
+                <input type="text" id="collegeId" name="collegeId" class="form-control" readonly>
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="course">Course</label>
-                <input type="text" id="course" name="course" class="form-control">
+                <select id="course" name="course" class="form-control" disabled>
+                  <option value="">Select Course</option>
+                  <option value="B.Tech">B.Tech</option>
+                  <option value="M.Tech">M.Tech</option>
+                  <option value="BCA">BCA</option>
+                  <option value="MCA">MCA</option>
+                  <option value="BBA">BBA</option>
+                  <option value="MBA">MBA</option>
+                </select>
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="branch">Branch</label>
-                <input type="text" id="branch" name="branch" class="form-control">
+                <input type="text" id="branch" name="branch" class="form-control" readonly>
               </div>
-
               <div class="form-group">
                 <label class="form-label" for="year">Year</label>
-                <select id="year" name="year" class="form-control">
+                <select id="year" name="year" class="form-control" disabled>
                   <option value="">Select Year</option>
                   <option value="1">First Year</option>
                   <option value="2">Second Year</option>
@@ -221,17 +236,18 @@
 
             <div class="form-group">
               <label class="form-label" for="skills">Skills</label>
-              <input type="text" id="skills" name="skills" class="form-control" placeholder="e.g. Java, Python">
+              <input type="text" id="skills" name="skills" class="form-control" readonly>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="resumeLink">Resume Link</label>
-              <input type="url" id="resumeLink" name="resumeLink" class="form-control" placeholder="Google Drive / Dropbox link">
+           <!--  <div class="form-group">
+              <label class="form-label" for="resume">Upload Resume</label>
+              <input type="file" id="resume" name="resume" class="form-control" disabled>
             </div>
-
-            <button type="button" class="btn" onclick="saveProfile()">
-              <i class="fas fa-save"></i> Save Profile
-            </button>
+ -->
+            <div class="btn-group" id="saveCancelGroup" style="display: none;">
+              <button type="submit" class="btn"><i class="fas fa-save"></i> Save</button>
+              <button type="button" class="btn" onclick="toggleEdit(false)"><i class="fas fa-times"></i> Cancel</button>
+            </div>
           </form>
         </div>
       </div>
@@ -239,7 +255,28 @@
   </div>
 </div>
 
+<script>
+  function toggleEdit(editMode) {
+    const fields = document.querySelectorAll('#profileForm .form-control');
+    const selects = document.querySelectorAll('#profileForm select');
+    const fileInput = document.getElementById('resume');
+    const editBtn = document.getElementById('editBtn');
+    const saveGroup = document.getElementById('saveCancelGroup');
 
+    fields.forEach(field => {
+      if (field.id !== 'name' && field.id !== 'email') {
+        field.readOnly = !editMode;
+      }
+    });
+
+    selects.forEach(select => select.disabled = !editMode);
+
+    if (fileInput) fileInput.disabled = !editMode;
+
+    editBtn.style.display = editMode ? 'none' : 'flex';
+    saveGroup.style.display = editMode ? 'flex' : 'none';
+  }
+</script>
 
 </body>
 </html>

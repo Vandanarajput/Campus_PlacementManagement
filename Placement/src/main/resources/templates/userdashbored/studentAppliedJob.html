@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+   
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+   <link rel="stylesheet" href="/css/userdashbored.css">
+   
+   
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+
+
+    .main {
+      margin-left: 250px;
+      padding: 30px;
+    }
+
+    .job-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .status {
+      border-radius: 15px;
+      padding: 5px 15px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .under-review { background: #e0e7ff; color: #4c51bf; }
+    .pending { background: #fff4e5; color: #f59e0b; }
+    .accepted { background: #e6fffa; color: #10b981; }
+    .rejected { background: #ffe4e6; color: #ef4444; }
+
+    .job-actions button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+      <!-- Sidebar -->
+    <div th:replace="~{fragments/userslider :: user-sidebar}"></div>
+    
+  <div class="main">
+    <h3>Applied Jobs</h3>
+    <p>Here's the jobs you've applied for and their current status</p>
+
+    <!-- Job Card 1 -->
+    <div class="job-card">
+      <h5>Software Engineer Intern</h5>
+      <p>Tech Solutions Inc. | Full-time | Remote</p>
+      <span class="status under-review">Under Review</span>
+      <div class="job-actions mt-2">
+        <button class="btn btn-outline-primary btn-sm">👁 View</button>
+        <button class="btn btn-outline-primary btn-sm">🗑 Withdraw</button>
+      </div>
+    </div>
+
+    <!-- Job Card 2 -->
+    <div class="job-card">
+      <h5>Data Analyst</h5>
+      <p>Analytics Pro | Part-time | New York, NY</p>
+      <span class="status pending">Pending</span>
+      <div class="job-actions mt-2">
+        <button class="btn btn-outline-primary btn-sm">👁 View</button>
+        <button class="btn btn-outline-primary btn-sm">🗑 Withdraw</button>
+      </div>
+    </div>
+
+    <!-- Job Card 3 -->
+    <div class="job-card">
+      <h5>Product Manager</h5>
+      <p>Innovate Labs | Full-time | San Francisco, CA</p>
+      <span class="status accepted">Accepted</span>
+      <div class="job-actions mt-2">
+        <button class="btn btn-outline-primary btn-sm">👁 View</button>
+        <button class="btn btn-primary btn-sm">📅 Schedule Interview</button>
+      </div>
+    </div>
+
+    <!-- Job Card 4 -->
+    <div class="job-card">
+      <h5>UI/UX Designer</h5>
+      <p>Creative Minds | Contract | Chicago, IL</p>
+      <span class="status rejected">Rejected</span>
+      <div class="job-actions mt-2">
+        <button class="btn btn-outline-primary btn-sm">👁 View</button>
+        <button class="btn btn-outline-primary btn-sm">🔁 Reapply</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

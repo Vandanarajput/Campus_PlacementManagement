@@ -19,7 +19,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String showAdminDashboard(Model model , HttpSession session) {
     	
-		User user = (User) session.getAttribute("loggedInUser");
+		User user = (User) session.getAttribute("loggedInAdmin");
 		
 		if (user==null) {
 			return "redirect:/login";
