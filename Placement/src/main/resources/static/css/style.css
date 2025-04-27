@@ -128,12 +128,14 @@ body {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
-	margin: 20px 20px;
+	margin: 20px 22px;
+	padding: 20px;
 }
 
 .box {
 	background-color: white;
-	width: 300px;
+	width: 350px;
+	height: 300px;
 	margin: 20px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
@@ -148,6 +150,9 @@ body {
 .box-content {
 	padding: 1rem;
 	text-align: center;
+
+	
+
 }
 
 .box-img {
@@ -156,40 +161,25 @@ body {
 	background-position: center;
 }
 
-/* Extra Cards */
-.extra-cards {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	background-color: #eef2f3;
-	padding: 40px 0;
+.explore-link {
+    text-decoration: none; /* Remove underline */
+    font-weight: bold;      /* Make text bold */
+    color: #333;            /* Normal text color */
+    font-size: 20px;        /* Normal size */
+    transition: color 0.3s; /* Smooth color change on hover */
+    cursor: pointer;        /* Show pointer on hover */
 }
 
-.extra-card {
-	width: 220px;
-	margin: 20px;
-	background-color: #fff;
-	border-radius: 8px;
-	padding: 1.5rem;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	text-align: center;
+.explore-link:hover {
+    color: #ff6600; /* Change color on hover (you can pick any color) */
 }
 
-.extra-card i {
-	font-size: 2.5rem;
-	color: #004080;
-	margin-bottom: 10px;
-}
 
-.extra-card h3 {
-	margin-bottom: 10px;
-	font-size: 1.2rem;
-}
 
 /* Company Slider */
 .company-slider {
 	text-align: center;
-	padding: 40px 0;
+	padding: 90px 30px;
 	background-color: white;
 }
 
@@ -201,8 +191,16 @@ body {
 
 .slider-track {
 	display: flex;
-	width: calc(250px * 22); /* Adjust as per image count */
+	width: calc(150px * 10); /* Adjust as per image count */
 	animation: scroll 30s linear infinite;
+}
+@keyframes scroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-calc(150px * 10)); /* Adjust as per image count */
+	}
 }
 
 .recruters {
@@ -210,121 +208,10 @@ body {
 	height: auto;
 	margin: 0 20px;
 }
-
-/* Job Section */
-.section {
-	background-color: #f2f2f2;
-	padding: 50px 20px;
-	text-align: center;
-}
-
-.job-title {
-	font-size: 2rem;
-	color: #004080;
-	margin-bottom: 30px;
-}
-
-.job-filter input {
-	padding: 10px;
-	width: 50%;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	margin-bottom: 30px;
-}
-
-.jobs-container {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 20px;
-}
-
-.job-card {
-	background-color: white;
-	padding: 20px;
-	width: 300px;
-	border-radius: 8px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-	text-align: left;
-}
-
-.job-card button {
-	margin-top: 10px;
-	padding: 8px 12px;
-	background-color: #004080;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-.job-card button:hover {
-	background-color: #003060;
-}
-
-.features-section {
-	background-color: #eef2f3;
-	padding: 60px 20px;
-	text-align: center;
-}
-
-.features-section h2 {
-	font-size: 2.5rem;
-	color: #004080;
-	margin-bottom: 40px;
-	font-weight: bold;
-}
-
-.features-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: 30px;
-	max-width: 1200px;
-	margin: auto;
-}
-
-.feature-card {
-	background-color: #ffffff;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-	padding: 25px 20px;
-	text-align: left;
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-	transform: translateY(-8px);
-	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.feature-card h5 {
-	font-size: 1.3rem;
-	color: #004080;
-	margin-bottom: 15px;
-}
-
-.feature-card ul {
-	list-style: none;
-	padding-left: 0;
-}
-
-.feature-card ul li {
-	padding-left: 25px;
-	margin-bottom: 10px;
-	font-size: 0.95rem;
-	position: relative;
-}
-
-.feature-card ul li::before {
-	content: "✅";
-	position: absolute;
-	left: 0;
-}
-
 /* About Us */
 .about-us {
 	background-color: #fff;
-	padding: 50px 20px;
+	padding: 90px 20px;
 	text-align: center;
 }
 
@@ -380,4 +267,57 @@ footer {
 	text-align: center;
 	margin-top: 30px;
 	font-size: 0.9rem;
+}
+
+
+/* Testimonials Section */
+.testimonials {
+    padding: 70px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.testimonial-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+}
+
+.testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.testimonial-card h3 {
+    font-size: 20px;
+    margin: 10px 0 5px;
+}
+
+.testimonial-card p {
+    font-size: 14px;
+    color: #666;
 }
