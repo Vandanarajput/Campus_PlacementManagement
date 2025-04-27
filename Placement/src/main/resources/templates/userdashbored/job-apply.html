@@ -1,100 +1,573 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Apply for Job</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	background: #f6f6f6;
-	margin: 0;
-	padding: 20px;
-}
-
-.container {
-	max-width: 600px;
-	margin: auto;
-	background: #fff;
-	padding: 30px;
-	border-radius: 8px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-	color: #003366;
-	margin-bottom: 20px;
-}
-
-.field {
-	margin-bottom: 15px;
-}
-
-label {
-	display: block;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-
-input[type="file"], textarea {
-	width: 100%;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-}
-
-textarea {
-	height: 120px;
-	resize: vertical;
-}
-
-.btn {
-	background: #003366;
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.btn:hover {
-	background: #002244;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Job Application</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            color: #334155;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        h2 {
+            color: #1e3a8a;
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #334155;
+            font-size: 18px;
+            margin: 25px 0 15px 0;
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #475569;
+        }
+        .form-container input, 
+        .form-container select, 
+        .form-container textarea {
+            padding: 12px 15px;
+            margin: 8px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-container input:focus, 
+        .form-container select:focus, 
+        .form-container textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .form-container button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            margin-top: 15px;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #1d4ed8;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 40px;
+            position: relative;
+        }
+        .step-indicator:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background-color: #e2e8f0;
+            z-index: 0;
+        }
+        .step-indicator div {
+            width: 32px;
+            height: 32px;
+            background-color: #e2e8f0;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        .step-indicator .active-step {
+            background-color: #2563eb;
+            color: white;
+        }
+        .step-indicator .step-label {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .skills-section {
+            margin-top: 20px;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .skill-box {
+            background-color: #eff6ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .skill-box:hover {
+            background-color: #dbeafe;
+        }
+        .skill-box.selected {
+            background-color: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #93c5fd;
+            background-color: #f8fafc;
+        }
+        .upload-icon {
+            font-size: 48px;
+            color: #93c5fd;
+            margin-bottom: 15px;
+        }
+        .review-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .review-label {
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 5px;
+        }
+        .review-value {
+            color: #1e293b;
+        }
+        .skill-search {
+            margin-bottom: 15px;
+        }
+        .skill-search input {
+            padding: 10px 15px;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+        }
+        .skill-category {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-	<div class="container">
-		<h1 th:text="'Apply for: ' + ${job.title}">Apply for: [Job Title]</h1>
 
-		<div class="field">
-			<label>Company:</label> <span th:text="${job.companyName}">Acme
-				Corp</span>
-		</div>
-		<div class="field">
-			<label>Location:</label> <span th:text="${job.location}">Mumbai</span>
-		</div>
-		<div class="field">
-			<label>Deadline:</label> <span th:text="${job.deadline}">30
-				Apr 2025</span>
-		</div>
+<div class="container">
+    <h1>Job Application</h1>
+    <p class="subtitle">Complete the following steps to apply for this position</p>
 
-		<form th:action="@{/jobs/submitApplication}" th:object="${application}" method="post"
-			enctype="multipart/form-data">
-			<!-- hidden jobId so we know which job they're applying to -->
-			<input type="hidden" th:value="${job.id}" name="jobId" />
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+        <div th:class="${currentStep == 1 ? 'active-step' : ''}">
+            1
+            <span class="step-label">Personal Info</span>
+        </div>
+        <div th:class="${currentStep == 2 ? 'active-step' : ''}">
+            2
+            <span class="step-label">Documents</span>
+        </div>
+        <div th:class="${currentStep == 3 ? 'active-step' : ''}">
+            3
+            <span class="step-label">Review</span>
+        </div>
+    </div>
 
-			<div class="field">
-				<label for="resume">Upload Your Resume (PDF):</label> <input
-					type="file" th:field="*{resumeFile}" id="resume" required />
-			</div>
+    <div th:switch="${currentStep}">
 
-			<!-- <div class="field">
-				<label for="coverLetter">Cover Letter:</label>
-				<textarea th:field="*{coverLetter}" id="coverLetter"
-					placeholder="Write a brief cover letter…" required></textarea>
-			</div> -->
+        <!-- Step 1: Personal Information and Skills -->
+        <div th:case="1">
+            <form th:action="@{/user/applyJob/step2}" method="post" class="form-container">
+                <h2>Personal Information</h2>
+                
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                </div>
+                
+                <div class="two-column">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" name="phone" placeholder="+1 (123) 456-7890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="degree">Highest Degree</label>
+                        <select id="degree" name="degree">
+                            <option value="highschool">High School</option>
+                            <option value="bachelor">Bachelor's Degree</option>
+                            <option value="master">Master's Degree</option>
+                            <option value="phd">Ph.D.</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Full Address</label>
+                    <input type="text" id="address" name="address" placeholder="123 Main St, City, Country" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="university">University/Institution</label>
+                    <input type="text" id="university" name="university" placeholder="Where did you study?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="major">Major/Field of Study</label>
+                    <input type="text" id="major" name="major" placeholder="Computer Science, Business, etc.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Years of Experience</label>
+                    <select id="experience" name="experience">
+                        <option value="0">No experience</option>
+                        <option value="1-2">1-2 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="5+">5+ years</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="summary">Professional Summary</label>
+                    <textarea id="summary" name="summary" rows="4" placeholder="Briefly describe your professional background and skills"></textarea>
+                </div>
+                
+                <div class="skills-section">
+                    <h3>Your Skills</h3>
+                    <p>Select skills that match your expertise (click to select)</p>
+                    
+                    <div class="skill-search">
+                        <input type="text" id="skillSearch" placeholder="Search skills...">
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Programming Languages</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">Java</div>
+                            <div class="skill-box">Python</div>
+                            <div class="skill-box">JavaScript</div>
+                            <div class="skill-box">C++</div>
+                            <div class="skill-box">C#</div>
+                            <div class="skill-box">PHP</div>
+                            <div class="skill-box">Swift</div>
+                            <div class="skill-box">Kotlin</div>
+                            <div class="skill-box">Go</div>
+                            <div class="skill-box">Ruby</div>
+                            <div class="skill-box">Rust</div>
+                            <div class="skill-box">TypeScript</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Web Development</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">HTML5</div>
+                            <div class="skill-box">CSS3</div>
+                            <div class="skill-box">React</div>
+                            <div class="skill-box">Angular</div>
+                            <div class="skill-box">Vue.js</div>
+                            <div class="skill-box">Node.js</div>
+                            <div class="skill-box">Express</div>
+                            <div class="skill-box">Django</div>
+                            <div class="skill-box">Flask</div>
+                            <div class="skill-box">Spring Boot</div>
+                            <div class="skill-box">Laravel</div>
+                            <div class="skill-box">ASP.NET</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Mobile Development</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">Android</div>
+                            <div class="skill-box">iOS</div>
+                            <div class="skill-box">React Native</div>
+                            <div class="skill-box">Flutter</div>
+                            <div class="skill-box">Xamarin</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Database & Cloud</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">SQL</div>
+                            <div class="skill-box">MySQL</div>
+                            <div class="skill-box">PostgreSQL</div>
+                            <div class="skill-box">MongoDB</div>
+                            <div class="skill-box">Firebase</div>
+                            <div class="skill-box">AWS</div>
+                            <div class="skill-box">Azure</div>
+                            <div class="skill-box">Google Cloud</div>
+                            <div class="skill-box">Docker</div>
+                            <div class="skill-box">Kubernetes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Data Science & AI</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">Python</div>
+                            <div class="skill-box">R</div>
+                            <div class="skill-box">TensorFlow</div>
+                            <div class="skill-box">PyTorch</div>
+                            <div class="skill-box">Pandas</div>
+                            <div class="skill-box">NumPy</div>
+                            <div class="skill-box">Machine Learning</div>
+                            <div class="skill-box">Deep Learning</div>
+                            <div class="skill-box">NLP</div>
+                            <div class="skill-box">Computer Vision</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Design & UX</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">UI/UX Design</div>
+                            <div class="skill-box">Figma</div>
+                            <div class="skill-box">Adobe XD</div>
+                            <div class="skill-box">Sketch</div>
+                            <div class="skill-box">Photoshop</div>
+                            <div class="skill-box">Illustrator</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Business & Management</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">Project Management</div>
+                            <div class="skill-box">Agile</div>
+                            <div class="skill-box">Scrum</div>
+                            <div class="skill-box">Product Management</div>
+                            <div class="skill-box">Business Analysis</div>
+                            <div class="skill-box">Digital Marketing</div>
+                            <div class="skill-box">SEO</div>
+                            <div class="skill-box">Content Marketing</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4>Soft Skills</h4>
+                        <div class="skills-container">
+                            <div class="skill-box">Communication</div>
+                            <div class="skill-box">Teamwork</div>
+                            <div class="skill-box">Leadership</div>
+                            <div class="skill-box">Problem Solving</div>
+                            <div class="skill-box">Time Management</div>
+                            <div class="skill-box">Creativity</div>
+                            <div class="skill-box">Adaptability</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="otherSkills">Other Skills (comma separated)</label>
+                        <input type="text" id="otherSkills" name="otherSkills" placeholder="Enter any additional skills">
+                    </div>
+                    
+                    <input type="hidden" id="selectedSkills" name="skills">
+                </div>
+                
+                <button type="submit">Continue to Documents</button>
+            </form>
+        </div>
 
-			<button type="submit" class="btn">Submit Application</button>
-		</form>
-	</div>
+        <!-- Step 2: Upload Resume -->
+        <div th:case="2">
+            <form th:action="@{/user/applyJob/step3}" method="post" enctype="multipart/form-data" class="form-container">
+                <h2>Upload Your Documents</h2>
+                
+                <div class="upload-area" onclick="document.getElementById('resume').click()">
+                    <div class="upload-icon">📄</div>
+                    <h3>Upload Your Resume</h3>
+                    <p>Drag & drop your resume here or click to browse</p>
+                    <p><small>Accepted formats: PDF, DOCX (Max 5MB)</small></p>
+                    <input type="file" id="resume" name="resumeFile" style="display: none;" accept=".pdf,.doc,.docx">
+                </div>
+                
+                <div class="upload-area" onclick="document.getElementById('coverLetter').click()">
+                    <div class="upload-icon">✍️</div>
+                    <h3>Upload Cover Letter (Optional)</h3>
+                    <p>Drag & drop your cover letter here or click to browse</p>
+                    <p><small>Accepted formats: PDF, DOCX (Max 5MB)</small></p>
+                    <input type="file" id="coverLetter" name="coverLetter" style="display: none;" accept=".pdf,.doc,.docx">
+                </div>
+                
+                <div class="form-group">
+                    <label for="portfolio">Portfolio Link (Optional)</label>
+                    <input type="text" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn Profile (Optional)</label>
+                    <input type="text" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                </div>
+                
+                <button type="submit">Continue to Review</button>
+            </form>
+        </div>
+
+        <!-- Step 3: Review Application -->
+        <div th:case="3">
+            <h2>Review Your Application</h2>
+            
+            <div class="form-container">
+                <div class="review-item">
+                    <div class="review-label">Applying for</div>
+                    <div class="review-value" th:text="${job.title}"></div>
+                </div>
+                
+                <h3>Personal Information</h3>
+                <div class="review-item">
+                    <div class="review-label">Full Name</div>
+                    <div class="review-value" th:text="${application.name}"></div>
+                </div>
+                <div class="review-item">
+                    <div class="review-label">Email</div>
+                    <div class="review-value" th:text="${application.email}"></div>
+                </div>
+                <div class="review-item">
+                    <div class="review-label">Phone</div>
+                    <div class="review-value" th:text="${application.phone}"></div>
+                </div>
+                <div class="review-item">
+                    <div class="review-label">Address</div>
+                    <div class="review-value" th:text="${application.address}"></div>
+                </div>
+                <div class="review-item">
+                    <div class="review-label">Education</div>
+                    <div class="review-value" th:text="${application.degree}"></div>
+                </div>
+                
+                <h3>Professional Details</h3>
+                <div class="review-item">
+                    <div class="review-label">Skills</div>
+                    <div class="review-value" th:text="${application.skills}"></div>
+                </div>
+                <div class="review-item">
+                    <div class="review-label">Experience</div>
+                    <div class="review-value" th:text="${application.experience}"></div>
+                </div>
+                
+                <form th:action="@{/user/applyJob/submit}" method="post">
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Skill selection functionality
+    document.querySelectorAll('.skill-box').forEach(box => {
+        box.addEventListener('click', function() {
+            this.classList.toggle('selected');
+            updateSelectedSkills();
+        });
+    });
+    
+    function updateSelectedSkills() {
+        const selectedSkills = Array.from(document.querySelectorAll('.skill-box.selected'))
+                                  .map(skill => skill.textContent);
+        
+        // Get other skills from input
+        const otherSkills = document.getElementById('otherSkills').value
+            .split(',')
+            .map(skill => skill.trim())
+            .filter(skill => skill.length > 0);
+        
+        // Combine both
+        const allSkills = [...selectedSkills, ...otherSkills];
+        
+        document.getElementById('selectedSkills').value = allSkills.join(', ');
+    }
+    
+    // Update when other skills change
+    document.getElementById('otherSkills').addEventListener('input', updateSelectedSkills);
+    
+    // Skill search functionality
+    document.getElementById('skillSearch').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        document.querySelectorAll('.skill-box').forEach(box => {
+            const skillName = box.textContent.toLowerCase();
+            if (skillName.includes(searchTerm)) {
+                box.style.display = 'inline-block';
+            } else {
+                box.style.display = 'none';
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
