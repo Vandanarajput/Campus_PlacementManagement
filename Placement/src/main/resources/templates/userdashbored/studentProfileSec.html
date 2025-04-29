@@ -175,7 +175,8 @@
         <div class="profile-body">
           <h2 class="section-title"><i class="fas fa-user-graduate"></i> Personal Information</h2>
 
-          <form id="profileForm" method="post"  th:action="@{/user/updateProfile}"enctype="multipart/form-data">
+          <form id="profileForm" th:object="${user}"  th:action="@{/user/updateProfile}"   method="post"  enctype="multipart/form-data">
+          
             <div class="form-grid">
               <div class="form-group">
                 <label class="form-label" for="name">Full Name</label>
@@ -187,7 +188,7 @@
               </div>
               <div class="form-group">
                 <label class="form-label" for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" class="form-control" readonly>
+                <input type="tel" id="phone" name="phone" class="form-control"  readonly>
               </div>
               <div class="form-group">
                 <label class="form-label" for="dob">Date of Birth</label>

@@ -294,6 +294,7 @@
 <script th:inline="javascript">
       /*<![CDATA[*/
       function showJobDetails(card) {
+    	  
         const jobId = card.getAttribute('data-id');
         // highlight
         document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));

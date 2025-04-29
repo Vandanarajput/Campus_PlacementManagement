@@ -46,7 +46,7 @@ public class RegisterController {
 			return "users/registerForm";
 		}
 
-		if (!user.getPassword().equals(user.getConfirm_password())) {
+		if (!user.getPassword().equals(user.getPassword())) {
 			model.addAttribute("error", "Passwords do not match!");
 			return "users/registerForm";
 		}

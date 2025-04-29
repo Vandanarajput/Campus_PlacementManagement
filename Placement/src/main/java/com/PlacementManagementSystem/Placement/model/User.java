@@ -1,9 +1,20 @@
 package com.PlacementManagementSystem.Placement.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -19,7 +30,6 @@ public class User {
 	private Long id;
 
 	@NotBlank(message = "Name is required")
-	
 	private String name;
 
 	@NotBlank(message = "Email is required")
@@ -31,36 +41,72 @@ public class User {
 	private String password;
 
 	@Transient
-	@NotBlank(message = "Confirm password is required")
-	private String confirm_password;
+	private String confirmPassword;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_skills", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+
+	private List<StudentSkills> studentSkills = new ArrayList<>();
+
+	private String phone;
+	private String degree;
+	private String address;
+	private String university;
+	private String major;
+	private String experience;
+	private String professionalSummary;
 
 	private String role = "Student";
-	
-//	 private String resume;
-//	 
-//	 // Getters and setters for all fields, including the resume
-//	    public String getResume() {
-//	        return resume;
-//	    }
-//
-//	    public void setResume(String resume) {
-//	        this.resume = resume;
-//	    }
 
-	public User() {
+	@Transient
+	private MultipartFile resumeMultipartFile;
 
-	}
+	private byte[] resumeFile;
+	private String resumeFileType;
 
-	public User(String name, String email, String password, String confirm_password) {
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.confirm_password = confirm_password;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<UserJob> userJobs;
 
-	}
+	// Getters and Setters
 
 	public Long getId() {
 		return id;
+	}
+
+	public MultipartFile getResumeMultipartFile() {
+		return resumeMultipartFile;
+	}
+
+	public void setResumeMultipartFile(MultipartFile resumeMultipartFile) {
+		this.resumeMultipartFile = resumeMultipartFile;
+	}
+
+	public byte[] getResumeFile() {
+		return resumeFile;
+	}
+
+	public void setResumeFile(byte[] resumeFile) {
+		this.resumeFile = resumeFile;
+	}
+
+	public String getResumeFileType() {
+		return resumeFileType;
+	}
+
+	public void setResumeFileType(String resumeFileType) {
+		this.resumeFileType = resumeFileType;
+	}
+
+	public List<UserJob> getUserJobs() {
+		return userJobs;
+	}
+
+	public void setUserJobs(List<UserJob> userJobs) {
+		this.userJobs = userJobs;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -87,12 +133,76 @@ public class User {
 		this.password = password;
 	}
 
-	public String getConfirm_password() {
-		return confirm_password;
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
-	public void setConfirm_password(String confirm_password) {
-		this.confirm_password = confirm_password;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public List<StudentSkills> getStudentSkills() {
+		return studentSkills;
+	}
+
+	public void setStudentSkills(List<StudentSkills> studentSkills) {
+		this.studentSkills = studentSkills;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getUniversity() {
+		return university;
+	}
+
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
+	public String getProfessionalSummary() {
+		return professionalSummary;
+	}
+
+	public void setProfessionalSummary(String professionalSummary) {
+		this.professionalSummary = professionalSummary;
 	}
 
 	public String getRole() {
@@ -103,16 +213,8 @@ public class User {
 		this.role = role;
 	}
 
-	public void setId(Long id) {
-		
-		this.id=id;
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + "]";
 	}
-
-	
-
 }
-
-//Query to Add Admin User to Database:
-
-//INSERT INTO user (name, email, password, role)
-//VALUES ('admin', 'admin@mail.com', 'admin123', 'ADMIN');

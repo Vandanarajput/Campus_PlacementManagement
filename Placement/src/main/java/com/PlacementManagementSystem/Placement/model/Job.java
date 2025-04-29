@@ -30,13 +30,14 @@ public class Job {
 
 	public Job() {}
 
-    public Job(String title, String companyName, String location, String jobType, String description, LocalDate deadline) {
+    public Job(String title,String salary, String companyName, String location, String jobType, String description, LocalDate deadline) {
         this.title = title;
         this.companyName = companyName;
         this.location = location;
         this.jobType = jobType;
         this.description = description;
         this.deadline = deadline;
+        this.salary=salary;
     }
 
     // Getters & Setters

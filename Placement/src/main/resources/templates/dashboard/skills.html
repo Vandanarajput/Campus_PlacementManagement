@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Manage Skills</title>
+
+<!-- Font Awesome (optional for icons) -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<!-- Custom CSS (optional) -->
+<link rel="stylesheet" th:href="@{/css/admin.css}">
+
+<style>
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	background-color: #f5f7fa;
+}
+
+.admin-main-content {
+	padding: 40px;
+	margin-left: 250px; /* adjust based on your sidebar */
+}
+
+h2 {
+	margin-bottom: 20px;
+}
+
+form {
+	display: flex;
+	margin-bottom: 20px;
+}
+
+input[type="text"] {
+	padding: 10px;
+	flex: 1;
+	border: 1px solid #ccc;
+	border-radius: 5px 0 0 5px;
+}
+
+button[type="submit"] {
+	padding: 10px 20px;
+	background-color: #3498db;
+	color: white;
+	border: none;
+	border-radius: 0 5px 5px 0;
+	cursor: pointer;
+}
+
+button[type="submit"]:hover {
+	background-color: #2980b9;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+table thead {
+	background-color: #3498db;
+	color: white;
+}
+
+td {
+	color: #333; /* Dark gray - you can choose black (#000) or another */
+}
+
+th, td {
+	padding: 12px;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #333;
+}
+
+tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+.action-buttons a {
+	margin: 0 5px;
+	padding: 6px 10px;
+	text-decoration: none;
+	color: white;
+	border-radius: 5px;
+}
+
+.edit-btn {
+	background-color: #27ae60;
+}
+
+.delete-btn {
+	background-color: #c0392b;
+}
+
+.edit-btn:hover {
+	background-color: #1e8449;
+}
+
+.delete-btn:hover {
+	background-color: #a93226;
+}
+
+
+.add-btn{
+color:black;
+}
+
+
+</style>
+</head>
+<body>
+
+	<div class="dashboard-wrapper">
+
+		<!-- Sidebar -->
+		<div th:replace="fragments/sidebar :: sidebar"></div>
+
+		<!-- Main content -->
+		<div class="admin-main-content">
+			<h2>Manage Skills</h2>
+
+			<!-- Skill Add Form -->
+			<form th:object="${studentSkills}" th:action="@{/admin/skills}" method="post"  >
+				<input type="text" name="name" placeholder="Enter skill name" th:field="*{skillName}" required>
+				<button type="submit" class="add-btn">Add Skill</button>
+			</form>
+
+			<!-- Skill Table -->
+			<table>
+				<thead>
+					<tr>
+						<th>Skill</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="skill : ${skills}">
+						<td th:text="${skill.skillName}" class="nameskills">Skill Name</td>
+						<td class="action-buttons">
+							 <a
+							th:href="@{/admin/skills/delete/{id}(id=${skill.id})}"
+							class="delete-btn"
+							onclick="return confirm('Are you sure you want to delete this skill?')">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+</body>
+</html>

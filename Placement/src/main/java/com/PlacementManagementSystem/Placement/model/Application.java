@@ -10,23 +10,36 @@ public class Application {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@ManyToOne
-//	@JoinColumn(name = "student_id")
-//	private Student student;
-
 	@ManyToOne
 	@JoinColumn(name = "job_id")
 	private Job job;
+
+	private byte[] resumeFile;
+	private String resumeFileType;
 
 	private String status; // "Pending", "Accepted", "Rejected"
 
 	private LocalDate appliedDate;
 
-	private String resumeFile;
-
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	public String getResumeFileType() {
+		return resumeFileType;
+	}
+
+	public void setResumeFileType(String resumeFileType) {
+		this.resumeFileType = resumeFileType;
+	}
+
+	public void setResumeFile(byte[] resumeFile) {
+		this.resumeFile = resumeFile;
+	}
+
+	public byte[] getResumeFile() {
+		return resumeFile;
+	}
 
 	// Constructors
 	public Application() {
@@ -65,14 +78,14 @@ public class Application {
 	public void setAppliedDate(LocalDate appliedDate) {
 		this.appliedDate = appliedDate;
 	}
-
-	public String getResumeFile() {
-		return resumeFile;
-	}
-
-	public void setResumeFile(String resumeFile) {
-		this.resumeFile = resumeFile;
-	}
+//
+//	public String getResumeFile() {
+//		return resumeFile;
+//	}
+//
+//	public void setResumeFile(String resumeFile) {
+//		this.resumeFile = resumeFile;
+//	}
 
 	public User getUser() {
 		return user;
