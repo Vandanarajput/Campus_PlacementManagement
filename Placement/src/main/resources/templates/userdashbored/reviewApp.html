@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Review Application</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 20px;
+      color: #334155;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-container {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      color: #1e40af;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 16px;
+    }
+
+    h2 {
+      color: #1e3a8a;
+      font-size: 22px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    h3 {
+      color: #1e40af;
+      font-size: 18px;
+      margin: 25px 0 15px 0;
+    }
+
+    .review-section {
+      margin-bottom: 25px;
+    }
+
+    .review-item {
+      display: flex;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .review-item:last-child {
+      border-bottom: none;
+    }
+
+    .review-label {
+      font-weight: 600;
+      color: #475569;
+      width: 200px;
+      flex-shrink: 0;
+    }
+
+    .review-value {
+      color: #1e293b;
+      flex-grow: 1;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .skill-tag {
+      background-color: #eff6ff;
+      color: #1e40af;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      border: 1px solid #bfdbfe;
+    }
+
+    .document-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #2563eb;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .document-link:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background-color: #fff;
+      color: #2563eb;
+      border: 1px solid #cbd5e1;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f8fafc;
+      border-color: #93c5fd;
+    }
+
+    @media (max-width: 768px) {
+      .review-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+      
+      .review-label {
+        width: 100%;
+      }
+    }
+    
+    .danger-alert-box{
+    	text-align: center;
+    	padding: 10px;
+    	background-color: red;
+    	border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+  
+  	
+    <div class="header">
+      <h1>Application Review</h1>
+      <p class="subtitle">Please review your information before submitting</p>
+    </div>
+
+    <div class="form-container">
+    
+    	<!-- Error Message -->
+	  	<div th:if="${errorMessage!=null}" th:text="${errorMessage}" class="danger-alert-box" role="alert">
+		  A simple danger alert—check it out!
+		</div>
+		
+		
+      <h2>Job Application Details</h2>
+
+      <h3>Personal Information</h3>
+      <div class="review-section">
+        <div class="review-item">
+          <span class="review-label">Full Name</span>
+          <span class="review-value" th:text="${user.name}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Email Address</span>
+          <span class="review-value" th:text="${user.email}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Phone Number</span>
+          <span class="review-value" th:text="${user.phone}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Highest Degree</span>
+          <span class="review-value" th:text="${user.degree}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Address</span>
+          <span class="review-value" th:text="${user.address}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">University/Institution</span>
+          <span class="review-value" th:text="${user.university}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Major/Field of Study</span>
+          <span class="review-value" th:text="${user.major}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Years of Experience</span>
+          <span class="review-value" th:text="${user.experience}"></span>
+        </div>
+        <div class="review-item">
+          <span class="review-label">Professional Summary</span>
+          <span class="review-value" th:text="${user.professionalSummary}"></span>
+        </div>
+      </div>
+
+      <h3>Skills</h3>
+      <div class="review-section">
+        <ul class="skills-list">
+          <li th:each="skill : ${user.studentSkills}">
+            <span class="skill-tag" th:text="${skill.skillName}"></span>
+          </li>
+        </ul>
+      </div>
+      
+     <h3>Job Profile</h3>
+      <div class="review-section">
+        <ul class="Job-list">
+          <li th:each="userJob:${user.userJobs}">
+            <span class="job-tag" th:text="${userJob.job.title}"></span>
+          </li>
+        </ul>
+      </div>
+      
+
+      <!-- Uncomment when you implement file upload
+      <h3>Documents</h3>
+      <div class="review-section">
+        <div class="review-item">
+          <span class="review-label">Resume</span>
+          <span class="review-value">
+            <a th:href="@{${resumeFile}}" class="document-link" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span th:text="${resumeFile}">Download Resume</span>
+            </a>
+          </span>
+        </div>
+      </div>
+      -->
+
+      <div >
+       
+        <form th:action="@{/user/saveAfterReview}" method="post" style="margin: 0;">
+          <input type="hidden" name="userId" th:value="${user.id}">
+          <div style="display: flex; gap: 10px;">
+          	<input type="checkbox" name="isAgreed">
+          	<p>I have read all the information</p>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

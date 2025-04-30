@@ -26,15 +26,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	const toggleIcon = document.querySelector('.toggle-password');
 	const passwordInput = document.getElementById('password');
 
-	toggleIcon.addEventListener('click', function() {
-		const type = passwordInput.type === 'password' ? 'text'
-			: 'password';
-		passwordInput.type = type;
+	if(toggleIcon){
+		toggleIcon.addEventListener('click', function() {
+				const type = passwordInput.type === 'password' ? 'text'
+					: 'password';
+				passwordInput.type = type;
 
-		// Toggle icon
-		toggleIcon.classList.toggle('fa-eye');
-		toggleIcon.classList.toggle('fa-eye-slash');
-	});
+				// Toggle icon
+				toggleIcon.classList.toggle('fa-eye');
+				toggleIcon.classList.toggle('fa-eye-slash');
+			});
+	}
+	
 });
 
 

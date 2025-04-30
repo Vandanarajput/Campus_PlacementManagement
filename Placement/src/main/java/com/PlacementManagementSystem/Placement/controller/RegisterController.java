@@ -88,6 +88,7 @@ public class RegisterController {
 		}
 
 		// Set session
+		session.setAttribute("user", existingUser);
 
 		// Check role and redirect accordingly
 		// Check role and redirect accordingly

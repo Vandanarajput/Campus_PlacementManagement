@@ -6,6 +6,7 @@ import java.time.LocalDate;
 @Entity
 public class Application {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -45,7 +45,6 @@ public class User {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_skills", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
-
 	private List<StudentSkills> studentSkills = new ArrayList<>();
 
 	private String phone;
@@ -64,10 +63,24 @@ public class User {
 	private byte[] resumeFile;
 	private String resumeFileType;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<UserJob> userJobs;
+	
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	private List<Application> applications;
+	
+	
 
 	// Getters and Setters
+
+	public List<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
 
 	public Long getId() {
 		return id;

@@ -15,8 +15,8 @@ public class UserService {
 	private UserRepositry userRepositry;
 
 	// Save or update a user (both admin and student)
-	public void saveUser(User user) {
-		userRepositry.save(user); // This will handle both saving and updating
+	public User saveUser(User user) {
+		return userRepositry.save(user);
 	}
 
 	// Login user (authenticate using email and password)

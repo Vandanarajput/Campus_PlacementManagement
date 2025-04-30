@@ -267,32 +267,26 @@ label {
 				th:class="${currentStep == 1 ? 'active-step' : ''}">
 				1 <span class="step-label">Personal Info</span>
 			</div>
-			<div class="section-number" id="section-number-2"
-				th:class="${currentStep == 2 ? 'active-step' : ''}">
-				2 <span class="step-label">Documents</span>
-			</div>
+			
 			<div class="section-number" id="section-number-3"
 				th:class="${currentStep == 3 ? 'active-step' : ''}">
-				3 <span class="step-label">Review</span>
+				2 <span class="step-label">Review</span>
 			</div>
 		</div>
 
-		<div th:switch="${currentStep}">
+		<div >
 
 			<!-- Step 1: Personal Information and Skills -->
-			<div>
+			<div id = "abc">
 				<form th:object="${user}" th:action="@{/user/applyJob/step2}"
 					method="post" class="form-container">
 
 					<input type="hidden" th:value="${job.id}" name="jobId"> <input
-						type="hidden" th:field="*{id}"> <input type="hidden"
+						type="hidden" th:field="*{id}" name="userId"> <input type="hidden"
 						th:field="*{password}"> <input type="hidden"
 						th:field="*{confirmPassword}">
 
-
-					<!-- Section 1 -->
-
-					<div id="section-1">
+						<div id="section-1">
 						<h2>Personal Information</h2>
 
 						<div class="two-column">
@@ -342,18 +336,17 @@ label {
 						</div>
 
 						<div class="form-group">
-							<label for="major">Major/Field of Study</label> <input
-								type="text" id="major" name="major"
-								placeholder="Computer Science, Business, etc.">
+							<label for="major">Major/Field of Study</label>
+					 <input type="text" id="major" name="major"  th:field="*{major}" placeholder="Computer Science, Business, etc.">
 						</div>
 
 						<div class="form-group">
 							<label for="experience">Years of Experience</label> <select
 								id="experience" name="experience">
-								<option value="0" th:field="*{major}">No experience</option>
-								<option value="1-2" th:field="*{major}">1-2 years</option>
-								<option value="3-5" th:field="*{major}">3-5 years</option>
-								<option value="5+" th:field="*{major}">5+ years</option>
+								<option value="0" th:field="*{experience}">No experience</option>
+								<option value="1-2" th:field="*{experience}">1-2 years</option>
+								<option value="3-5" th:field="*{experience}">3-5 years</option>
+								<option value="5+"  th:field="*{experience}">5+ years</option>
 							</select>
 						</div>
 
@@ -368,9 +361,6 @@ label {
 								</span>
 							</div>
 						</div>
-
-
-
 						<div class="form-group">
 							<label for="summary">Professional Summary</label>
 							<textarea id="summary" name="summary" rows="4"
@@ -378,45 +368,22 @@ label {
 								placeholder="Briefly describe your professional background and skills"></textarea>
 						</div>
 
-
-						<div id="section">
+						<div id="section" >
 							<h2>Upload Documents</h2>
 
 							<div class="upload-area">
-								<input type="file" name="resumeFile" required>
+								<input type="file" name="resumeFile"  th:field="*{resumeFile}" required>
 								<p>Upload Resume (PDF, DOCX)</p>
 							</div>
-
-
-
-						</div>
-
-						<!-- <button type="button" id="secondStepButton">Continue to Documents</button> -->
-						<button type="submit">Submit Application</button>
+							</div>
+						<button type="submit" id="secondStepButton">Submit Application</button>
 					</div>
-					<!-- Section 1 END -->
-
-
-					<!-- Section 2 : Upload Resume -->
-					<!--  <div id="section-2" style="display: none;">
-		                <h2>Upload Documents</h2>
-		
-		                <div class="upload-area">
-		                    <input type="file" name="resumeFile" required>
-		                    <p>Upload Resume (PDF, DOCX)</p>
-		                </div>
-		
-		               
-		
-		                <button type="submit">Submit Application</button>
-			        </div> -->
-
-					<!-- Section 2: Review Application -->
+			
 				</form>
 			</div>
 
 
-			<div th:case="3">
+			<!-- <div id="def" style="display: none;">
 				<div class="form-container">
 					<h2>Review Your Application</h2>
 
@@ -464,7 +431,7 @@ label {
 							<strong>Resume:</strong> <a target="_blank"> View Uploaded
 								Resume </a>
 						</p>
-						<!-- If you want to show uploaded file name also -->
+						If you want to show uploaded file name also
 						<p>
 							<strong>File Name:</strong> <span></span>
 						</p>
@@ -472,67 +439,25 @@ label {
 
 					<form th:action="@{/user/applyJob/submit}" method="post">
 						<input type="hidden" name="jobId">
-						<!-- you can add other hidden fields if necessary -->
+						you can add other hidden fields if necessary
 
 						<button type="submit">Submit Application</button>
 					</form>
 				</div>
-			</div>
+			</div> -->
 
 
 
 		</div>
 	</div>
 
-	<!-- <script>
-    // Skill selection functionality
-    document.querySelectorAll('.skill-box').forEach(box => {
-        box.addEventListener('click', function() {
-            this.classList.toggle('selected');
-            updateSelectedSkills();
-        });
-    });
-    
-    function updateSelectedSkills() {
-        const selectedSkills = Array.from(document.querySelectorAll('.skill-box.selected'))
-                                  .map(skill => skill.textContent);
-        
-        // Get other skills from input
-        const otherSkills = document.getElementById('otherSkills').value
-            .split(',')
-            .map(skill => skill.trim())
-            .filter(skill => skill.length > 0);
-        
-        // Combine both
-        const allSkills = [...selectedSkills, ...otherSkills];
-        
-        document.getElementById('selectedSkills').value = allSkills.join(', ');
-    }
-    
-    // Update when other skills change
-    document.getElementById('otherSkills').addEventListener('input', updateSelectedSkills);
-    
-    // Skill search functionality
-    document.getElementById('skillSearch').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        
-        document.querySelectorAll('.skill-box').forEach(box => {
-            const skillName = box.textContent.toLowerCase();
-            if (skillName.includes(searchTerm)) {
-                box.style.display = 'inline-block';
-            } else {
-                box.style.display = 'none';
-            }
-        });
-    });
-</script> -->
 
 	<script type="text/javascript">
 		$("#secondStepButton").click(function() {
-			$("#section-1").hide();
-			$("#section-2").show();
-			$(".active-step").removeClass("active-step");
-			$("#section-number-2").addClass("active-step");
+			alert("hiii")
+			$("#abc").hide();
+			$("#def").show();
+			
 
 		});
 	</script>

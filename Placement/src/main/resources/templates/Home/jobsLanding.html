@@ -214,6 +214,13 @@
         margin-top: 8px;
     }
 
+
+.danger-alert-box{
+    	text-align: center;
+    	padding: 10px;
+    	background-color: green;
+    	border-radius: 10px;
+    }
     </style>
 </head>
 <body>
@@ -221,6 +228,12 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
+	
+	<!-- Error Message -->
+  	<div th:if="${success!=null}" th:text="${success}" class="danger-alert-box" role="alert">
+	  A simple danger alert—check it out!
+	</div>
+	
     <!-- Search Section -->
     <div class="search-container">
         <h2 class="search-title">Latest Job Openings</h2>
@@ -281,9 +294,12 @@
                     <div class="job-description" id="jobDetailsDescription">
                         Full job description will appear here...
                     </div>
-                    <div class="job-actions">
+                    <div class="job-actions" id="apply-section">
                         <button  id="applyBtn" class="btn btn-apply">Apply Now</button>
                         <button class="btn btn-save">Save Job</button>
+                    </div>
+                    <div id="applied-section">
+                        <span style="border: 1px solid green; border-radius: 20px; padding: 10px;" >Applied!</span>
                     </div>
                 </div>
             </div>
@@ -293,9 +309,15 @@
 
 <script th:inline="javascript">
       /*<![CDATA[*/
+    	  
+    	  var jobIds = /*[[${jobIds}]]*/ [];
+      
+      console.log("jobIds: "+ jobIds);
+    	  
       function showJobDetails(card) {
     	  
-        const jobId = card.getAttribute('data-id');
+        const jobId = Number(card.getAttribute('data-id'));
+        console.log("jobId: "+ jobId);
         // highlight
         document.querySelectorAll('.job-card').forEach(c => c.classList.remove('active'));
         card.classList.add('active');
@@ -314,11 +336,26 @@
           card.querySelector('.deadline').textContent.replace('Deadline: ', '');
         document.getElementById('jobDetailsDescription').textContent =
           (card.querySelector('.job-description') || { textContent: 'No description available.' }).textContent;
-        // wire apply button
-        document.getElementById('applyBtn').onclick = function() {
-          /* Redirects to your controller at /jobs/apply/{id} */
-          window.location.href =  'user/applyJob/' + jobId;
-        };
+        
+        
+        if(!jobIds.includes(jobId)){
+        	
+        	document.getElementById("apply-section").style.display="block";
+            document.getElementById("applied-section").style.display="none";
+            
+        	// wire apply button
+        	var applyBtn = document.getElementById('applyBtn');
+        	applyBtn.onclick = function() {
+              /* Redirects to your controller at /jobs/apply/{id} */
+              window.location.href =  'user/applyJob/' + jobId;
+            };
+            
+            
+        }else {
+            document.getElementById("applied-section").style.display="block";
+        	document.getElementById("apply-section").style.display="none";
+        }
+        
       }
       /*]]>*/
     </script>

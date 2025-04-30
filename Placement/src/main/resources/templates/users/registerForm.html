@@ -51,9 +51,9 @@
 				<div class="input-group">
 					<label for="confirm_password">Confirm Password</label> <input
 						type="password" id="confirm_password"
-						th:field="*{confirm_password}" placeholder="Confirm your password">
-					<div th:if="${#fields.hasErrors('confirm_password')}"
-						th:errors="*{confirm_password}" class="error" style="color: red;"></div>
+						th:field="*{confirmPassword}" placeholder="Confirm your password">
+					<div th:if="${#fields.hasErrors('confirmPassword')}"
+						th:errors="*{confirmPassword}" class="error" style="color: red;"></div>
 				</div>
 
 				<button type="submit" class="submit-btn">Submit</button>
