@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.PlacementManagementSystem.Placement.model.StudentSkills;
 import com.PlacementManagementSystem.Placement.model.User;
 import com.PlacementManagementSystem.Placement.service.StudentSkillsService;
+import com.PlacementManagementSystem.Placement.service.UserJobService;
 import com.PlacementManagementSystem.Placement.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 //import java.util.List;
 
 @Controller
+
 public class AdminController {
 
     @Autowired
@@ -22,6 +24,10 @@ public class AdminController {
 
     @Autowired
     private StudentSkillsService skillService;
+    
+    @Autowired
+    private UserJobService userJobService;
+
 
     @GetMapping("/admin")
     public String showAdminDashboard(Model model , HttpSession session) {
@@ -51,5 +57,25 @@ public class AdminController {
     public String deleteSkill(@PathVariable Long id) {
         skillService.deleteSkill(id); // Call service method to delete the skill
         return "redirect:/admin/skills"; // Redirect back to the skills page
+    }
+    
+    @GetMapping("/admin/applied-jobs")
+    public String viewAllAppliedJobs(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loggedInAdmin");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("applications", userJobService.getAllAppliedJobs());
+        return "dashboard/application_list";
+    }
+    
+   
+
+
+    // NEW: Update job application status
+    @PostMapping("/admin/update-status")
+    public String updateApplicationStatus(@RequestParam Long appId, @RequestParam String status) {
+        userJobService.updateStatus(appId, status);
+        return "redirect:/admin/applied-jobs";
     }
 }

@@ -7,81 +7,114 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css" />
     <style>
-        
     body {
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Arial, sans-serif;
         background-color: #f6f6f6;
         margin: 0;
         padding: 0;
+        color: #333;
     }
 
     .container {
         max-width: 1200px;
-        margin: 20px auto;
-        padding: 15px;
+        margin: 30px auto;
+        padding: 20px;
     }
 
-    /* Search Section */
+    /* Search Section - Improved */
     .search-container {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
+        text-align: center;
     }
 
     .search-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #333;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        position: relative;
+        display: inline-block;
+    }
+
+    .search-title:after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: #2557a7;
+        margin: 10px auto 0;
     }
 
     .search-bar-container {
         display: flex;
-        width: 100%;
-        margin-bottom: 15px;
+        justify-content: center;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
     }
 
     .search-bar {
         flex-grow: 1;
-        padding: 12px 15px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
+        padding: 15px 25px;
+        border-radius: 30px;
+        border: 1px solid #ddd;
         font-size: 16px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .search-bar:focus {
+        outline: none;
+        border-color: #2557a7;
+        box-shadow: 0 2px 15px rgba(37, 87, 167, 0.1);
     }
 
     .search-icon {
-        background-color: #2557a7;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 4px;
-        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
         border: none;
-        margin-left: 10px;
+        color: #2557a7;
+        font-size: 18px;
+        cursor: pointer;
     }
 
-    /* Main Content Layout */
+    /* Main Content Layout - Same as before */
     .content-wrapper {
         display: flex;
         gap: 20px;
     }
 
-    /* Job Cards Column */
+    /* Job Cards Column - Enhanced */
     .jobs-column {
         flex: 1;
+        max-height: 600px; /* Adjust height as needed */
+   		 overflow-y: auto;
+    	padding-right: 10px;
     }
+    .jobs-column {
+    flex: 1;
+    height: calc(100vh - 250px); /* Adjust based on your header/search height */
+    overflow-y: auto;
+}
+    
 
     .job-card {
         background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
         padding: 20px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: all 0.3s ease;
         border: 1px solid #e1e1e1;
     }
 
     .job-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     .job-card.active {
@@ -93,71 +126,78 @@
         margin: 0 0 10px 0;
         font-size: 18px;
         color: #2557a7;
+        font-weight: 600;
     }
 
     .job-card p {
-        margin: 5px 0;
+        margin: 8px 0;
         color: #555;
         font-size: 14px;
     }
 
     .job-card .deadline {
-        color: #d9534f;
-        font-weight: bold;
+        color: #e74c3c;
+        font-weight: 600;
         font-size: 13px;
+        margin-top: 10px;
     }
 
-    /* Job Details Column */
+    /* Job Details Column - Same as before */
     .job-details-column {
         flex: 2;
     }
 
     .job-details-panel {
         background-color: white;
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 25px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
         border: 1px solid #e1e1e1;
+        min-height: 400px;
     }
 
     .job-details-panel h2 {
         color: #2557a7;
         margin-top: 0;
-        font-size: 22px;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 600;
     }
 
     .job-details-panel .detail-item {
-        margin: 10px 0;
+        margin: 12px 0;
         font-size: 15px;
     }
 
     .job-details-panel .detail-label {
-        font-weight: bold;
+        font-weight: 600;
         color: #333;
         display: inline-block;
-        width: 80px;
+        width: 100px;
     }
 
     .job-details-panel .job-description {
         line-height: 1.6;
         margin: 25px 0;
         color: #444;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
     }
 
     .job-actions {
         margin-top: 25px;
         display: flex;
-        gap: 10px;
+        gap: 15px;
     }
 
     .btn {
-        padding: 10px 20px;
-        border-radius: 4px;
+        padding: 12px 25px;
+        border-radius: 30px;
         cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.3s;
-        border: none;
-        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 15px;
     }
 
     .btn-apply {
@@ -167,6 +207,7 @@
 
     .btn-apply:hover {
         background-color: #1d4b8f;
+        transform: translateY(-2px);
     }
 
     .btn-save {
@@ -177,6 +218,7 @@
 
     .btn-save:hover {
         background-color: #f0f5ff;
+        transform: translateY(-2px);
     }
 
     .no-job-selected {
@@ -184,11 +226,27 @@
         justify-content: center;
         align-items: center;
         height: 300px;
-        color: #666;
-        font-size: 16px;
+        color: #888;
+        font-size: 18px;
         background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        flex-direction: column;
+    }
+
+    .no-job-selected i {
+        font-size: 40px;
+        margin-bottom: 15px;
+        color: #ddd;
+    }
+
+    /* Applied badge */
+    #applied-section span {
+        border: 1px solid #2ecc71;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: #2ecc71;
+        font-weight: 600;
+        display: inline-block;
     }
 
     /* Responsive Breakpoints */
@@ -196,30 +254,22 @@
         .content-wrapper {
             flex-direction: column;
         }
+        
+        .search-bar {
+            padding: 12px 20px;
+        }
     }
 
-    /* Additional styles to match the second image */
-    .job-card .company-highlight {
-        font-weight: bold;
-        color: #333;
-    }
-
-    .job-card .location {
-        color: #666;
-    }
-
-    .job-card .salary {
-        color: #2e7d32;
-        font-weight: bold;
-        margin-top: 8px;
-    }
-
-
-.danger-alert-box{
-    	text-align: center;
-    	padding: 10px;
-    	background-color: green;
-    	border-radius: 10px;
+    /* Alert Box */
+    .danger-alert-box {
+        text-align: center;
+        padding: 12px;
+        background-color: #2ecc71;
+        border-radius: 5px;
+        color: white;
+        font-weight: 500;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
     }
     </style>
 </head>
@@ -228,27 +278,25 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
-	
-	<!-- Error Message -->
-  	<div th:if="${success!=null}" th:text="${success}" class="danger-alert-box" role="alert">
-	  A simple danger alert—check it out!
-	</div>
-	
-    <!-- Search Section -->
+    
+    <!-- Error Message -->
+    <div th:if="${success!=null}" th:text="${success}" class="danger-alert-box" role="alert">
+      A simple danger alert—check it out!
+    </div>
+    
+    <!-- Search Section - Centered with rounded search bar -->
     <div class="search-container">
         <h2 class="search-title">Latest Job Openings</h2>
         
         <div class="search-bar-container">
             <input type="text" class="search-bar" placeholder="Search jobs..." th:value="${searchQuery}">
-            <div class="search-icon">
+            <button class="search-icon">
                 <i class="fas fa-search"></i>
-            </div>
+            </button>
         </div>
-        
-       
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Content - Same structure as before -->
     <div class="content-wrapper">
         <!-- Job Cards Column -->
         <div class="jobs-column">
@@ -266,6 +314,7 @@
         <div class="job-details-column">
             <div class="job-details-panel" id="jobDetailsPanel">
                 <div class="no-job-selected" id="noJobSelected">
+                    <i class="fas fa-briefcase"></i>
                     Please select a job to view details
                 </div>
                 <div id="jobDetailsContent" style="display: none;">
@@ -295,11 +344,11 @@
                         Full job description will appear here...
                     </div>
                     <div class="job-actions" id="apply-section">
-                        <button  id="applyBtn" class="btn btn-apply">Apply Now</button>
+                        <button id="applyBtn" class="btn btn-apply">Apply Now</button>
                         <button class="btn btn-save">Save Job</button>
                     </div>
                     <div id="applied-section">
-                        <span style="border: 1px solid green; border-radius: 20px; padding: 10px;" >Applied!</span>
+                        <span>Applied!</span>
                     </div>
                 </div>
             </div>
@@ -307,15 +356,16 @@
     </div>
 </div>
 
+<!-- Your existing JavaScript remains unchanged -->
 <script th:inline="javascript">
       /*<![CDATA[*/
-    	  
-    	  var jobIds = /*[[${jobIds}]]*/ [];
+          
+          var jobIds = /*[[${jobIds}]]*/ [];
       
       console.log("jobIds: "+ jobIds);
-    	  
+          
       function showJobDetails(card) {
-    	  
+          
         const jobId = Number(card.getAttribute('data-id'));
         console.log("jobId: "+ jobId);
         // highlight
@@ -339,13 +389,13 @@
         
         
         if(!jobIds.includes(jobId)){
-        	
-        	document.getElementById("apply-section").style.display="block";
+            
+            document.getElementById("apply-section").style.display="block";
             document.getElementById("applied-section").style.display="none";
             
-        	// wire apply button
-        	var applyBtn = document.getElementById('applyBtn');
-        	applyBtn.onclick = function() {
+            // wire apply button
+            var applyBtn = document.getElementById('applyBtn');
+            applyBtn.onclick = function() {
               /* Redirects to your controller at /jobs/apply/{id} */
               window.location.href =  'user/applyJob/' + jobId;
             };
@@ -353,7 +403,7 @@
             
         }else {
             document.getElementById("applied-section").style.display="block";
-        	document.getElementById("apply-section").style.display="none";
+            document.getElementById("apply-section").style.display="none";
         }
         
       }
@@ -361,6 +411,6 @@
     </script>
 
 
-	<script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
 </body>
 </html>

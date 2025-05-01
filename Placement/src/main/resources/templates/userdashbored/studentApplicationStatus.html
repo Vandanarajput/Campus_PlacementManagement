@@ -1,37 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Student Dashboard</title>
-  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   
-   <link rel="stylesheet" href="/css/userdashbored.css">
-   
-   
+    <link rel="stylesheet" href="/css/userdashbored.css">
   <style>
+    :root {
+      --sidebar-width: 250px;
+      --primary-color: #4361ee;
+      --dark-bg: #343a40;
+      --light-bg: #f8f9fa;
+      --text-dark: #212529;
+      --text-light: #f8f9fa;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
     }
 
-
-
-    .main {
-      margin-left: 250px;
-      padding: 30px;
+    /* Main content area */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 2rem;
+      min-height: 100vh;
     }
 
+    /* Header */
+    .dashboard-header {
+      margin-bottom: 2rem;
+    }
+
+    .welcome-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-subtitle {
+      color: #6c757d;
+    }
+
+    /* Application cards grid */
+    .applications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .application-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      transition: transform 0.2s;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .application-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .job-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
+
+    .company-name {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .status.accepted {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status.rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .applied-date {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+
+    .view-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #6c757d;
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        margin-left: 0;
+        padding: 1.5rem;
+      }
+      
+      .applications-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
 
-      <!-- Sidebar -->
-    <div th:replace="~{fragments/userslider :: user-sidebar}"></div>
-    
+  <!-- Sidebar -->
+  <div th:replace="~{fragments/userslider :: user-sidebar}"></div>
   
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="dashboard-header">
+      <h1 class="welcome-title">Welcome to your Dashboard</h1>
+      <p class="welcome-subtitle">Here you can track your job applications and profile</p>
+    </div>
 
+    <h3>Your Applications</h3>
+    
+    <div class="applications-grid">
+      <div th:if="${userApplications.empty}">
+        <div class="empty-state">
+          <i class="fas fa-briefcase fa-3x mb-3"></i>
+          <h4>No Applications Yet</h4>
+          <p>You haven't applied to any jobs yet.</p>
+          <a href="/jobs" class="btn btn-primary mt-3">Browse Jobs</a>
+        </div>
+      </div>
+
+      <div th:each="app : ${userApplications}" class="application-card">
+        <h4 class="job-title" th:text="${app.job.title}">Software Engineer</h4>
+        <p class="company-name" th:text="${app.job.companyName}">Wipro</p>
+        
+        <span th:classappend="'status ' + ${app.status.toLowerCase()}" 
+              th:text="${app.status}">Accepted</span>
+        
+        <div class="card-footer">
+          <span class="applied-date" th:text="${'Applied: ' + #temporals.format(app.appliedDate, 'dd MMM yyyy')}">Applied: 15 Jun 2023</span>
+          <a th:href="@{/jobs/{id}(id=${app.job.id})}" class="btn btn-outline-primary view-btn">
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

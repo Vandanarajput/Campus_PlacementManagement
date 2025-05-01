@@ -5,150 +5,208 @@
     <title>All Applications - Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" th:href="@{/css/admin.css}">
-    
+
     <style>
-        /* Main content area with sidebar */
+        /* Main layout */
         .admin-container {
             display: flex;
             min-height: 100vh;
         }
-        
-        /* Main content styling */
+
+        /* Main content */
         .admin-main {
-            margin-left: 240px; /* Match sidebar width */
-            padding: 30px;
+            margin-left: 240px;
+            padding: 20px;
             width: calc(100% - 240px);
             background-color: #f5f7fa;
         }
-        
-        /* Table container */
+
         .table-container {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 30px;
+            padding: 20px;
             overflow-x: auto;
         }
-        
-        /* Table styling */
+
         .applications-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 15px;
+            table-layout: fixed;
         }
-        
+
         .applications-table th,
         .applications-table td {
-            padding: 15px;
+            padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid #eee;
+            vertical-align: top;
         }
-        
+
         .applications-table th {
             background-color: #2c3e50;
             color: white;
             font-weight: 600;
             position: sticky;
             top: 0;
+            z-index: 1;
         }
-        
+
         .applications-table tr:hover {
             background-color: #f8f8f8;
         }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+        }
         
-        /* Status form styling */
+        .status-badge.Pending {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+        
+        .status-badge.Accepted {
+            background-color: #D4EDDA;
+            color: #155724;
+        }
+        
+        .status-badge.Rejected {
+            background-color: #F8D7DA;
+            color: #721C24;
+        }
+
+        /* Status form */
         .status-form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 8px;
         }
-        
+
         .status-options {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: wrap;
         }
-        
+
         .status-option {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
         }
-        
+
         .status-option input[type="radio"] {
             appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid #ddd;
             border-radius: 50%;
             cursor: pointer;
             position: relative;
         }
-        
+
         .status-option input[type="radio"]:checked {
             border-color: #4CAF50;
         }
-        
+
         .status-option input[type="radio"]:checked::after {
             content: '';
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background-color: #4CAF50;
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         .status-option label {
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
         }
-        
+
         .btn-submit {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.2s;
             align-self: flex-start;
+            white-space: nowrap;
         }
-        
+
         .btn-submit:hover {
             background-color: #3e8e41;
         }
+
+        /* Column widths */
+        .applications-table th:nth-child(1),
+        .applications-table td:nth-child(1) {
+            width: 10%;
+        }
         
-        /* Responsive adjustments */
+        .applications-table th:nth-child(2),
+        .applications-table td:nth-child(2) {
+            width: 20%;
+        }
+        
+        .applications-table th:nth-child(3),
+        .applications-table td:nth-child(3) {
+            width: 25%;
+        }
+        
+        .applications-table th:nth-child(4),
+        .applications-table td:nth-child(4) {
+            width: 15%;
+        }
+        
+        .applications-table th:nth-child(5),
+        .applications-table td:nth-child(5) {
+            width: 30%;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .admin-main {
                 margin-left: 70px;
                 width: calc(100% - 70px);
-                padding: 20px;
+                padding: 15px;
             }
-            
+
             .table-container {
-                padding: 20px;
+                padding: 15px;
             }
-            
+
             .applications-table th,
             .applications-table td {
-                padding: 10px;
-                font-size: 14px;
+                padding: 8px;
+                font-size: 13px;
             }
             
             .status-options {
                 flex-direction: column;
-                gap: 10px;
+                gap: 6px;
+            }
+            
+            .btn-submit {
+                padding: 5px 10px;
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
+
     <!-- Sidebar -->
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
@@ -156,7 +214,7 @@
     <div class="admin-main">
         <div class="table-container">
             <h1><i class="fas fa-file-alt"></i> All Job Applications</h1>
-            
+
             <table class="applications-table">
                 <thead>
                     <tr>
@@ -170,7 +228,7 @@
                 <tbody>
                     <tr th:each="app : ${applications}">
                         <td th:text="${app.id}">1</td>
-                        <td th:text="${app.student.name}">John Doe</td>
+                        <td th:text="${app.user.name}">John Doe</td>
                         <td th:text="${app.job.title}">Software Developer</td>
                         <td>
                             <span class="status-badge" th:classappend="${app.status}">
@@ -178,24 +236,27 @@
                             </span>
                         </td>
                         <td>
-                            <form th:action="@{/admin/applications/update-status}" method="post" class="status-form">
+                            <form th:action="@{/admin/update-status}" method="post" class="status-form">
                                 <input type="hidden" name="appId" th:value="${app.id}" />
-                                
+
                                 <div class="status-options">
                                     <div class="status-option">
-                                        <input type="radio" id="pending_${app.id}" name="status" value="Pending" th:checked="${app.status == 'Pending'}">
-                                        <label for="pending_${app.id}">Pending</label>
+                                        <input type="radio" id="pending_${app.id}" name="status" value="Pending"
+                                               th:checked="${app.status == 'Pending'}">
+                                        <label th:for="'pending_' + ${app.id}">Pending</label>
                                     </div>
                                     <div class="status-option">
-                                        <input type="radio" id="accepted_${app.id}" name="status" value="Accepted" th:checked="${app.status == 'Accepted'}">
-                                        <label for="accepted_${app.id}">Accepted</label>
+                                        <input type="radio" id="accepted_${app.id}" name="status" value="Accepted"
+                                               th:checked="${app.status == 'Accepted'}">
+                                        <label th:for="'accepted_' + ${app.id}">Accepted</label>
                                     </div>
                                     <div class="status-option">
-                                        <input type="radio" id="rejected_${app.id}" name="status" value="Rejected" th:checked="${app.status == 'Rejected'}">
-                                        <label for="rejected_${app.id}">Rejected</label>
+                                        <input type="radio" id="rejected_${app.id}" name="status" value="Rejected"
+                                               th:checked="${app.status == 'Rejected'}">
+                                        <label th:for="'rejected_' + ${app.id}">Rejected</label>
                                     </div>
                                 </div>
-                                
+
                                 <button type="submit" class="btn-submit">
                                     <i class="fas fa-sync-alt"></i> Update Status
                                 </button>
@@ -206,5 +267,6 @@
             </table>
         </div>
     </div>
+
 </body>
 </html>

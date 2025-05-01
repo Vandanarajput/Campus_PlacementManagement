@@ -1,15 +1,9 @@
 package com.PlacementManagementSystem.Placement.service;
 
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.PlacementManagementSystem.Placement.model.Application;
-import com.PlacementManagementSystem.Placement.model.Job;
 import com.PlacementManagementSystem.Placement.model.UserJob;
-import com.PlacementManagementSystem.Placement.repository.ApplicationRepository;
 import com.PlacementManagementSystem.Placement.repository.UserJobRepository;
 
 @Service
@@ -18,12 +12,12 @@ public class UserJobService {
     @Autowired
     private UserJobRepository userJobRepository;
     
-    @Autowired
-    private JobService JobService;
-
-
-    @Autowired
-    private ApplicationRepository applicationRepository;
+//    @Autowired
+//    private JobService JobService;
+//
+//
+//    @Autowired
+//    private ApplicationRepository applicationRepository;
     
     // getAllAppliedJobs
     public List<UserJob> getAllAppliedJobs() {
@@ -46,6 +40,14 @@ public class UserJobService {
     public void deleteUserJob(Long id) {
     	userJobRepository.deleteById(id);
     }
+	public void updateStatus(Long appId, String status) {
+		 UserJob userJob = userJobRepository.findById(appId).orElse(null);
+		    if (userJob != null) {
+		        userJob.setStatus(status); // make sure status field exists in UserJob
+		        userJobRepository.save(userJob);
+		    }
+		
+	}
 
 
 	

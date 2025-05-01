@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.PlacementManagementSystem.Placement.model.Application;
 import com.PlacementManagementSystem.Placement.model.Job;
+import com.PlacementManagementSystem.Placement.model.User;
 //import com.PlacementManagementSystem.Placement.model.Student;
 import com.PlacementManagementSystem.Placement.repository.ApplicationRepository;
 
@@ -35,6 +36,12 @@ public class ApplicationService {
 	public List<Application> getApplicationsByJob(Job job) {
 		return applicationRepository.findByJob(job);
 	}
+	
+	
+	  // Get applications by user (Student View)
+    public List<Application> getApplicationsByUser(User user) {
+        return applicationRepository.findByUser(user);  // Call to repository method
+    }
 
 	// Optional: Update application status
 	public void updateApplicationStatus(Long id, String status) {
@@ -49,4 +56,6 @@ public class ApplicationService {
 	public void deleteApplication(Long id) {
 		applicationRepository.deleteById(id);
 	}
+
+	
 }
