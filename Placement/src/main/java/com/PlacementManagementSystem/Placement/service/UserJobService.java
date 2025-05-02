@@ -1,9 +1,12 @@
 package com.PlacementManagementSystem.Placement.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.PlacementManagementSystem.Placement.model.UserJob;
+//import com.PlacementManagementSystem.Placement.repository.ApplicationRepository;
 import com.PlacementManagementSystem.Placement.repository.UserJobRepository;
 
 @Service
@@ -23,6 +26,8 @@ public class UserJobService {
     public List<UserJob> getAllAppliedJobs() {
         return userJobRepository.findAll();
     }
+    
+     
     // Get all jobs by user
     public List<UserJob> getAllUserJobsByUserId(Long userId) {
     	return userJobRepository.findByUserId(userId);

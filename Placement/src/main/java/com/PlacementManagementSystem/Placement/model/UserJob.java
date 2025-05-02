@@ -1,5 +1,9 @@
 package com.PlacementManagementSystem.Placement.model;
 
+import java.time.LocalDateTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +29,20 @@ public class UserJob {
 
 	private String status;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime appliedJobDateAndTime;
 	
+	public UserJob() {
+		this.appliedJobDateAndTime = LocalDateTime.now();
+	}
+
+	public LocalDateTime getAppliedJobDateAndTime() {
+		return appliedJobDateAndTime;
+	}
+
+	public void setAppliedJobDateAndTime(LocalDateTime appliedJobDateAndTime) {
+		this.appliedJobDateAndTime = appliedJobDateAndTime;
+	}
 
 	public Job getJob() {
 		return job;
@@ -58,8 +75,5 @@ public class UserJob {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	
-
 
 }

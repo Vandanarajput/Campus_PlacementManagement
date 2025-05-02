@@ -53,18 +53,26 @@ public class HomeController {
     // Find Jobs page
     @GetMapping("/jobsLanding")
     public String findJobsPage(Model model, HttpSession session) {
-        // If needed, you can fetch additional data related to jobs here
-        model.addAttribute("jobList", jobService.getAllJobs()); // Pass job list to the view
-        
-        User user = (User)session.getAttribute("user");
-        
-        List<UserJob> userJobs = userJobService.getAllUserJobsByUserId(user.getId());
-        
-        List<Long> jobIds = userJobs.stream().map(uj -> uj.getJob().getId()).collect(Collectors.toList());
-        model.addAttribute("jobIds", jobIds);
-        
-        return "Home/jobsLanding"; // Return view for Find Jobs page (jobsLanding.html)
+        // Always fetch and show all jobs
+        model.addAttribute("jobList", jobService.getAllJobs());
+
+        // Only fetch applied jobs if user is logged in
+        User user = (User) session.getAttribute("user");
+
+        if (user != null) {
+            List<UserJob> userJobs = userJobService.getAllUserJobsByUserId(user.getId());
+            List<Long> jobIds = userJobs.stream()
+                                        .map(uj -> uj.getJob().getId())
+                                        .collect(Collectors.toList());
+            model.addAttribute("jobIds", jobIds);
+        } else {
+            // No user logged in — maybe send empty list or skip
+            model.addAttribute("jobIds", List.of());
+        }
+
+        return "Home/jobsLanding";
     }
+
     
     
    

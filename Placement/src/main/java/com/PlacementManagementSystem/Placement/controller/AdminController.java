@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.PlacementManagementSystem.Placement.model.StudentSkills;
 import com.PlacementManagementSystem.Placement.model.User;
+import com.PlacementManagementSystem.Placement.service.ApplicationService;
 import com.PlacementManagementSystem.Placement.service.StudentSkillsService;
-import com.PlacementManagementSystem.Placement.service.UserJobService;
+//import com.PlacementManagementSystem.Placement.service.UserJobService;
 import com.PlacementManagementSystem.Placement.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,9 +26,12 @@ public class AdminController {
     @Autowired
     private StudentSkillsService skillService;
     
+//    
+//    @Autowired
+//    private UserJobService userJobService;
+    
     @Autowired
-    private UserJobService userJobService;
-
+    private   ApplicationService applicationService;
 
     @GetMapping("/admin")
     public String showAdminDashboard(Model model , HttpSession session) {
@@ -65,7 +69,7 @@ public class AdminController {
         if (user == null) {
             return "redirect:/login";
         }
-        model.addAttribute("applications", userJobService.getAllAppliedJobs());
+        model.addAttribute("applications", applicationService.getAllApplications());
         return "dashboard/application_list";
     }
     
@@ -75,7 +79,7 @@ public class AdminController {
     // NEW: Update job application status
     @PostMapping("/admin/update-status")
     public String updateApplicationStatus(@RequestParam Long appId, @RequestParam String status) {
-        userJobService.updateStatus(appId, status);
+    	applicationService.updateApplicationStatus(appId, status);
         return "redirect:/admin/applied-jobs";
     }
 }
