@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Recruiting Companies</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fa;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+        
+        .companies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .company-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .company-logo {
+            height: 120px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .company-content {
+            padding: 20px;
+        }
+        
+        .company-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+        
+        .company-desc {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .company-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .company-link:hover {
+            background-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .companies-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Our Recruiting Companies</h1>
+    
+    <div class="companies-container">
+        <!-- Google -->
+        <div class="company-card" onclick="window.open('https://www.google.com', '_blank')">
+            <div class="company-logo">GOOGLE</div>
+            <div class="company-content">
+                <div class="company-name">Google</div>
+                <div class="company-desc">World's leading search engine and technology company specializing in Internet-related services.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- Microsoft -->
+        <div class="company-card" onclick="window.open('https://www.microsoft.com', '_blank')">
+            <div class="company-logo">MICROSOFT</div>
+            <div class="company-content">
+                <div class="company-name">Microsoft</div>
+                <div class="company-desc">Global technology company that develops, manufactures, licenses, supports, and sells computer software.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- Indeed -->
+        <div class="company-card" onclick="window.open('https://www.indeed.com', '_blank')">
+            <div class="company-logo">INDEED</div>
+            <div class="company-content">
+                <div class="company-name">Indeed</div>
+                <div class="company-desc">World's #1 job site with millions of job listings and resume database.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- Jetking -->
+        <div class="company-card" onclick="window.open('https://www.jetking.com', '_blank')">
+            <div class="company-logo">JETKING</div>
+            <div class="company-content">
+                <div class="company-name">Jetking</div>
+                <div class="company-desc">Leading IT training institute providing courses in hardware, networking and cloud computing.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- net solutions -->
+        <div class="company-card" onclick="window.open('https://www.netsolutions.com', '_blank')">
+            <div class="company-logo">NETSOLUTION</div>
+            <div class="company-content">
+                <div class="company-name">net solutions</div>
+                <div class="company-desc">Global digital product development company offering IT consulting and software development.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- Wipro -->
+        <div class="company-card" onclick="window.open('https://www.wipro.com', '_blank')">
+            <div class="company-logo">WIPRO</div>
+            <div class="company-content">
+                <div class="company-name">Wipro</div>
+                <div class="company-desc">Leading global information technology, consulting and business process services company.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- toxSL -->
+        <div class="company-card" onclick="window.open('https://www.toxsl.com', '_blank')">
+            <div class="company-logo">TOXSL</div>
+            <div class="company-content">
+                <div class="company-name">toxSL</div>
+                <div class="company-desc">Technology solutions provider specializing in software development and IT services.</div>
+                <div class="company-link" onclick="event.stopPropagation()">Visit Website</div>
+            </div>
+        </div>
+        
+        <!-- TECH -->
+        
+        
+       
+    </div>
+</body>
+</html>

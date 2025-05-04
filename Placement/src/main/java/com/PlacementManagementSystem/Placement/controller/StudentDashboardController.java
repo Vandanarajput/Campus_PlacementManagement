@@ -168,5 +168,23 @@ public class StudentDashboardController {
 		model.addAttribute("user", user);
 		return "userdashbored/studentProfileSec"; // Show profile page
 	}
+	
+	
+	@PostMapping("/updateProfile")
+	public String updateProfile(@ModelAttribute("user") User user, User loggedInUser) {
+	    // Assuming 'loggedInUser' is the currently authenticated user
+	    if (user.getPassword() == null || user.getPassword().isEmpty()) {
+	        // If password is empty, don't update it.
+	        user.setPassword(loggedInUser.getPassword()); // Keep the existing password
+	    }
+	    
+	    // Save the updated user details
+	    userService.saveUser(user);
+
+	    return "redirect:/profile"; // Redirect to the profile page after update
+	}
+
+	
+
 
 }

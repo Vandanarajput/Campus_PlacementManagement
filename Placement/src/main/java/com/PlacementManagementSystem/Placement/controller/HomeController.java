@@ -73,7 +73,11 @@ public class HomeController {
         return "Home/jobsLanding";
     }
 
-    
+    @GetMapping("/companys")
+    public String showcompany(Model model) {
+        
+        return "Home/company"; // Redirect to landing page
+    }
     
    
 
