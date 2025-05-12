@@ -10,12 +10,16 @@ import com.PlacementManagementSystem.Placement.model.Job;
 import com.PlacementManagementSystem.Placement.model.User;
 //import com.PlacementManagementSystem.Placement.model.Student;
 import com.PlacementManagementSystem.Placement.repository.ApplicationRepository;
+import com.PlacementManagementSystem.Placement.repository.JobRepository;
 
 @Service
 public class ApplicationService {
 
 	@Autowired
 	private ApplicationRepository applicationRepository;
+	
+	@Autowired
+	private JobRepository jobRepository;
 
 	// Save a new application
 	public Application applyForJob(Application application) {
@@ -55,6 +59,14 @@ public class ApplicationService {
 	// Optional: Delete an application
 	public void deleteApplication(Long id) {
 		applicationRepository.deleteById(id);
+	}
+	public long countAllJobs() {
+	    return jobRepository.count(); // assuming Job entity exists
+	}
+
+	
+	public long countAllApplications() {
+	    return applicationRepository.count();
 	}
 
 	

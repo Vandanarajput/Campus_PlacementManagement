@@ -98,7 +98,6 @@ public class StudentDashboardController {
 		user.setPassword(user.getPassword());
 		user.setConfirmPassword(user.getConfirmPassword());
 
-
 		// just store it so that later on we can find and save into db after taking
 		// review consent from candidate
 		STORED_USERS_FOR_JOB.put(user.getId(), user);
@@ -146,18 +145,16 @@ public class StudentDashboardController {
 
 	@GetMapping("/applicationstatus")
 	public String showApplicationStatus(HttpSession session, Model model) {
-	    User user = (User) session.getAttribute("loggedInUser");
-	    if (user == null) {
-	        return "redirect:/login"; 
-	    }
-	    // Get the applications for the user
-	    List<Application> userApplications = applicationService.getApplicationsByUser(user);
-	    model.addAttribute("userApplications", userApplications);
-	    return "userdashbored/studentApplicationStatus"; // Show list of applied jobs
+		User user = (User) session.getAttribute("loggedInUser");
+		if (user == null) {
+			return "redirect:/login";
+		}
+		// Get the applications for the user
+		List<Application> userApplications = applicationService.getApplicationsByUser(user);
+		model.addAttribute("userApplications", userApplications);
+		return "userdashbored/studentApplicationStatus"; // Show list of applied jobs
 	}
 
-	  
-	
 	// Profile page for Step 1 and to verify the login
 	@GetMapping("/profile")
 	public String showProfile(HttpSession session, Model model) {
@@ -165,26 +162,28 @@ public class StudentDashboardController {
 		if (user == null) {
 			return "redirect:/login"; // Redirect to login if not logged in
 		}
-		model.addAttribute("user", user);
+		
+		User existingUser = userService.getUserByEmail(user.getEmail());
+
+		if (existingUser == null) {
+			return "redirect:/login"; // Redirect to login if not logged in
+		}
+		model.addAttribute("user", existingUser);
 		return "userdashbored/studentProfileSec"; // Show profile page
 	}
-	
-	
+
 	@PostMapping("/updateProfile")
-	public String updateProfile(@ModelAttribute("user") User user, User loggedInUser) {
-	    // Assuming 'loggedInUser' is the currently authenticated user
-	    if (user.getPassword() == null || user.getPassword().isEmpty()) {
-	        // If password is empty, don't update it.
-	        user.setPassword(loggedInUser.getPassword()); // Keep the existing password
-	    }
-	    
-	    // Save the updated user details
-	    userService.saveUser(user);
+	public String updateProfile(@ModelAttribute("user") User user) {
+		
+//		User existingUser = userService.getUserByEmail(user.getEmail());
+//		
+//		if (existingUser!=null) {
+//		}
+		userService.saveUser(user);
+		
+		// Save the updated user details
 
-	    return "redirect:/profile"; // Redirect to the profile page after update
+		return "redirect:/profile"; // Redirect to the profile page after update
 	}
-
-	
-
 
 }

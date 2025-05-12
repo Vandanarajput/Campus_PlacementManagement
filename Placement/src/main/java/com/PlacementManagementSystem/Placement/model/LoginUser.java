@@ -7,6 +7,7 @@ public class LoginUser {
 
     @NotBlank(message = "Enter email")
     @Email(message = "Invalid email format")
+    
     private String email;
 
     @NotBlank(message = "Enter password")

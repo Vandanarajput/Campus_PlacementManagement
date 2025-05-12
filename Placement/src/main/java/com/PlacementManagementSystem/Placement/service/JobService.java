@@ -43,6 +43,16 @@ public class JobService {
     public void submitApplication(Application application) {
        applicationRepository.save(application);
     }
+    public List<Job> searchJobs(String keyword) {
+        return jobRepository.findByTitleContainingIgnoreCaseOrCompanyNameContainingIgnoreCase(keyword, keyword);
+    }
+
+
+
+
+  
+
+	
 
 
 	

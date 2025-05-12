@@ -46,12 +46,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /*Search filter*/
 
-function filterJobs() {
-          const input = document.getElementById("jobSearch").value.toLowerCase();
-          const jobCards = document.querySelectorAll(".job-card");
-
-          jobCards.forEach((card) => {
-              const title = card.querySelector("h3").textContent.toLowerCase();
-              card.style.display = title.includes(input) ? "block" : "none";
-          });
-      }

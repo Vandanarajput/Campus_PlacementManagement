@@ -175,52 +175,53 @@
         <div class="profile-body">
           <h2 class="section-title"><i class="fas fa-user-graduate"></i> Personal Information</h2>
 
-          <form th:action="@{/user/updateProfile}" method="post" enctype="multipart/form-data">
-    <input type="hidden"  />
+          <form th:object="${user}" th:action="@{/user/updateProfile}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{password}"  />
+    <input type="hidden" th:field="*{id}"  />
 
     <div class="form-group">
         <label>Name</label>
-        <input type="text" th:field="${user.name}" class="form-control" required />
+        <input type="text" th:field="*{name}" class="form-control" required />
     </div>
 
     <div class="form-group">
         <label>Email</label>
-        <input type="email" th:field="${user.email}" class="form-control" required />
+        <input type="email" th:field="*{email}" class="form-control" required />
     </div>
 
     <div class="form-group">
         <label>Phone</label>
-        <input type="text" th:field="${user.phone}" class="form-control" />
+        <input type="text" th:field="*{phone}" class="form-control" />
     </div>
 
     <div class="form-group">
         <label>Degree</label>
-        <input type="text" th:field="${user.degree}" class="form-control" />
+        <input type="text" th:field="*{degree}" class="form-control" />
     </div>
 
     <div class="form-group">
         <label>Major</label>
-        <input type="text" th:field="${user.major}" class="form-control" />
+        <input type="text" th:field="*{major}" class="form-control" />
     </div>
 
     <div class="form-group">
         <label>University</label>
-        <input type="text" th:field="${user.university}" class="form-control" />
+        <input type="text" th:field="*{university}" class="form-control" />
     </div>
 
     <div class="form-group">
         <label>Address</label>
-        <input  class="form-control"  th:field="${user.address}"></input>
+        <input  class="form-control"  th:field="*{address}"></input>
     </div>
 
     <div class="form-group">
         <label>Experience</label>
-        <input  class="form-control" th:field="${user.experience}"></input>
+        <input  class="form-control" th:field="*{experience}"></input>
     </div>
 
     <div class="form-group">
         <label>Professional Summary</label>
-        <textarea  class="form-control" th:field="${user.professionalSummary}"></textarea>
+        <textarea  class="form-control" th:field="*{professionalSummary}"></textarea>
     </div>
    
    

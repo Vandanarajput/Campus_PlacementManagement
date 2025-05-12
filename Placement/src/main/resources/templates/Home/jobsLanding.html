@@ -1,363 +1,369 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Openings - PlacementStudio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css" />
-    <style>
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background-color: #f6f6f6;
-        margin: 0;
-        padding: 0;
-        color: #333;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 20px;
-    }
-
-    /* Search Section - Improved */
-    .search-container {
-        margin-bottom: 30px;
-        text-align: center;
-    }
-
-    .search-title {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: #2c3e50;
-        position: relative;
-        display: inline-block;
-    }
-
-    .search-title:after {
-        content: '';
-        display: block;
-        width: 60px;
-        height: 3px;
-        background: #2557a7;
-        margin: 10px auto 0;
-    }
-
-    .search-bar-container {
-        display: flex;
-        justify-content: center;
-        max-width: 600px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .search-bar {
-        flex-grow: 1;
-        padding: 15px 25px;
-        border-radius: 30px;
-        border: 1px solid #ddd;
-        font-size: 16px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-    }
-
-    .search-bar:focus {
-        outline: none;
-        border-color: #2557a7;
-        box-shadow: 0 2px 15px rgba(37, 87, 167, 0.1);
-    }
-
-    .search-icon {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: #2557a7;
-        font-size: 18px;
-        cursor: pointer;
-    }
-
-    /* Main Content Layout - Same as before */
-    .content-wrapper {
-        display: flex;
-        gap: 20px;
-    }
-
-    /* Job Cards Column - Enhanced */
-    .jobs-column {
-        flex: 1;
-        max-height: 600px; /* Adjust height as needed */
-   		 overflow-y: auto;
-    	padding-right: 10px;
-    }
-    .jobs-column {
-    flex: 1;
-    height: calc(100vh - 250px); /* Adjust based on your header/search height */
-    overflow-y: auto;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Openings - PlacementStudio</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+body {
+	font-family: 'Segoe UI', Arial, sans-serif;
+	background-color: #f6f6f6;
+	margin: 0;
+	padding: 0;
+	color: #333;
 }
-    
 
-    .job-card {
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-        padding: 20px;
-        margin-bottom: 20px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 1px solid #e1e1e1;
-    }
+.container {
+	max-width: 1200px;
+	margin: 30px auto;
+	padding: 20px;
+}
 
-    .job-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+/* Search Section - Improved */
+.search-container {
+	margin-bottom: 30px;
+	text-align: center;
+}
 
-    .job-card.active {
-        border-left: 4px solid #2557a7;
-        background-color: #f8fafc;
-    }
+.search-title {
+	font-size: 28px;
+	font-weight: 700;
+	margin-bottom: 20px;
+	color: #2c3e50;
+	position: relative;
+	display: inline-block;
+}
 
-    .job-card h3 {
-        margin: 0 0 10px 0;
-        font-size: 18px;
-        color: #2557a7;
-        font-weight: 600;
-    }
+.search-title:after {
+	content: '';
+	display: block;
+	width: 60px;
+	height: 3px;
+	background: #2557a7;
+	margin: 10px auto 0;
+}
 
-    .job-card p {
-        margin: 8px 0;
-        color: #555;
-        font-size: 14px;
-    }
+.search-bar-container {
+	display: flex;
+	justify-content: center;
+	max-width: 600px;
+	margin: 0 auto;
+	position: relative;
+}
 
-    .job-card .deadline {
-        color: #e74c3c;
-        font-weight: 600;
-        font-size: 13px;
-        margin-top: 10px;
-    }
+.search-bar {
+	flex-grow: 1;
+	padding: 15px 25px;
+	border-radius: 30px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+	transition: all 0.3s ease;
+}
 
-    /* Job Details Column - Same as before */
-    .job-details-column {
-        flex: 2;
-    }
+.search-bar:focus {
+	outline: none;
+	border-color: #2557a7;
+	box-shadow: 0 2px 15px rgba(37, 87, 167, 0.1);
+}
 
-    .job-details-panel {
-        background-color: white;
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-        border: 1px solid #e1e1e1;
-        min-height: 400px;
-    }
+.search-icon {
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: none;
+	border: none;
+	color: #2557a7;
+	font-size: 18px;
+	cursor: pointer;
+}
 
-    .job-details-panel h2 {
-        color: #2557a7;
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 24px;
-        font-weight: 600;
-    }
+/* Main Content Layout - Same as before */
+.content-wrapper {
+	display: flex;
+	gap: 20px;
+}
 
-    .job-details-panel .detail-item {
-        margin: 12px 0;
-        font-size: 15px;
-    }
+/* Job Cards Column - Enhanced */
+.jobs-column {
+	flex: 1;
+	max-height: 600px; /* Adjust height as needed */
+	overflow-y: auto;
+	padding-right: 10px;
+}
 
-    .job-details-panel .detail-label {
-        font-weight: 600;
-        color: #333;
-        display: inline-block;
-        width: 100px;
-    }
+.jobs-column {
+	flex: 1;
+	height: calc(100vh - 250px);
+	/* Adjust based on your header/search height */
+	overflow-y: auto;
+}
 
-    .job-details-panel .job-description {
-        line-height: 1.6;
-        margin: 25px 0;
-        color: #444;
-        padding: 15px;
-        background-color: #f9f9f9;
-        border-radius: 5px;
-    }
+.job-card {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+	padding: 20px;
+	margin-bottom: 20px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	border: 1px solid #e1e1e1;
+}
 
-    .job-actions {
-        margin-top: 25px;
-        display: flex;
-        gap: 15px;
-    }
+.job-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
 
-    .btn {
-        padding: 12px 25px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s;
-        font-size: 15px;
-    }
+.job-card.active {
+	border-left: 4px solid #2557a7;
+	background-color: #f8fafc;
+}
 
-    .btn-apply {
-        background-color: #2557a7;
-        color: white;
-    }
+.job-card h3 {
+	margin: 0 0 10px 0;
+	font-size: 18px;
+	color: #2557a7;
+	font-weight: 600;
+}
 
-    .btn-apply:hover {
-        background-color: #1d4b8f;
-        transform: translateY(-2px);
-    }
+.job-card p {
+	margin: 8px 0;
+	color: #555;
+	font-size: 14px;
+}
 
-    .btn-save {
-        background-color: white;
-        color: #2557a7;
-        border: 1px solid #2557a7;
-    }
+.job-card .deadline {
+	color: #e74c3c;
+	font-weight: 600;
+	font-size: 13px;
+	margin-top: 10px;
+}
 
-    .btn-save:hover {
-        background-color: #f0f5ff;
-        transform: translateY(-2px);
-    }
+/* Job Details Column - Same as before */
+.job-details-column {
+	flex: 2;
+}
 
-    .no-job-selected {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 300px;
-        color: #888;
-        font-size: 18px;
-        background-color: white;
-        border-radius: 10px;
-        flex-direction: column;
-    }
+.job-details-panel {
+	background-color: white;
+	border-radius: 10px;
+	padding: 25px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+	border: 1px solid #e1e1e1;
+	min-height: 400px;
+}
 
-    .no-job-selected i {
-        font-size: 40px;
-        margin-bottom: 15px;
-        color: #ddd;
-    }
+.job-details-panel h2 {
+	color: #2557a7;
+	margin-top: 0;
+	margin-bottom: 20px;
+	font-size: 24px;
+	font-weight: 600;
+}
 
-    /* Applied badge */
-    #applied-section span {
-        border: 1px solid #2ecc71;
-        border-radius: 20px;
-        padding: 10px 20px;
-        color: #2ecc71;
-        font-weight: 600;
-        display: inline-block;
-    }
+.job-details-panel .detail-item {
+	margin: 12px 0;
+	font-size: 15px;
+}
 
-    /* Responsive Breakpoints */
-    @media (max-width: 900px) {
-        .content-wrapper {
-            flex-direction: column;
-        }
-        
-        .search-bar {
-            padding: 12px 20px;
-        }
-    }
+.job-details-panel .detail-label {
+	font-weight: 600;
+	color: #333;
+	display: inline-block;
+	width: 100px;
+}
 
-    /* Alert Box */
-    .danger-alert-box {
-        text-align: center;
-        padding: 12px;
-        background-color: #2ecc71;
-        border-radius: 5px;
-        color: white;
-        font-weight: 500;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
-    }
-    </style>
+.job-details-panel .job-description {
+	line-height: 1.6;
+	margin: 25px 0;
+	color: #444;
+	padding: 15px;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+}
+
+.job-actions {
+	margin-top: 25px;
+	display: flex;
+	gap: 15px;
+}
+
+.btn {
+	padding: 12px 25px;
+	border-radius: 30px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.3s;
+	font-size: 15px;
+}
+
+.btn-apply {
+	background-color: #2557a7;
+	color: white;
+}
+
+.btn-apply:hover {
+	background-color: #1d4b8f;
+	transform: translateY(-2px);
+}
+
+.btn-save {
+	background-color: white;
+	color: #2557a7;
+	border: 1px solid #2557a7;
+}
+
+.btn-save:hover {
+	background-color: #f0f5ff;
+	transform: translateY(-2px);
+}
+
+.no-job-selected {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+	color: #888;
+	font-size: 18px;
+	background-color: white;
+	border-radius: 10px;
+	flex-direction: column;
+}
+
+.no-job-selected i {
+	font-size: 40px;
+	margin-bottom: 15px;
+	color: #ddd;
+}
+
+/* Applied badge */
+#applied-section span {
+	border: 1px solid #2ecc71;
+	border-radius: 20px;
+	padding: 10px 20px;
+	color: #2ecc71;
+	font-weight: 600;
+	display: inline-block;
+}
+
+/* Responsive Breakpoints */
+@media ( max-width : 900px) {
+	.content-wrapper {
+		flex-direction: column;
+	}
+	.search-bar {
+		padding: 12px 20px;
+	}
+}
+
+/* Alert Box */
+.danger-alert-box {
+	text-align: center;
+	padding: 12px;
+	background-color: #2ecc71;
+	border-radius: 5px;
+	color: white;
+	font-weight: 500;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 5px rgba(46, 204, 113, 0.3);
+}
+</style>
 </head>
 <body>
-<!-- Include Navbar -->
-<div th:replace="fragments/navbar :: navbar"></div>
+	<!-- Include Navbar -->
+	<div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container">
-    
-    <!-- Error Message -->
-    <div th:if="${success!=null}" th:text="${success}" class="danger-alert-box" role="alert">
-      A simple danger alert—check it out!
-    </div>
-    
-    <!-- Search Section - Centered with rounded search bar -->
-    <div class="search-container">
-        <h2 class="search-title">Latest Job Openings</h2>
-        
-        <div class="search-bar-container">
-            <input type="text" class="search-bar" placeholder="Search jobs..." th:value="${searchQuery}">
-            <button class="search-icon">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-    </div>
+	<div class="container">
 
-    <!-- Main Content - Same structure as before -->
-    <div class="content-wrapper">
-        <!-- Job Cards Column -->
-        <div class="jobs-column">
-            <div class="job-card" th:each="a : ${jobList}" th:attr="data-id=${a.id}" onclick="showJobDetails(this)">
-                <h3 th:text="${a.title}">Job Title</h3>
-                <p th:text="'Company: ' + ${a.companyName}">Company: ABC Corp</p>
-                <p th:text="'Location: ' + ${a.location}">Location: Mumbai</p>
-                <p th:text="'Salary: ' + ${a.salary}">Location: Mumbai</p>
-                <p class="deadline" th:text="'Last-date: ' + ${a.deadline}">Last-date: 30 Apr 2025</p>
-                 <div class="job-description" style="display:none;" th:text="${a.description}">Job Description Here...</div>
-            </div>
-        </div>
+		<!-- Error Message -->
+		<div th:if="${success!=null}" th:text="${success}"
+			class="danger-alert-box" role="alert">A simple danger
+			alert—check it out!</div>
 
-        <!-- Job Details Column -->
-        <div class="job-details-column">
-            <div class="job-details-panel" id="jobDetailsPanel">
-                <div class="no-job-selected" id="noJobSelected">
-                    <i class="fas fa-briefcase"></i>
-                    Please select a job to view details
-                </div>
-                <div id="jobDetailsContent" style="display: none;">
-                    <h2 id="jobDetailsTitle">Job Title</h2>
-                    <div class="detail-item">
-                        <span class="detail-label">Company:</span>
-                        <span id="jobDetailsCompany">Company Name</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Location:</span>
-                        <span id="jobDetailsLocation">Location</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Salary:</span>
-                        <span id="jobDetailsSalary">Not specified</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Job Type:</span>
-                        <span id="jobDetailsType">Full-time</span>
-                    </div>
-                    
-                    <div class="detail-item">
-                        <span class="detail-label">Last date:</span>
-                        <span id="jobDetailsDeadline">30 Apr 2025</span>
-                    </div>
-                    <div class="job-description" id="jobDetailsDescription">
-                        Full job description will appear here...
-                    </div>
-                    <div class="job-actions" id="apply-section">
-                        <button id="applyBtn" class="btn btn-apply">Apply Now</button>
-                        <button class="btn btn-save">Save Job</button>
-                    </div>
-                    <div id="applied-section">
-                        <span>Applied!</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+		<!-- Search Section - Centered with rounded search bar -->
+		<div class="search-container">
+			<h2 class="search-title">Latest Job Openings</h2>
 
-<!-- Your existing JavaScript remains unchanged -->
-<script th:inline="javascript">
+			<form th:action="@{/jobsLanding}" method="get"
+				class="search-bar-container">
+				<input type="text" name="keyword" placeholder="Search jobs..."
+					class="search-bar" th:value="${keyword}" />
+				<button type="submit" class="search-icon">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+
+		</div>
+
+		<!-- Main Content - Same structure as before -->
+		<div class="content-wrapper">
+			<!-- Job Cards Column -->
+			<div class="jobs-column">
+				<div class="job-card" th:each="a : ${jobList}"
+					th:attr="data-id=${a.id}" onclick="showJobDetails(this)">
+					<h3 th:text="${a.title}">Job Title</h3>
+					<p th:text="'Company: ' + ${a.companyName}">Company: ABC Corp</p>
+					<p th:text="'Location: ' + ${a.location}">Location: Mumbai</p>
+					<p th:text="'Salary: ' + ${a.salary}">Location: Mumbai</p>
+					<p class="deadline" th:text="'Last-date: ' + ${a.deadline}">Last-date:
+						30 Apr 2025</p>
+					<div class="job-description" style="display: none;"
+						th:text="${a.description}">Job Description Here...</div>
+				</div>
+			</div>
+
+			<!-- Job Details Column -->
+			<div class="job-details-column">
+				<div class="job-details-panel" id="jobDetailsPanel">
+					<div class="no-job-selected" id="noJobSelected">
+						<i class="fas fa-briefcase"></i> Please select a job to view
+						details
+					</div>
+					<div id="jobDetailsContent" style="display: none;">
+						<h2 id="jobDetailsTitle">Job Title</h2>
+						<div class="detail-item">
+							<span class="detail-label">Company:</span> <span
+								id="jobDetailsCompany">Company Name</span>
+						</div>
+						<div class="detail-item">
+							<span class="detail-label">Location:</span> <span
+								id="jobDetailsLocation">Location</span>
+						</div>
+						<div class="detail-item">
+							<span class="detail-label">Salary:</span> <span
+								id="jobDetailsSalary">Not specified</span>
+						</div>
+						<div class="detail-item">
+							<span class="detail-label">Job Type:</span> <span
+								id="jobDetailsType">Full-time</span>
+						</div>
+
+						<div class="detail-item">
+							<span class="detail-label">Last date:</span> <span
+								id="jobDetailsDeadline">30 Apr 2025</span>
+						</div>
+						<div class="job-description" id="jobDetailsDescription">
+							Full job description will appear here...</div>
+						<div class="job-actions" id="apply-section">
+							<button id="applyBtn" class="btn btn-apply">Apply Now</button>
+							<button class="btn btn-save">Save Job</button>
+						</div>
+						<div id="applied-section">
+							<span>Applied!</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Your existing JavaScript remains unchanged -->
+	<script th:inline="javascript">
       /*<![CDATA[*/
           
           var jobIds = /*[[${jobIds}]]*/ [];
@@ -411,6 +417,6 @@
     </script>
 
 
-    <script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

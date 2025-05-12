@@ -17,7 +17,6 @@ import jakarta.servlet.http.HttpSession;
 //import java.util.List;
 
 @Controller
-
 public class AdminController {
 
     @Autowired
@@ -40,7 +39,14 @@ public class AdminController {
             return "redirect:/login";
         }
         long totalStudents = userService.countByRole("STUDENT");
+        long jobListings = applicationService.countAllJobs();       // you need to implement this
+        long applications = applicationService.countAllApplications(); // implement this too
+        long skills = skillService.countAllSkills();                // and this
+
         model.addAttribute("totalStudents", totalStudents);
+        model.addAttribute("jobListings", jobListings);
+        model.addAttribute("applications", applications);
+        model.addAttribute("skills", skills);
         return "dashboard/adminDashboared";
     }
 

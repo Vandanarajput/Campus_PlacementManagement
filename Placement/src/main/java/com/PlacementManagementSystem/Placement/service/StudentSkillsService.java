@@ -24,4 +24,8 @@ public class StudentSkillsService {
         skillRepo.deleteById(id);  // Deletes the skill by its ID
     }
 
+    public long countAllSkills() {
+        return skillRepo.count();
+    }
+
 }

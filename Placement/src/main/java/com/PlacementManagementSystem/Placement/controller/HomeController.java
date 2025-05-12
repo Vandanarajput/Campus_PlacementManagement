@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.PlacementManagementSystem.Placement.model.Job;
 import com.PlacementManagementSystem.Placement.model.User;
 import com.PlacementManagementSystem.Placement.model.UserJob;
 import com.PlacementManagementSystem.Placement.service.JobService;
@@ -52,11 +54,21 @@ public class HomeController {
 
     // Find Jobs page
     @GetMapping("/jobsLanding")
-    public String findJobsPage(Model model, HttpSession session) {
-        // Always fetch and show all jobs
-        model.addAttribute("jobList", jobService.getAllJobs());
+    public String findJobsPage(@RequestParam(value = "keyword", required = false) String keyword,
+                               Model model, HttpSession session) {
 
-        // Only fetch applied jobs if user is logged in
+        List<Job> jobList;
+        if (keyword != null && !keyword.isEmpty()) {
+            jobList = jobService.searchJobs(keyword);// Implement this in service
+            model.addAttribute("keyword", keyword); // To keep search term in the bar
+        } else {
+            jobList = jobService.getAllJobs();
+        }
+        
+        
+
+        model.addAttribute("jobList", jobList);
+
         User user = (User) session.getAttribute("user");
 
         if (user != null) {
@@ -66,12 +78,12 @@ public class HomeController {
                                         .collect(Collectors.toList());
             model.addAttribute("jobIds", jobIds);
         } else {
-            // No user logged in — maybe send empty list or skip
             model.addAttribute("jobIds", List.of());
         }
 
         return "Home/jobsLanding";
     }
+
 
     @GetMapping("/companys")
     public String showcompany(Model model) {

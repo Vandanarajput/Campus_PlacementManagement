@@ -1,11 +1,13 @@
 package com.PlacementManagementSystem.Placement.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,7 @@ public class User {
 
 	@NotBlank(message = "Email is required")
 	@Email(message = "Please enter a valid email")
+	
 	private String email;
 
 	@NotBlank(message = "Password is required")
@@ -228,6 +231,14 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+				+ ", confirmPassword=" + confirmPassword + ", studentSkills=" + studentSkills + ", phone=" + phone
+				+ ", degree=" + degree + ", address=" + address + ", university=" + university + ", major=" + major
+				+ ", experience=" + experience + ", professionalSummary=" + professionalSummary + ", role=" + role
+				+ ", resumeMultipartFile=" + resumeMultipartFile + ", resumeFile=" + Arrays.toString(resumeFile)
+				+ ", resumeFileType=" + resumeFileType + ", userJobs=" + userJobs + ", applications=" + applications
+				+ "]";
 	}
+
+	
 }
