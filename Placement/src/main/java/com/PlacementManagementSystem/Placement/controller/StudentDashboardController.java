@@ -1,9 +1,11 @@
 package com.PlacementManagementSystem.Placement.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.PlacementManagementSystem.Placement.model.Application;
 import com.PlacementManagementSystem.Placement.model.Job;
 import com.PlacementManagementSystem.Placement.model.User;
 import com.PlacementManagementSystem.Placement.model.UserJob;
 import com.PlacementManagementSystem.Placement.service.ApplicationService;
 import com.PlacementManagementSystem.Placement.service.JobService;
+import com.PlacementManagementSystem.Placement.service.SavedJobService;
 import com.PlacementManagementSystem.Placement.service.StudentSkillsService;
 import com.PlacementManagementSystem.Placement.service.UserJobService;
 import com.PlacementManagementSystem.Placement.service.UserService;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -41,6 +46,9 @@ public class StudentDashboardController {
 	ApplicationService applicationService;
 	@Autowired
 	private UserJobService userJobService;
+	
+    @Autowired
+    private SavedJobService savedJobService;
 
 	private Map<Long, User> STORED_USERS_FOR_JOB = new HashMap<Long, User>();
 
@@ -185,5 +193,25 @@ public class StudentDashboardController {
 
 		return "redirect:/profile"; // Redirect to the profile page after update
 	}
+     
+	 // Save job for the user
+    @PostMapping("/save-job")
+    public String saveJob(@RequestParam("jobId") Long jobId, Principal principal) {
+        // Get the user from the authenticated principal
+        Long userId = getUserIdFromPrincipal(principal); // You need to implement this method
 
+        // Save the job for the user
+        savedJobService.saveJobForUser(userId, jobId);
+
+        // Redirect to the user's dashboard or another appropriate page
+        return "redirect:/dashboard";
+    }
+    
+    
+
+    private Long getUserIdFromPrincipal(Principal principal) {
+        // Retrieve the user ID from the logged-in user's principal (Assuming you have UserService)
+        return userService.getUserByEmail(principal.getName()).getId();
+    }
+	
 }
